@@ -1,0 +1,31 @@
+{
+  "name": "speed-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "app": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NelsonPalaganas07/CISE-Assign1B.git"
+  },
+  "author": "CISE-team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NelsonPalaganas07/CISE-Assign1B/issues"
+  },
+  "homepage": "https://github.com/NelsonPalaganas07/CISE-Assign1B#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "config": "^3.3.9",
+    "express": "^4.18.2",
+    "mongodb": "^6.0.0",
+    "mongoose": "^7.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
