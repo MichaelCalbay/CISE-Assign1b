@@ -1,7 +1,7 @@
 export default function Home() {
     return (
         <div className="container">
-        <h1>View Software Practice Empirical Evidence Database (SPEED)</h1>
+        <h1>Moderate Submissions for the Speed Database!</h1>
         </div>
         );
 }
