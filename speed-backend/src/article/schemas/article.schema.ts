@@ -8,8 +8,8 @@ export class Article {
     @Prop()
     title: string
 
-    @Prop()
-    authors: string
+    @Prop([String])
+    authors: string[]
 
     @Prop()
     source: string

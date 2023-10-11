@@ -7,7 +7,7 @@ export class ArticleDto{
 
     @IsNotEmpty()
     @IsString()
-    readonly authors: string
+    readonly authors: string[]
 
     @IsNotEmpty()
     @IsString()
