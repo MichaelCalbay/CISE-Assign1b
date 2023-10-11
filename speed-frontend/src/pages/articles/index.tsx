@@ -1,6 +1,7 @@
 import { GetStaticProps, NextPage } from "next";
 import SortableTable from "../../components/table/SortableTable";
 import data from "../../utils/dummydata.json";
+import axios from "axios";
 
 interface ArticlesInterface {
   id: string;
@@ -33,25 +34,33 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
       <p>Page containing a table of articles:</p>
       <SortableTable headers={headers} data={articles} />
     </div>
+
   );
 };
 
-export const getStaticProps: GetStaticProps<ArticlesProps> = async (_) => {
-  // Map the data to ensure all articles have consistent property names
-  const articles = data.articles.map((article) => ({
-    id: article.id ?? article.id,
-    title: article.title,
-    authors: article.authors,
-    source: article.source,
-    pubyear: article.pubyear,
-    doi: article.doi,
-    claim: article.claim,
-    evidence: article.evidence,
-  }));
+export const getStaticProps: GetStaticProps = async (context) => {
+  //https request to REST API
+  const getData = await axios.get('http://localhost:3032/article');
 
+  console.log(getData);
+
+  //======DUMMYDATA -NOT NEEDED=======
+  // Map the data to ensure all articles have consistent property names
+  // const articles = data.articles.map((article) => ({
+  //   id: article.id ?? article.id,
+  //   title: article.title,
+  //   authors: article.authors,
+  //   source: article.source,
+  //   pubyear: article.pubyear,
+  //   doi: article.doi,
+  //   claim: article.claim,
+  //   evidence: article.evidence,
+  // }));
+
+  //Returning articles
   return {
     props: {
-      articles,
+      articles: getData.data
     },
   };
 };

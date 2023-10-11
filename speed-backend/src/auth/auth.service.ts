@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt'
 import { JwtService } from '@nestjs/jwt';
 import { SignUpDto } from './dto/signup.dto';
 import { LoginDto } from './dto/login.dto';
+import { UserDto } from './dto/user.dto';
 
 @Injectable()
 export class AuthService {
@@ -59,6 +60,25 @@ export class AuthService {
 
         if(!isPasswordMatched) {
             throw new UnauthorizedException('Invalid password');
+        }
+
+        const token = this.jwtService.sign({
+            id: user._id,
+        })
+
+        return { token }
+    }
+
+    async user(userDto: UserDto): Promise<{ token: string}> {
+        const {
+            firstname,
+            lastname,
+        } = userDto;
+
+        const user = await this.userModel.findOne({ firstname, lastname })
+
+        if(!user) {
+            throw new UnauthorizedException('Person is not registered.');
         }
 
         const token = this.jwtService.sign({
