@@ -24,7 +24,7 @@ return (
 <select {...register("linked_discussion")}>
 <option value="">Select SE practice...</option>
 <option value="TDD">TDD</option>
-<option value="Mob Programming">Mob Programmin</option>
+<option value="Mob Programming">Mob Programming</option>
 </select>
 <input type="submit" />
 </form>
