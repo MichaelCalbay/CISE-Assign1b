@@ -1,28 +1,43 @@
 import { FormEvent, useState } from "react";
 import formStyles from "../../styles/Form.module.scss";
+import axios from "axios";
+import { type } from "os";
 
 const NewDiscussion = () => {
   const [title, setTitle] = useState("");
   const [authors, setAuthors] = useState<string[]>([]);
   const [source, setSource] = useState("");
-  const [pubYear, setPubYear] = useState<number>(0);
+  const [pubyear, setPubYear] = useState<number>(0);
   const [doi, setDoi] = useState("");
-  const [summary, setSummary] = useState("");
-  const [linkedDiscussion, setLinkedDiscussion] = useState("");
-  const submitNewArticle = async (event: FormEvent<HTMLFormElement>) => {
+  const [claim, setClaim] = useState("");
+  const [evidence, setEvidence] = useState("");
+
+  const submitNewArticle = async (event: { preventDefault: () => void; }) => {
     event.preventDefault();
-    console.log(
-      JSON.stringify({
-        title,
-        authors,
-        source,
-        publication_year: pubYear,
-        doi,
-        summary,
-        linked_discussion: linkedDiscussion,
-      })
-    );
+    
+    //Fetch data from forms
+    const data = {
+      title,
+      authors,
+      source,
+      pubyear,
+      doi,
+      claim,
+      evidence
+    };
+    
+    console.log(data)
+    
+    try {
+      //Sends data into server-side API
+      const responseData = await axios.post("http://localhost:3032/article/create", data)
+  
+      console.log("Response from DB", responseData);
+    } catch (error) {
+      console.log('Error: ', error);
+    }
   };
+  
 
   // Some helper methods for the authors array
   const addAuthor = () => {
@@ -102,7 +117,7 @@ const NewDiscussion = () => {
           type="number"
           name="pubYear"
           id="pubYear"
-          value={pubYear}
+          value={pubyear}
           onChange={(event) => {
             const val = event.target.value;
             if (val === "") {
@@ -123,14 +138,27 @@ const NewDiscussion = () => {
             setDoi(event.target.value);
           }}
         />
-        <label htmlFor="summary">Summary:</label>
-        <textarea
-          className={formStyles.formTextArea}
-          name="summary"
-          value={summary}
-          onChange={(event) => setSummary(event.target.value)}
+        <label htmlFor="claim">Claim:</label>
+        <input
+          className={formStyles.formItem}
+          name="claim"
+          value={claim}
+          onChange={(event) => setClaim(event.target.value)}
         />
-        <button className={formStyles.formItem} type="submit">
+        <label htmlFor="evidence">Evidence:</label>
+        <input
+          className={formStyles.formItem}
+          type="text"
+          name="evidence"
+          id="evidence"
+          value={evidence}
+          onChange={(event) => {
+            setEvidence(event.target.value);
+          }}
+        />
+        <button className={formStyles.formItem} 
+        type="submit" 
+        onClick={submitNewArticle}>
           Submit
         </button>
       </form>
