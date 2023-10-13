@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import formStyles from "../../styles/Form.module.scss";
+import formStyles from "../../../styles/Form.module.scss";
 import axios from "axios";
 import { type } from "os";
 
@@ -42,33 +42,33 @@ const NewDiscussion = () => {
   // Some helper methods for the authors array
   const addAuthor = () => {
     setAuthors(authors.concat([""]));
-  };
-  const removeAuthor = (index: number) => {
+    };
+    const removeAuthor = (index: number) => {
     setAuthors(authors.filter((_, i) => i !== index));
-  };
-  const changeAuthor = (index: number, value: string) => {
+    };
+    const changeAuthor = (index: number, value: string) => {
     setAuthors(
-      authors.map((oldValue, i) => {
-        return index === i ? value : oldValue;
-      })
+    authors.map((oldValue, i) => {
+    return index === i ? value : oldValue;
+    })
     );
-  };
+    };
+    // return the full form
 
-  // Return the full form
-  return (
-    <div className="container">
-      <h1>New Article</h1>
-      <form className={formStyles.form} onSubmit={submitNewArticle}>
+    return (
+        <div className="container">
+        <h1>New Article</h1>
+        <form className={formStyles.form} onSubmit={submitNewArticle}>
         <label htmlFor="title">Title:</label>
         <input
-          className={formStyles.formItem}
-          type="text"
-          name="title"
-          id="title"
-          value={title}
-          onChange={(event) => {
-            setTitle(event.target.value);
-          }}
+        className={formStyles.formItem}
+        type="text"
+        name="title"
+        id="title"
+        value={title}
+        onChange={(event) => {
+        setTitle(event.target.value);
+        }}
         />
         <label htmlFor="author">Authors:</label>
         {authors.map((author, index) => {
@@ -165,5 +165,4 @@ const NewDiscussion = () => {
     </div>
   );
 };
-
 export default NewDiscussion;

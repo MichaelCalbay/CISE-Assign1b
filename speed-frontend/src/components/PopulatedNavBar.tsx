@@ -15,9 +15,13 @@ const PopulatedNavBar = () => {
     <NavDropdown>
     <NavItem route="/articles">View articles</NavItem>
     <NavItem route="/articles/new">Submit new</NavItem>
+    <NavItem route="/articles/moderate">Moderate Articles</NavItem>
+    <NavItem route="/articles/analyse">Analyse Articles</NavItem>
     </NavDropdown>
     </NavItem>
     </NavBar>
     );
     };
     export default PopulatedNavBar;
+
+    
