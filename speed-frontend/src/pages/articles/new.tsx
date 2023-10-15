@@ -1,7 +1,6 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import formStyles from "../../../styles/Form.module.scss";
 import axios from "axios";
-import { type } from "os";
 
 const NewDiscussion = () => {
   const [title, setTitle] = useState("");
@@ -11,7 +10,7 @@ const NewDiscussion = () => {
   const [doi, setDoi] = useState("");
   const [claim, setClaim] = useState("");
   const [evidence, setEvidence] = useState("");
-
+  
   const submitNewArticle = async (event: { preventDefault: () => void; }) => {
     event.preventDefault();
     
@@ -164,5 +163,6 @@ const NewDiscussion = () => {
       </form>
     </div>
   );
+
 };
 export default NewDiscussion;

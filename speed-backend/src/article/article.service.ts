@@ -42,7 +42,6 @@ export class ArticleService {
           console.error('Error creating article:', error);
       
           // You can throw a custom error, return an error response, or handle the error as needed
-          // For example, to return an error response:
           throw new HttpException('Unable to create article', HttpStatus.INTERNAL_SERVER_ERROR);
         }
       }
