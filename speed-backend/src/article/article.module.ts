@@ -7,9 +7,17 @@ import { ArticleSchema } from './schemas/article.schema';
 @Module({
   imports: [
     MongooseModule.forFeature([{
+      name: 'SggstArticle',
+      schema: ArticleSchema
+    }]),
+    MongooseModule.forFeature([{
+      name: 'ModArticle',
+      schema: ArticleSchema
+    }]),
+    MongooseModule.forFeature([{
       name: 'Article',
       schema: ArticleSchema
-    }])
+    }]),
   ],
   controllers: [ArticleController],
   providers: [ArticleService]

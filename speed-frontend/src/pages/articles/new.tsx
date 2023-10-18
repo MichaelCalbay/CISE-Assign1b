@@ -13,6 +13,9 @@ const NewDiscussion = () => {
   const [claim, setClaim] = useState("");
   const [evidence, setEvidence] = useState("");
   const [bibtexData, setBibtexData] = useState("");
+  const [participant, setParticipant] = useState("");
+  const [research, setResearch] = useState("");
+  const [SEPractise, setSEPractise] = useState("");
   //Pop-up message
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState("");
@@ -39,6 +42,9 @@ const NewDiscussion = () => {
       doi,
       claim,
       evidence,
+      participant,
+      research,
+      SEPractise,
     };
 
     //Validate if a field is empty
@@ -49,7 +55,10 @@ const NewDiscussion = () => {
       data.source == "" ||
       data.pubyear == 0 ||
       data.doi == "" ||
-      data.evidence == ""
+      data.evidence == "" ||
+      data.participant == "" ||
+      data.research == "" ||
+      data.SEPractise == ""
     ) {
       openPopup("Please fill all fields!");
     } else {
@@ -107,6 +116,9 @@ const NewDiscussion = () => {
           doi: entry.DOI,
           claim: entry.CLAIM,
           evidence: entry.EVIDENCE,
+          participant: entry.PARTICIPANT,
+          research: entry.RESEARCH,
+          SEPractise: entry.SEPRACTISE
         };
 
         try {
@@ -245,6 +257,39 @@ const NewDiscussion = () => {
           value={evidence}
           onChange={(event) => {
             setEvidence(event.target.value);
+          }}
+        />
+        <label htmlFor="participant">Participant:</label>
+        <input
+          className={formStyles.formItem}
+          type="text"
+          name="participant"
+          id="participant"
+          value={participant}
+          onChange={(event) => {
+            setParticipant(event.target.value);
+          }}
+        />
+        <label htmlFor="research">Research:</label>
+        <input
+          className={formStyles.formItem}
+          type="text"
+          name="research"
+          id="research"
+          value={research}
+          onChange={(event) => {
+            setResearch(event.target.value);
+          }}
+        />
+        <label htmlFor="SEPractise">SEPractise:</label>
+        <input
+          className={formStyles.formItem}
+          type="text"
+          name="SEPractise"
+          id="SEPractise"
+          value={SEPractise}
+          onChange={(event) => {
+            setSEPractise(event.target.value);
           }}
         />
         <button

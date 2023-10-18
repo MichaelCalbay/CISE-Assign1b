@@ -12,6 +12,9 @@ interface ArticlesInterface {
   doi: string;
   claim: string;
   evidence: string;
+  participant: string;
+  research: string;
+  SEPractise: string;
 }
 
 type ArticlesProps = {
@@ -27,6 +30,9 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
     { key: "doi", label: "DOI" },
     { key: "claim", label: "Claim" },
     { key: "evidence", label: "Evidence" },
+    { key: "participant", label: "Participant" },
+    { key: "research", label: "Research" },
+    { key: "SEPractise", label: "SEPractise" },
   ];
   return (
     <div className="container">
