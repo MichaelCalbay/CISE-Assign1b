@@ -22,7 +22,7 @@ let ArticleService = class ArticleService {
         this.articleModel = articleModel;
     }
     async createArticle(articleDto) {
-        const { title, authors, source, pubyear, doi, claim, evidence, } = articleDto;
+        const { title, authors, source, pubyear, doi, claim, evidence, participant, research, SEPractise } = articleDto;
         try {
             const article = await this.articleModel.create({
                 title,
@@ -32,6 +32,9 @@ let ArticleService = class ArticleService {
                 doi,
                 claim,
                 evidence,
+                participant,
+                research,
+                SEPractise
             });
             return article;
         }
@@ -48,7 +51,7 @@ let ArticleService = class ArticleService {
 exports.ArticleService = ArticleService;
 exports.ArticleService = ArticleService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, mongoose_1.InjectModel)(article_schema_1.Article.name)),
+    __param(0, (0, mongoose_1.InjectModel)(article_schema_1.SggstArticle.name)),
     __metadata("design:paramtypes", [mongoose_2.Model])
 ], ArticleService);
 //# sourceMappingURL=article.service.js.map

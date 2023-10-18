@@ -29,4 +29,16 @@ export class ArticleDto{
     @IsString()
     readonly evidence: string
 
+    @IsNotEmpty()
+    @IsString()
+    readonly participant: string
+
+    @IsNotEmpty()
+    @IsString()
+    readonly research: string
+
+    @IsNotEmpty()
+    @IsString()
+    readonly SEPractise: string
+
 }
