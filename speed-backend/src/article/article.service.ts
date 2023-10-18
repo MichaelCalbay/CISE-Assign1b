@@ -1,14 +1,14 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Article } from './schemas/article.schema';
+import { SggstArticle } from './schemas/article.schema';
 import { Model } from 'mongoose';
 import { ArticleDto } from './dto/article.dto';
 
 @Injectable()
 export class ArticleService {
     constructor(
-        @InjectModel(Article.name)
-        private articleModel: Model<Article>,
+        @InjectModel(SggstArticle.name)
+        private articleModel: Model<SggstArticle>,
     ){}
 
     async createArticle(articleDto: ArticleDto) {
@@ -20,6 +20,9 @@ export class ArticleService {
           doi,
           claim,
           evidence,
+          participant,
+          research,
+          SEPractise
         } = articleDto;
       
         try {
@@ -32,6 +35,9 @@ export class ArticleService {
             doi,
             claim,
             evidence,
+            participant,
+            research,
+            SEPractise
           });
       
           // Return the created article as a success response
@@ -42,13 +48,12 @@ export class ArticleService {
           console.error('Error creating article:', error);
       
           // You can throw a custom error, return an error response, or handle the error as needed
-          // For example, to return an error response:
           throw new HttpException('Unable to create article', HttpStatus.INTERNAL_SERVER_ERROR);
         }
       }
       
 
-    async findAll(): Promise<Article[]> {
+    async findAll(): Promise<SggstArticle[]> {
         const articles = await this.articleModel.find();
         return  articles
     }

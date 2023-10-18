@@ -6,4 +6,7 @@ export declare class ArticleDto {
     readonly doi: string;
     readonly claim: string;
     readonly evidence: string;
+    readonly participant: string;
+    readonly research: string;
+    readonly SEPractise: string;
 }
