@@ -13,9 +13,8 @@ const app_service_1 = require("./app.service");
 const config_1 = require("@nestjs/config");
 const mongoose_1 = require("@nestjs/mongoose");
 const article_module_1 = require("./article/article.module");
-let AppModule = class AppModule {
+let AppModule = exports.AppModule = class AppModule {
 };
-exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [

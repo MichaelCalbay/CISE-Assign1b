@@ -16,7 +16,7 @@ exports.ArticleController = void 0;
 const common_1 = require("@nestjs/common");
 const article_service_1 = require("./article.service");
 const article_dto_1 = require("./dto/article.dto");
-let ArticleController = class ArticleController {
+let ArticleController = exports.ArticleController = class ArticleController {
     constructor(articleService) {
         this.articleService = articleService;
     }
@@ -27,7 +27,6 @@ let ArticleController = class ArticleController {
         return this.articleService.findAll();
     }
 };
-exports.ArticleController = ArticleController;
 __decorate([
     (0, common_1.Post)('/create'),
     __param(0, (0, common_1.Body)()),

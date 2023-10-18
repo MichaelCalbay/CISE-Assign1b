@@ -12,9 +12,8 @@ const article_controller_1 = require("./article.controller");
 const article_service_1 = require("./article.service");
 const mongoose_1 = require("@nestjs/mongoose");
 const article_schema_1 = require("./schemas/article.schema");
-let ArticleModule = class ArticleModule {
+let ArticleModule = exports.ArticleModule = class ArticleModule {
 };
-exports.ArticleModule = ArticleModule;
 exports.ArticleModule = ArticleModule = __decorate([
     (0, common_1.Module)({
         imports: [
