@@ -1,6 +1,6 @@
 import { GetStaticProps, NextPage } from "next";
 import SortableTable from "../components/table/SortableTable";
-import data from "../utils/dummydata.json";
+//import data from "../utils/dummydata.json";
 import axios from "axios";
 
 interface ArticlesInterface {

@@ -20,15 +20,15 @@ exports.ArticleModule = ArticleModule = __decorate([
         imports: [
             mongoose_1.MongooseModule.forFeature([{
                     name: 'SggstArticle',
-                    schema: article_schema_1.ArticleSchema
+                    schema: article_schema_1.SggstArticleSchema
                 }]),
             mongoose_1.MongooseModule.forFeature([{
                     name: 'ModArticle',
-                    schema: article_schema_1.ArticleSchema
+                    schema: article_schema_1.SggstArticleSchema
                 }]),
             mongoose_1.MongooseModule.forFeature([{
                     name: 'Article',
-                    schema: article_schema_1.ArticleSchema
+                    schema: article_schema_1.SggstArticleSchema
                 }]),
         ],
         controllers: [article_controller_1.ArticleController],
