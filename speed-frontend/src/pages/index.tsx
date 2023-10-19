@@ -22,6 +22,8 @@ type ArticlesProps = {
   articles: ArticlesInterface[];
 };
 
+
+
 const Articles: NextPage<ArticlesProps> = ({ articles }) => {
   const headers: { key: keyof ArticlesInterface; label: string }[] = [
     { key: "title", label: "Title" },
@@ -36,9 +38,39 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
     { key: "SEPractise", label: "SEPractise" },
   ];
 
-  const [selectedOption, setSelectedOption] = useState(""); // Create state for the dropdown list
+  const [selectedOption, setSelectedOption] = useState("");
+  const [searchKeyword, setSearchKeyword] = useState(""); // Add a state variable for search keyword
+  const [filteredArticles, setFilteredArticles] = useState(articles); // Initialize with all articles
+  
   const handleDropdownChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOption(event.target.value); // Update the selected value in the dropdown
+    const selectedOptionValue = event.target.value as keyof ArticlesInterface;
+    setSelectedOption(selectedOptionValue); // Update the selected value in the dropdown
+  
+    if (selectedOptionValue) {
+      setSelectedOption(selectedOptionValue);
+    } else {
+      // If the user selects the default option (e.g., "SE Practice"), reset the filter
+      setFilteredArticles(articles);
+    }
+  };
+
+  const handleSearchInput = (keyword: string) => {
+    setSearchKeyword(keyword);
+  };
+
+  const handleSearchSubmit = (event: React.FormEvent) => {
+    event.preventDefault(); // Prevent the default form submission
+    filterArticles(selectedOption, searchKeyword); // Filter based on the searchKeyword, not selectedOption
+  };
+
+  const filterArticles = (sePractice: string, keyword?: string) => {
+    const filtered = articles.filter((article) => {
+      const hasValidSEPractice = !sePractice || article.SEPractise.toLowerCase() === sePractice.toLowerCase();
+      const hasValidKeyword = !keyword || article.title.toLowerCase().includes(keyword.toLowerCase());
+      return hasValidSEPractice && hasValidKeyword;
+    });
+  
+    setFilteredArticles(filtered);
   };
 
 
@@ -47,49 +79,50 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
       <h1>Articles Index Page</h1>
       <p>Page containing a table of articles:</p>
 
-      {/* dropdown list */}
+      <form onSubmit={handleSearchSubmit}> {/* Use a form element to handle submission */}
+      {/* Dropdown list for SE practices */}
       <div className="search-bar">
-        <p>Search by{' '}
+        <p>
+        Search by {' '}
         <select value={selectedOption} onChange={handleDropdownChange}>
-          <option value="">SE Practice</option>
+          <option value="">SE Practise</option>
           <option value="TDD">TDD</option>
           <option value="Microservices">Microservices</option>
           <option value="Continuous Integration">Continuous Integration</option>
           <option value="Refactored">Refactored</option>
-          {/* Add more options as needed */}
-        </select></p>
+        </select>
+
+        {' '} or {' '}
+
+        {/* Search bar */}
+        <input
+        type="text"
+        placeholder="Keyword of title"
+        value={searchKeyword}
+        onChange={(e) => handleSearchInput(e.target.value)}
+        />
+      {' '}
+      <button type="submit">Enter</button> {/* Submit button */}
+      </p>
       </div>
+      </form>
 
-      <SortableTable headers={headers} data={articles} />
+      <SortableTable headers={headers} data={filteredArticles} />
     </div>
-
   );
 };
 
+
 export const getStaticProps: GetStaticProps = async (context) => {
-  //https request to REST API
-  const getData = await axios.get('http://localhost:3032/article');
+  // Fetch all articles
+  const response = await axios.get("http://localhost:3032/article");
+  const articles: ArticlesInterface[] = response.data;
 
-  console.log(getData);
-
-  //======DUMMYDATA -NOT NEEDED=======
-  // Map the data to ensure all articles have consistent property names
-  // const articles = data.articles.map((article) => ({
-  //   id: article.id ?? article.id,
-  //   title: article.title,
-  //   authors: article.authors,
-  //   source: article.source,
-  //   pubyear: article.pubyear,
-  //   doi: article.doi,
-  //   claim: article.claim,
-  //   evidence: article.evidence,
-  // }));
-
-  //Returning articles
   return {
     props: {
-      articles: getData.data
+      articles,
     },
   };
 };
+
 export default Articles;
