@@ -40,7 +40,8 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
 
   const [selectedOption, setSelectedOption] = useState("");
   const [searchKeyword, setSearchKeyword] = useState(""); 
-  const [searchYear, setSearchYear] = useState("");
+  const [searchYearStart, setSearchYearStart] = useState("");
+  const [searchYearEnd, setSearchYearEnd] = useState("");
   const [filteredArticles, setFilteredArticles] = useState(articles); // Initialize with all articles
   
   const handleDropdownChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -59,26 +60,31 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
     setSearchKeyword(keyword);
   };
 
-  const handleSearchInputYear = (year: string) => {
-    setSearchYear(year);
+  const handleSearchInputYearStart = (year: string) => {
+    setSearchYearStart(year);
+  };
+  
+  const handleSearchInputYearEnd = (year: string) => {
+    setSearchYearEnd(year);
   };
 
   const handleSearchSubmit = (event: React.FormEvent) => {
     event.preventDefault(); // Prevent the default form submission
-    filterArticles(selectedOption, searchKeyword, searchYear); // Pass all search criteria
+    filterArticles(selectedOption, searchKeyword, searchYearStart, searchYearEnd); // Pass all search criteria
   };
 
   //Filters the articles based on SE practice, keyword or publication year
-  const filterArticles = (sePractice: string, keyword?: string, year?: string) => {
-  const filtered = articles.filter((article) => {
-    const hasValidSEPractice = !sePractice || article.SEPractise.toLowerCase() === sePractice.toLowerCase();
-    const hasValidKeyword = !keyword || article.title.toLowerCase().includes(keyword.toLowerCase());
-    const hasValidYear = !year || parseInt(article.pubyear, 10) === parseInt(year, 10); // Compare as integers
-    return hasValidSEPractice && hasValidKeyword && hasValidYear;
-  });
-
-  setFilteredArticles(filtered);
-};
+  const filterArticles = (sePractice: string, keyword?: string, yearStart?: string, yearEnd?: string) => {
+    const filtered = articles.filter((article) => {
+      const hasValidSEPractice = !sePractice || article.SEPractise.toLowerCase() === sePractice.toLowerCase();
+      const hasValidKeyword = !keyword || article.title.toLowerCase().includes(keyword.toLowerCase());
+      const isValidYearStart = !yearStart || parseInt(article.pubyear, 10) >= parseInt(yearStart, 10);
+      const isValidYearEnd = !yearEnd || parseInt(article.pubyear, 10) <= parseInt(yearEnd, 10);
+      return hasValidSEPractice && hasValidKeyword && isValidYearStart && isValidYearEnd;
+    });
+  
+    setFilteredArticles(filtered);
+  };
 
 
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
@@ -115,7 +121,7 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
 
 
   return (
-    <div className="container">
+    <div className="Search">
       <h1>Articles Index Page</h1>
       <p>Page containing a table of articles:</p>
 
@@ -138,30 +144,40 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
 
         {' '} or {' '}
 
-        {/* Keyword Search bar */}
+        {/* Publication year Search bar (Start Year) */}
         <input
-        type="text"
-        placeholder="Keyword of Title"
-        value={searchKeyword}
-        onChange={(e) => handleSearchInputKeyword(e.target.value)}
+          type="text"
+          placeholder="Keyword of Title"
+          value={searchKeyword}
+          onChange={(e) => handleSearchInputKeyword(e.target.value)}
         />
 
-        {' '} or {' '}
+        {' '} or by Year Range {' '}
 
-        {/* Publication year Search bar */}
+        {/* Publication year Search bar (Start Year) */}
         <input
-        type="integer"
-        placeholder="Publication Year"
-        value={searchYear}
-        onChange={(e) => handleSearchInputYear(e.target.value)}
+            type="number" // Use type "number" for numerical input
+            placeholder="Start Year"
+            value={searchYearStart}
+            onChange={(e) => handleSearchInputYearStart(e.target.value)}
+          />
+
+        {' to '}
+
+        {/* Publication year Search bar (End Year) */}
+        <input
+          type="number" // Use type "number" for numerical input
+          placeholder="End Year"
+          value={searchYearEnd}
+          onChange={(e) => handleSearchInputYearEnd(e.target.value)}
         />
 
         {' '}
 
-      <button type="submit">Enter</button> {/* Submit button */}
-      </p>
-      </div>
-      </form>
+          <button type="submit">Enter</button> {/* Submit button */}
+          </p>
+          </div>
+          </form>
 
       <SortableTable headers={headers} data={filteredArticles} />
     </div>
