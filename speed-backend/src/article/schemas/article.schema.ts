@@ -4,7 +4,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
     timestamps: true,
 })
 
-export class Article {
+export class SuggestedArticle {
     @Prop()
     title: string
 
@@ -25,6 +25,81 @@ export class Article {
 
     @Prop()
     evidence: string
+
+    @Prop()
+    participant: string
+
+    @Prop()
+    research: string
+
+    @Prop()
+    SEPractise: string
 }
 
-export const ArticleSchema = SchemaFactory.createForClass(Article);
+export class ModeratedArticle {
+    @Prop()
+    title: string
+
+    @Prop([String])
+    authors: string[]
+
+    @Prop()
+    source: string
+
+    @Prop()
+    pubyear: number
+
+    @Prop()
+    doi: string
+
+    @Prop()
+    claim: string
+
+    @Prop()
+    evidence: string
+
+    @Prop()
+    participant: string
+
+    @Prop()
+    research: string
+
+    @Prop()
+    SEPractise: string
+}
+
+export class PublishedArticle {
+    @Prop()
+    title: string
+
+    @Prop([String])
+    authors: string[]
+
+    @Prop()
+    source: string
+
+    @Prop()
+    pubyear: number
+
+    @Prop()
+    doi: string
+
+    @Prop()
+    claim: string
+
+    @Prop()
+    evidence: string
+
+    @Prop()
+    participant: string
+
+    @Prop()
+    research: string
+
+    @Prop()
+    SEPractise: string
+}
+
+export const SggstArticleSchema = SchemaFactory.createForClass(SuggestedArticle);
+export const ModArticleSchema = SchemaFactory.createForClass(ModeratedArticle);
+export const ArticleSchema = SchemaFactory.createForClass(PublishedArticle);

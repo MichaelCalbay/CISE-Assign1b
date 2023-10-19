@@ -8,15 +8,15 @@ const PopulatedNavBar = () => {
     <NavBar>
     <NavItem>SPEED</NavItem>
     <NavItem route="/" end>
-    Home
+    View Articles
     </NavItem>
     <NavItem dropdown route="/articles">
     Articles <IoMdArrowDropdown />
     <NavDropdown>
-    <NavItem route="/articles">View articles</NavItem>
-    <NavItem route="/articles/new">Submit new</NavItem>
+    {/* <NavItem route="/articles">View articles</NavItem> */}
+    <NavItem route="/articles/new">Submit Article</NavItem>
     <NavItem route="/articles/moderate">Moderate Articles</NavItem>
-    <NavItem route="/articles/analyse">Analyse Articles</NavItem>
+    <NavItem route="/articles/SERCAnalystTable">Analyse Articles</NavItem>
     </NavDropdown>
     </NavItem>
     </NavBar>
