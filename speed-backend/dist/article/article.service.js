@@ -18,8 +18,9 @@ const mongoose_1 = require("@nestjs/mongoose");
 const article_schema_1 = require("./schemas/article.schema");
 const mongoose_2 = require("mongoose");
 let ArticleService = class ArticleService {
-    constructor(articleModel) {
+    constructor(articleModel, articlePublishedModel) {
         this.articleModel = articleModel;
+        this.articlePublishedModel = articlePublishedModel;
     }
     async createArticle(articleDto) {
         const { title, authors, source, pubyear, doi, claim, evidence, participant, research, SEPractise } = articleDto;
@@ -47,11 +48,17 @@ let ArticleService = class ArticleService {
         const articles = await this.articleModel.find();
         return articles;
     }
+    async findPublishedArticle() {
+        const articles = await this.articlePublishedModel.find();
+        return articles;
+    }
 };
 exports.ArticleService = ArticleService;
 exports.ArticleService = ArticleService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(article_schema_1.SuggestedArticle.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(1, (0, mongoose_1.InjectModel)(article_schema_1.PublishedArticle.name)),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model])
 ], ArticleService);
 //# sourceMappingURL=article.service.js.map

@@ -152,7 +152,7 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
           onChange={(e) => handleSearchInputKeyword(e.target.value)}
         />
 
-        {' '} or by Year Range {' '}
+        {' '} or by year range {' '}
 
         {/* Publication year Search bar (Start Year) */}
         <input
@@ -179,6 +179,8 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
           </div>
           </form>
 
+          <p>Note, if you press enter with no values then a the full list of articles will be shown.</p>
+          
       <SortableTable headers={headers} data={filteredArticles} />
     </div>
   );
@@ -186,8 +188,8 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
 
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  // Fetch all articles
-  const response = await axios.get("http://localhost:3032/article");
+  // Fetch all articles in the Published collection
+  const response = await axios.get("http://localhost:3032/article/published");
   const articles: ArticlesInterface[] = response.data;
 
   return {

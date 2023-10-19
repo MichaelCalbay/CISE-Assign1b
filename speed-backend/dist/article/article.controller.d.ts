@@ -25,7 +25,7 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { ArticleService } from './article.service';
 import { ArticleDto } from './dto/article.dto';
-import { SuggestedArticle } from './schemas/article.schema';
+import { PublishedArticle, SuggestedArticle } from './schemas/article.schema';
 export declare class ArticleController {
     private articleService;
     constructor(articleService: ArticleService);
@@ -33,4 +33,5 @@ export declare class ArticleController {
         _id: import("mongoose").Types.ObjectId;
     }>;
     getAllArticles(): Promise<SuggestedArticle[]>;
+    getPublishedArticles(): Promise<PublishedArticle[]>;
 }
