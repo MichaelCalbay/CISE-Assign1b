@@ -122,7 +122,8 @@ const NewDiscussion = () => {
         };
 
         setTitle(populatedData.title);
-        // setAuthors(populatedData.authors);
+        addAuthor();
+        setAuthors([populatedData.authors]);
         setSource(populatedData.source);
         setPubYear(populatedData.pubyear);
         setDoi(populatedData.doi);
