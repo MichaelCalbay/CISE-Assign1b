@@ -1,14 +1,14 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { SggstArticle } from './schemas/article.schema';
+import { SuggestedArticle } from './schemas/article.schema';
 import { Model } from 'mongoose';
 import { ArticleDto } from './dto/article.dto';
 
 @Injectable()
 export class ArticleService {
     constructor(
-        @InjectModel(SggstArticle.name)
-        private articleModel: Model<SggstArticle>,
+        @InjectModel(SuggestedArticle.name)
+        private articleModel: Model<SuggestedArticle>,
     ){}
 
     async createArticle(articleDto: ArticleDto) {
@@ -53,7 +53,7 @@ export class ArticleService {
       }
       
 
-    async findAll(): Promise<SggstArticle[]> {
+    async findAll(): Promise<SuggestedArticle[]> {
         const articles = await this.articleModel.find();
         return  articles
     }

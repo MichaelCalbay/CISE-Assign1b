@@ -121,17 +121,29 @@ const NewDiscussion = () => {
           SEPractise: entry.SEPRACTISE
         };
 
-        try {
-          //Sends data into server-side API
-          const responseData = await axios.post(
-            "http://localhost:3032/article/create",
-            populatedData
-          );
+        setTitle(populatedData.title);
+        // setAuthors(populatedData.authors);
+        setSource(populatedData.source);
+        setPubYear(populatedData.pubyear);
+        setDoi(populatedData.doi);
+        setClaim(populatedData.claim);
+        setEvidence(populatedData.evidence);
+        setParticipant(populatedData.participant);
+        setResearch(populatedData.research);
+        setSEPractise(populatedData.SEPractise);
 
-          openPopup('Article has been submitted')
-        } catch (error) {
-          console.log("Error: ", error);
-        }
+
+        // try {
+        //   //Sends data into server-side API
+        //   const responseData = await axios.post(
+        //     "http://localhost:3032/article/create",
+        //     populatedData
+        //   );
+
+        //   openPopup('Article has been submitted')
+        // } catch (error) {
+        //   console.log("Error: ", error);
+        // }
       });
     } else {
       // Handle the case when no BibTeX data is available
@@ -159,7 +171,7 @@ const NewDiscussion = () => {
     <div className="container">
       <h1>Attach Bibtex Articles</h1>
       <input type="file" accept=".bib" onChange={handleFileChange} />
-      <button onClick={parseBibtex}>Submit BibTeX</button>
+      <button onClick={parseBibtex}>Enter</button>
       <h1>Suggest an Article</h1>
       <div className={formStyles.form} onSubmit={submitNewArticle}>
         <label htmlFor="title">Title:</label>
