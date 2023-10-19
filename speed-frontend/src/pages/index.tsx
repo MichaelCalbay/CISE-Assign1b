@@ -1,4 +1,5 @@
 import { GetStaticProps, NextPage } from "next";
+import React, { useState } from "react";
 import SortableTable from "../components/table/SortableTable";
 //import data from "../utils/dummydata.json";
 import axios from "axios";
@@ -34,10 +35,31 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
     { key: "research", label: "Research" },
     { key: "SEPractise", label: "SEPractise" },
   ];
+
+  const [selectedOption, setSelectedOption] = useState(""); // Create state for the dropdown list
+  const handleDropdownChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedOption(event.target.value); // Update the selected value in the dropdown
+  };
+
+
   return (
     <div className="container">
       <h1>Articles Index Page</h1>
       <p>Page containing a table of articles:</p>
+
+      {/* dropdown list */}
+      <div className="search-bar">
+        <p>Search by{' '}
+        <select value={selectedOption} onChange={handleDropdownChange}>
+          <option value="">SE Practice</option>
+          <option value="TDD">TDD</option>
+          <option value="Microservices">Microservices</option>
+          <option value="Continuous Integration">Continuous Integration</option>
+          <option value="Refactored">Refactored</option>
+          {/* Add more options as needed */}
+        </select></p>
+      </div>
+
       <SortableTable headers={headers} data={articles} />
     </div>
 
