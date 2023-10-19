@@ -25,12 +25,12 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { ArticleService } from './article.service';
 import { ArticleDto } from './dto/article.dto';
-import { SggstArticle } from './schemas/article.schema';
+import { SuggestedArticle } from './schemas/article.schema';
 export declare class ArticleController {
     private articleService;
     constructor(articleService: ArticleService);
-    populateArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, SggstArticle> & SggstArticle & {
+    populateArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, SuggestedArticle> & SuggestedArticle & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    getAllArticles(): Promise<SggstArticle[]>;
+    getAllArticles(): Promise<SuggestedArticle[]>;
 }

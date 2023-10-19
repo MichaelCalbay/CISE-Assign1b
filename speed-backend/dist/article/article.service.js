@@ -51,7 +51,7 @@ let ArticleService = class ArticleService {
 exports.ArticleService = ArticleService;
 exports.ArticleService = ArticleService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, mongoose_1.InjectModel)(article_schema_1.SggstArticle.name)),
+    __param(0, (0, mongoose_1.InjectModel)(article_schema_1.SuggestedArticle.name)),
     __metadata("design:paramtypes", [mongoose_2.Model])
 ], ArticleService);
 //# sourceMappingURL=article.service.js.map
