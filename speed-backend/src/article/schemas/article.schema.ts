@@ -4,7 +4,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
     timestamps: true,
 })
 
-export class SggstArticle {
+export class SuggestedArticle {
     @Prop()
     title: string
 
@@ -36,7 +36,7 @@ export class SggstArticle {
     SEPractise: string
 }
 
-export class ModArticle {
+export class ModeratedArticle {
     @Prop()
     title: string
 
@@ -68,7 +68,7 @@ export class ModArticle {
     SEPractise: string
 }
 
-export class Article {
+export class PublishedArticle {
     @Prop()
     title: string
 
@@ -100,6 +100,6 @@ export class Article {
     SEPractise: string
 }
 
-export const SggstArticleSchema = SchemaFactory.createForClass(SggstArticle);
-export const ModArticleSchema = SchemaFactory.createForClass(ModArticle);
-export const ArticleSchema = SchemaFactory.createForClass(Article);
+export const SggstArticleSchema = SchemaFactory.createForClass(SuggestedArticle);
+export const ModArticleSchema = SchemaFactory.createForClass(ModeratedArticle);
+export const ArticleSchema = SchemaFactory.createForClass(PublishedArticle);

@@ -11,8 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArticleSchema = exports.ModArticleSchema = exports.SggstArticleSchema = exports.Article = exports.ModArticle = exports.SggstArticle = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
-let SggstArticle = exports.SggstArticle = class SggstArticle {
+let SggstArticle = class SggstArticle {
 };
+exports.SggstArticle = SggstArticle;
 __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
