@@ -89,11 +89,44 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
 
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
-  // Sorts by yea of publication
-  const toggleSortDirection = () => {
+
+  const toggleSortDirection = (sortCriterion: string) => {
     const newSortDirection = sortDirection === "asc" ? "desc" : "asc";
     setSortDirection(newSortDirection);
-    sortArticlesByPublicationYear(newSortDirection);
+  
+    switch (sortCriterion) {
+      case "authors":
+        sortArticlesByAuthors(newSortDirection);
+        break;
+      case "claim":
+        sortArticlesByClaim(newSortDirection);
+        break;
+      case "pubyear":
+        sortArticlesByPublicationYear(newSortDirection);
+        break;
+      case "evidence":
+        sortArticlesByEvidence(newSortDirection);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const sortArticlesByAuthors = (direction: "asc" | "desc") => {
+    const sortedArticles = [...filteredArticles];
+  
+    sortedArticles.sort((a, b) => {
+      const authorA = a.authors[0];
+      const authorB = b.authors[0];
+  
+      if (direction === "asc") {
+        return authorA.localeCompare(authorB);
+      } else {
+        return authorB.localeCompare(authorA);
+      }
+    });
+  
+    setFilteredArticles(sortedArticles);
   };
 
   const sortArticlesByPublicationYear = (direction: "asc" | "desc") => {
@@ -119,15 +152,42 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
     setFilteredArticles(sortedArticles);
   };
 
+  const sortArticlesByClaim = (direction: "asc" | "desc") => {
+    const sortedArticles = [...filteredArticles];
+  
+    sortedArticles.sort((a, b) => {
+      const claimA = a.claim.charAt(0).toLowerCase(); // Get the first letter and make it lowercase
+      const claimB = b.claim.charAt(0).toLowerCase();
+  
+      if (direction === "asc") {
+        return claimA.localeCompare(claimB);
+      } else {
+        return claimB.localeCompare(claimA);
+      }
+    });
+  
+    setFilteredArticles(sortedArticles);
+  };
+
+  const sortArticlesByEvidence = (direction: "asc" | "desc") => {
+    const sortedArticles = [...filteredArticles];
+
+    sortedArticles.sort((a, b) => {
+      if (direction === "asc") {
+        return a.evidence.localeCompare(b.evidence);
+      } else {
+        return b.evidence.localeCompare(a.evidence);
+      }
+    });
+
+    setFilteredArticles(sortedArticles);
+  };
+
+
 
   return (
     <div className="Search">
       <h1>Articles Index Page</h1>
-      <p>Page containing a table of articles:</p>
-
-      <div className="sort-buttons">
-        <button onClick={toggleSortDirection}>Sort by Publication Year {sortDirection === "asc" ? "Ascending" : "Descending"}</button>
-      </div>
 
       <form onSubmit={handleSearchSubmit}> {/* Use a form element to handle submission */}
       {/* Dropdown list for SE practices */}
@@ -180,7 +240,20 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
           </form>
 
           <p>Note, if you press enter with no values then a the full list of articles will be shown.</p>
-          
+
+      
+      <div className="sort-buttons">
+        <p>Sort by: {' '}
+        <button onClick={() => toggleSortDirection("authors")}>Authors</button>
+         <button onClick={() => toggleSortDirection("pubyear")}>Publication Year</button>
+         <button onClick={() => toggleSortDirection("claim")}>Claim</button>
+         <button onClick={() => toggleSortDirection("evidence")}>Result of Evidence</button>
+        </p>
+
+      </div>
+      
+
+
       <SortableTable headers={headers} data={filteredArticles} />
     </div>
   );
