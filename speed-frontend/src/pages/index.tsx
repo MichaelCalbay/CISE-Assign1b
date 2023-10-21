@@ -197,15 +197,19 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
     }
   };
 
+  const resetColumns = () => {
+    setVisibleColumns(headers.map((column) => column.key));
+  };
+
 
 
   return (
     <div className="Search" style={{ marginLeft: '50px' }}>
       <h1 style={{ textAlign: 'center' }}>Articles Index Page</h1>
 
-      <form onSubmit={handleSearchSubmit}> {/* Use a form element to handle submission */}
-      {/* Dropdown list for SE practices */}
+      <form onSubmit={handleSearchSubmit}> 
 
+      {/* Dropdown list for SE practices */}
       <div className="search-bar">
         <div style={{ marginTop: '70px', marginBottom: '10px' }}>
           <p style={{ fontWeight: 'bold' }}>Search by: {' '}
@@ -219,8 +223,8 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
           </p>
         </div>
 
-
-        <div style={{ marginBottom: '10px' }}> {/* Add margin at the bottom */}
+        {/* Keyword search bar */}
+        <div style={{ marginBottom: '10px' }}> 
           <p>or {' '}
             <input
               type="text"
@@ -231,6 +235,7 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
           </p>
         </div>
 
+        {/* Publication year range */}
         <div>
           <p>or {' '}
             <input
@@ -258,7 +263,7 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
         Note, if you press enter with no values then the full list of articles will be shown.
       </p>
 
-      
+      {/* Sorts the columns */}
       <div className="sort-buttons">
         <div style={{ marginTop: '80px' }}>
         <p style={{ fontWeight: 'bold' }}>Sort by: {' '}
@@ -270,6 +275,7 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
         </div>
       </div>  
 
+      {/* Hide/shows table columns */}
       <div className="column-toggle">
         <p>
           <span style={{ fontWeight: 'bold' }}>Show/Hide Columns:</span>
@@ -283,9 +289,13 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
               {column.label}
             </label>
           ))}
+          <button onClick={resetColumns} style={{ marginLeft: '10px' }}>Reset</button>
         </p>
       </div>
 
+
+
+       {/* Displays the articles table */}     
       <div style={{ marginTop: '30px' }}>
       <SortableTable headers={headers} data={filteredArticles} visibleColumns={visibleColumns} />
       </div>
