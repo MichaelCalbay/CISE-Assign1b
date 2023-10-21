@@ -23,8 +23,11 @@ let ArticleController = class ArticleController {
     populateArticle(articleDto) {
         return this.articleService.createArticle(articleDto);
     }
-    async getAllArticles() {
-        return this.articleService.findAll();
+    async getPublishedArticles() {
+        return this.articleService.findPublishedArticle();
+    }
+    async getSuggestedArticles() {
+        return this.articleService.findSuggestedArticle();
     }
 };
 exports.ArticleController = ArticleController;
@@ -40,7 +43,13 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], ArticleController.prototype, "getAllArticles", null);
+], ArticleController.prototype, "getPublishedArticles", null);
+__decorate([
+    (0, common_1.Get)('/moderate'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ArticleController.prototype, "getSuggestedArticles", null);
 exports.ArticleController = ArticleController = __decorate([
     (0, common_1.Controller)('article'),
     __metadata("design:paramtypes", [article_service_1.ArticleService])

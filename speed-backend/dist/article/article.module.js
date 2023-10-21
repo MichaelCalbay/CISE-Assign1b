@@ -19,15 +19,15 @@ exports.ArticleModule = ArticleModule = __decorate([
     (0, common_1.Module)({
         imports: [
             mongoose_1.MongooseModule.forFeature([{
-                    name: 'SggstArticle',
+                    name: 'SuggestedArticle',
                     schema: article_schema_1.SggstArticleSchema
                 }]),
             mongoose_1.MongooseModule.forFeature([{
-                    name: 'ModArticle',
+                    name: 'ModeratedArticle',
                     schema: article_schema_1.SggstArticleSchema
                 }]),
             mongoose_1.MongooseModule.forFeature([{
-                    name: 'Article',
+                    name: 'PublishedArticle',
                     schema: article_schema_1.SggstArticleSchema
                 }]),
         ],
