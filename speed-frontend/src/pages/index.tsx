@@ -22,21 +22,23 @@ type ArticlesProps = {
   articles: ArticlesInterface[];
 };
 
-
-
 const Articles: NextPage<ArticlesProps> = ({ articles }) => {
   const headers: { key: keyof ArticlesInterface; label: string }[] = [
     { key: "title", label: "Title" },
-    { key: "authors", label: "Authors" },
+    { key: "authors", label: "Author(s)" },
     { key: "source", label: "Source" },
     { key: "pubyear", label: "Publication Year" },
     { key: "doi", label: "DOI" },
     { key: "claim", label: "Claim" },
-    { key: "evidence", label: "Evidence" },
+    { key: "evidence", label: "Result of Evidence" },
     { key: "participant", label: "Participant" },
-    { key: "research", label: "Research" },
-    { key: "SEPractise", label: "SEPractise" },
+    { key: "research", label: "Research Type" },
+    { key: "SEPractise", label: "SE Practise" },
   ];
+
+  const tableStyles = {
+    border: '1px solid #ccc', // Define the border style for the table
+  };
 
   const [selectedOption, setSelectedOption] = useState("");
   const [searchKeyword, setSearchKeyword] = useState(""); 
@@ -186,75 +188,79 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
 
 
   return (
-    <div className="Search">
-      <h1>Articles Index Page</h1>
+    <div className="Search" style={{ marginLeft: '50px' }}>
+      <h1 style={{ textAlign: 'center' }}>Articles Index Page</h1>
 
       <form onSubmit={handleSearchSubmit}> {/* Use a form element to handle submission */}
       {/* Dropdown list for SE practices */}
+
       <div className="search-bar">
-        <p>
-        Search by {' '}
-        <select value={selectedOption} onChange={handleDropdownChange}>
-          <option value="">SE Practise</option>
-          <option value="TDD">TDD</option>
-          <option value="Microservices">Microservices</option>
-          <option value="Continuous Integration">Continuous Integration</option>
-          <option value="Refactored">Refactored</option>
-        </select>
-
-        {' '} or {' '}
-
-        {/* Publication year Search bar (Start Year) */}
-        <input
-          type="text"
-          placeholder="Keyword of Title"
-          value={searchKeyword}
-          onChange={(e) => handleSearchInputKeyword(e.target.value)}
-        />
-
-        {' '} or by year range {' '}
-
-        {/* Publication year Search bar (Start Year) */}
-        <input
-            type="number" // Use type "number" for numerical input
-            placeholder="Start Year"
-            value={searchYearStart}
-            onChange={(e) => handleSearchInputYearStart(e.target.value)}
-          />
-
-        {' to '}
-
-        {/* Publication year Search bar (End Year) */}
-        <input
-          type="number" // Use type "number" for numerical input
-          placeholder="End Year"
-          value={searchYearEnd}
-          onChange={(e) => handleSearchInputYearEnd(e.target.value)}
-        />
-
-        {' '}
-
-          <button type="submit">Enter</button> {/* Submit button */}
+        <div style={{ marginTop: '70px', marginBottom: '10px' }}>
+          <p style={{ fontWeight: 'bold' }}>Search by: {' '}
+            <select value={selectedOption} onChange={handleDropdownChange}>
+              <option value="">SE Practise</option>
+              <option value="TDD">TDD</option>
+              <option value="Microservices">Microservices</option>
+              <option value="Continuous Integration">Continuous Integration</option>
+              <option value="Refactored">Refactored</option>
+            </select>
           </p>
-          </div>
-          </form>
+        </div>
 
-          <p>Note, if you press enter with no values then a the full list of articles will be shown.</p>
+
+        <div style={{ marginBottom: '10px' }}> {/* Add margin at the bottom */}
+          <p>or {' '}
+            <input
+              type="text"
+              placeholder="Keyword of Title"
+              value={searchKeyword}
+              onChange={(e) => handleSearchInputKeyword(e.target.value)}
+            />
+          </p>
+        </div>
+
+        <div>
+          <p>or {' '}
+            <input
+              type="number"
+              placeholder="Start Year"
+              value={searchYearStart}
+              onChange={(e) => handleSearchInputYearStart(e.target.value)}
+            />
+
+            {' to '}
+
+            <input
+              type="number"
+              placeholder="End Year"
+              value={searchYearEnd}
+              onChange={(e) => handleSearchInputYearEnd(e.target.value)}
+            />
+          </p>
+        </div>
+        <button type="submit">Enter</button>
+      </div>
+      </form>
+
+      <p style={{ fontStyle: 'italic' }}>
+        Note, if you press enter with no values then the full list of articles will be shown.
+      </p>
 
       
       <div className="sort-buttons">
-        <p>Sort by: {' '}
-        <button onClick={() => toggleSortDirection("authors")}>Authors</button>
-         <button onClick={() => toggleSortDirection("pubyear")}>Publication Year</button>
-         <button onClick={() => toggleSortDirection("claim")}>Claim</button>
-         <button onClick={() => toggleSortDirection("evidence")}>Result of Evidence</button>
+      <div style={{ marginTop: '80px' }}>
+      <p style={{ fontWeight: 'bold' }}>Sort by: {' '}
+          <button onClick={() => toggleSortDirection("authors")} style={{ marginRight: '10px' }}>Authors</button>
+          <button onClick={() => toggleSortDirection("pubyear")} style={{ marginRight: '10px' }}>Publication Year</button>
+          <button onClick={() => toggleSortDirection("claim")} style={{ marginRight: '10px' }}>Claim</button>
+          <button onClick={() => toggleSortDirection("evidence")}>Result of Evidence</button>
         </p>
-
       </div>
-      
+    </div>  
 
-
-      <SortableTable headers={headers} data={filteredArticles} />
+      <div style={{ marginTop: '30px' }}>
+        <SortableTable headers={headers} data={filteredArticles} style={tableStyles} />
+      </div>
     </div>
   );
 };
