@@ -7,15 +7,15 @@ import { SggstArticleSchema } from './schemas/article.schema';
 @Module({
   imports: [
     MongooseModule.forFeature([{
-      name: 'SggstArticle',
+      name: 'SuggestedArticle',
       schema: SggstArticleSchema
     }]),
     MongooseModule.forFeature([{
-      name: 'ModArticle',
+      name: 'ModeratedArticle',
       schema: SggstArticleSchema
     }]),
     MongooseModule.forFeature([{
-      name: 'Article',
+      name: 'PublishedArticle',
       schema: SggstArticleSchema
     }]),
   ],

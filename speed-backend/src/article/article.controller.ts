@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Get } from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { ArticleDto } from './dto/article.dto';
-import { SggstArticle } from './schemas/article.schema';
+import { PublishedArticle, SuggestedArticle } from './schemas/article.schema';
 
 @Controller('article')
 export class ArticleController {
@@ -15,7 +15,22 @@ export class ArticleController {
     }
 
     @Get()
-    async getAllArticles(): Promise<SggstArticle[]> {
+    async getArticles(): Promise<PublishedArticle[]> {
         return this.articleService.findAll();
+    }
+
+    @Get()
+    async getPublishedArticles(): Promise<PublishedArticle[]> {
+        return this.articleService.findPublishedArticle();
+    }
+
+    @Get('/moderate')
+    async getSuggestedArticles(): Promise<SuggestedArticle[]> {
+        return this.articleService.findSuggestedArticle();
+    }
+
+    @Post('/moderate')
+    editSuggestion(@Body() articleDto: ArticleDto) {
+        return this.articleService.editSuggestedArticle(articleDto);
     }
 }
