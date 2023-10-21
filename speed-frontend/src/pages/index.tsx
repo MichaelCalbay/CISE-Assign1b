@@ -44,6 +44,8 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
   const [searchKeyword, setSearchKeyword] = useState(""); 
   const [searchYearStart, setSearchYearStart] = useState("");
   const [searchYearEnd, setSearchYearEnd] = useState("");
+  const [visibleColumns, setVisibleColumns] = useState(headers.map((column) => column.key)
+  );
   const [filteredArticles, setFilteredArticles] = useState(articles); // Initialize with all articles
   
   const handleDropdownChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -185,6 +187,16 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
     setFilteredArticles(sortedArticles);
   };
 
+  const handleColumnToggle = (columnKey: keyof ArticlesInterface) => {
+    if (visibleColumns.includes(columnKey)) {
+      setVisibleColumns((prevVisibleColumns) =>
+        prevVisibleColumns.filter((key) => key !== columnKey)
+      );
+    } else {
+      setVisibleColumns((prevVisibleColumns) => [...prevVisibleColumns, columnKey]);
+    }
+  };
+
 
 
   return (
@@ -248,18 +260,34 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
 
       
       <div className="sort-buttons">
-      <div style={{ marginTop: '80px' }}>
-      <p style={{ fontWeight: 'bold' }}>Sort by: {' '}
-          <button onClick={() => toggleSortDirection("authors")} style={{ marginRight: '10px' }}>Authors</button>
-          <button onClick={() => toggleSortDirection("pubyear")} style={{ marginRight: '10px' }}>Publication Year</button>
-          <button onClick={() => toggleSortDirection("claim")} style={{ marginRight: '10px' }}>Claim</button>
-          <button onClick={() => toggleSortDirection("evidence")}>Result of Evidence</button>
+        <div style={{ marginTop: '80px' }}>
+        <p style={{ fontWeight: 'bold' }}>Sort by: {' '}
+            <button onClick={() => toggleSortDirection("authors")} style={{ marginRight: '10px' }}>Authors</button>
+            <button onClick={() => toggleSortDirection("pubyear")} style={{ marginRight: '10px' }}>Publication Year</button>
+            <button onClick={() => toggleSortDirection("claim")} style={{ marginRight: '10px' }}>Claim</button>
+            <button onClick={() => toggleSortDirection("evidence")}>Result of Evidence</button>
+          </p>
+        </div>
+      </div>  
+
+      <div className="column-toggle">
+        <p>
+          <span style={{ fontWeight: 'bold' }}>Show/Hide Columns:</span>
+          {headers.map((column) => (
+            <label key={column.key} style={{ marginLeft: '10px' }}>
+              <input
+                type="checkbox"
+                checked={visibleColumns.includes(column.key)}
+                onChange={() => handleColumnToggle(column.key)}
+              />
+              {column.label}
+            </label>
+          ))}
         </p>
       </div>
-    </div>  
 
       <div style={{ marginTop: '30px' }}>
-        <SortableTable headers={headers} data={filteredArticles} style={tableStyles} />
+      <SortableTable headers={headers} data={filteredArticles} visibleColumns={visibleColumns} />
       </div>
     </div>
   );
