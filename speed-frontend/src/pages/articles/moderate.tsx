@@ -1,18 +1,18 @@
 import { GetStaticProps, NextPage } from "next";
 //import SortableTable from "../../components/table/SortableTable";
 import { ModInterface } from "../../components/table/ModInterface";
-import ModRow  from "../../components/table/ModTable";
+import AnalystTable  from "../../components/table/ModTable";
 import axios from "axios";
 
 
 
-type ModRowProps = {
+type AnalytsProps = {
   articles: ModInterface[];
 };
 
 // Import the SERCAnalystRow component
 
-const Articles: NextPage<ModRowProps> = ({ articles }) => {
+const Articles: NextPage<AnalytsProps> = ({ articles }) => {
   const headers: { key: keyof ModInterface; label: string }[] = [
     { key: "title", label: "Title" },
     { key: "authors", label: "Authors" },
@@ -35,13 +35,14 @@ const Articles: NextPage<ModRowProps> = ({ articles }) => {
         </thead>
         <tbody>
           {articles.map((article) => (
-            <ModRow key={article.id} data={article} />
+            <AnalystTable key={article.id} data={article} />
           ))}
         </tbody>
       </table>
     </div>
   );
 };
+
 
 export const getStaticProps: GetStaticProps = async (context) => {
   //https request to REST API

@@ -24,7 +24,7 @@ exports.ArticleModule = ArticleModule = __decorate([
                 }]),
             mongoose_1.MongooseModule.forFeature([{
                     name: 'ModeratedArticle',
-                    schema: article_schema_1.SggstArticleSchema
+                    schema: article_schema_1.ModArticleSchema
                 }]),
             mongoose_1.MongooseModule.forFeature([{
                     name: 'PublishedArticle',

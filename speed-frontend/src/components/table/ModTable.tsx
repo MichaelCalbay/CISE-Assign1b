@@ -7,41 +7,35 @@ interface ModRowProps {
   data: ModInterface;
 }
 
-const decisionOptions = [
+const SEPracticeOptions = [
   "Accepted",
-  "Rejected",
+  "Rejected"
 ];
 
 const ModRow: React.FC<ModRowProps> = ({ data }) => {
+  
   const [decision, setDecision] = useState(data.decision);
-  const [otherDecision, setOtherPracticeValue] = useState("");
-  //const [claim, setClaim] = useState(data.claim);
-  //const [evidence, setEvidence] = useState(data.evidence);
-
+  
   const handleModDecision = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setDecision(event.target.value);
   };
 
-const handleSubmit = () => {
-  const publishData = {
-    title: data.title,
-    authors: data.authors,
-    source: data.source,
-    pubyear: data.pubyear,
+  const handleSubmit = () => {
+    //event.preventDefault();
 
-    decision: decision === "Accepted" ? otherDecision : decision,
-  };
-
-  axios
-    .post("http://localhost:3032/article/confirmModeration", 
-    publishData)
-    .then((response) => {
-      console.log(response);
+    axios.post("http://localhost:3032/article/confirmModeration", {
+      // Assuming you want to send the entire `data` object
+      data,
+      //decision: decision // Include the decision value
     })
-    .catch((error) => {
-      console.error(error);
+    .then(response => {
+      // Handle the response from the server
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
     });
-};
+  };
 
   return (
     <tr>
@@ -53,8 +47,8 @@ const handleSubmit = () => {
         <input type="text" defaultValue={data.doi} />
       </td>
       <td>
-        <select value={decision} onChange={handleModDecision} defaultValue={"Accepted"}>
-          {decisionOptions.map((option) => (
+        <select value={decision} onChange={handleModDecision}>
+          {SEPracticeOptions.map((option) => (
             <option key={option} value={option}>
               {option}
             </option>
