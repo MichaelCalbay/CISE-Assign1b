@@ -4,9 +4,9 @@
     top: 0;
     flex-direction: row;
     width: 100%;
-    background-color: darkblue;
+    background-color: #44291b;
     align-items: center;
-    color: aliceblue;
+    color: white;
     font-size: 1.5em;
     font-weight: bold;
     transition: top 0.5s;
@@ -37,7 +37,7 @@
         visibility: hidden;
         display: flex;
         flex-direction: column;
-        background-color: darkblue;
+        background-color: #435446;
         position: absolute;
         top: 100%;
         right: 0;

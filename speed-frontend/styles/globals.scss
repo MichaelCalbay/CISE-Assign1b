@@ -23,4 +23,44 @@
     height: 3rem;
     flex-grow: 0;
     font-size: 1.5em;
-    }
+}
+
+body {
+    background-color: #beb8af; 
+    color: #7e4a22; 
+}
+
+h1 {
+    font-size: 50px;
+    text-align: center;
+    margin-bottom: 70px;
+    color: #635f50;
+}
+
+h2 {
+    font-size: 30px;
+    margin-bottom: 30px;
+    color: #332c1b;
+}
+
+// .container {
+//     background-color: #5c6c64; /* Set the background color for containers */
+//     border: 1px solid #ccc; /* Add border and other styles as needed */
+//     padding: 30px;
+//     margin-left: 70px;
+//     margin-right: 70px;
+//   }
+
+//   .center-content {
+//     display: flex;
+//     justify-content: center; /* Horizontally center the content */
+//     align-items: center; /* Vertically center the content */
+//     min-height: 100vh; /* Ensures the content is centered within the viewport height */
+//   }
+
+
+button {
+    background-color: #4c4442;
+    color: white; 
+  }
+
