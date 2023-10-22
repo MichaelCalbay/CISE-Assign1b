@@ -1,16 +1,11 @@
 import { GetStaticProps, NextPage } from "next";
-import SortableTable from "../../components/table/SortableTable";
 import { AnalystInterface } from "../../components/table/AnalystInterface";
 import AnalystTable  from "../../components/table/AnalystTable";
 import axios from "axios";
 
-
-
 type AnalytsProps = {
   articles: AnalystInterface[];
 };
-
-// Import the SERCAnalystRow component
 
 const Articles: NextPage<AnalytsProps> = ({ articles }) => {
   const headers: { key: keyof AnalystInterface; label: string }[] = [
@@ -20,6 +15,7 @@ const Articles: NextPage<AnalytsProps> = ({ articles }) => {
     { key: "pubyear", label: "Publication Year" },
     { key: "claim", label: "Claim" },
     { key: "evidence", label: "Evidence" },
+    { key: "research", label: "Research" },
     { key: "SEPractise", label: "SEPractise" },
   ];
 
