@@ -25,9 +25,9 @@ const headers: { key: keyof ArticlesInterface; label: string }[] = [
 { key: "evidence", label: "Evidence" },
 ];
 return (
-<div className="container">
+<div className="container" style={{marginLeft: '70px', marginRight: '70px'}}>
 <h1>Moderate Submissions Page</h1>
-<p>This page is for moderators to approve or deny </p>
+<p style={{ fontSize: '20px', color: '#332c1b'}}>This page is for moderators to approve or deny articles</p>
 <SortableTable headers={headers} data={articles} />
 </div>
 );

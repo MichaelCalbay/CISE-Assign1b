@@ -1,6 +1,6 @@
 import { GetStaticProps, NextPage } from "next";
 import React, { useState } from "react";
-import SortableTable from "../components/table/SortableTable";
+import SearchTable from "../components/table/SearchTable";
 //import data from "../utils/dummydata.json";
 import axios from "axios";
 
@@ -318,7 +318,7 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
         {filteredArticles.length === 0 ? (
           <p style={{ color: 'red' }}>No articles found with the provided search criteria.</p>
         ) : (
-          <SortableTable headers={headers} data={filteredArticles} visibleColumns={visibleColumns} />
+          <SearchTable headers={headers} data={filteredArticles} visibleColumns={visibleColumns} />
         )}
       </div>
 
