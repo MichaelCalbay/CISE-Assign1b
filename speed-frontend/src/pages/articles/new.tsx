@@ -1,6 +1,6 @@
 import { ChangeEventHandler, SetStateAction, useState } from "react";
 import formStyles from "../../../styles/Form.module.scss";
-import axios from "axios";
+import axios from "axios";  
 import PopupMessage from "../../components/pop-up/PopupMessage";
 const bibtexParse = require("bibtex-parse");
 
@@ -10,12 +10,8 @@ const NewDiscussion = () => {
   const [source, setSource] = useState("");
   const [pubyear, setPubYear] = useState<number>(0);
   const [doi, setDoi] = useState("");
-  const [claim, setClaim] = useState("");
-  const [evidence, setEvidence] = useState("");
   const [bibtexData, setBibtexData] = useState("");
   const [participant, setParticipant] = useState("");
-  const [research, setResearch] = useState("");
-  const [SEPractise, setSEPractise] = useState("");
   //Pop-up message
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState("");
@@ -40,25 +36,17 @@ const NewDiscussion = () => {
       source,
       pubyear,
       doi,
-      claim,
-      evidence,
       participant,
-      research,
-      SEPractise,
     };
 
     //Validate if a field is empty
     if (
       data.title == "" ||
       data.authors.length == 0 ||
-      data.claim == "" ||
       data.source == "" ||
       data.pubyear == 0 ||
       data.doi == "" ||
-      data.evidence == "" ||
-      data.participant == "" ||
-      data.research == "" ||
-      data.SEPractise == ""
+      data.participant == ""
     ) {
       openPopup("Please fill all fields!");
     } else {
@@ -127,13 +115,9 @@ const NewDiscussion = () => {
         setSource(populatedData.source);
         setPubYear(populatedData.pubyear);
         setDoi(populatedData.doi);
-        setClaim(populatedData.claim);
-        setEvidence(populatedData.evidence);
         setParticipant(populatedData.participant);
-        setResearch(populatedData.research);
-        setSEPractise(populatedData.SEPractise);
 
-
+        //Does't need anymore, bibtex feature is just to populate the textfields
         // try {
         //   //Sends data into server-side API
         //   const responseData = await axios.post(
@@ -254,24 +238,6 @@ const NewDiscussion = () => {
             setDoi(event.target.value);
           }}
         />
-        <label htmlFor="claim">Claim:</label>
-        <input
-          className={formStyles.formItem}
-          name="claim"
-          value={claim}
-          onChange={(event) => setClaim(event.target.value)}
-        />
-        <label htmlFor="evidence">Evidence:</label>
-        <input
-          className={formStyles.formItem}
-          type="text"
-          name="evidence"
-          id="evidence"
-          value={evidence}
-          onChange={(event) => {
-            setEvidence(event.target.value);
-          }}
-        />
         <label htmlFor="participant">Participant:</label>
         <input
           className={formStyles.formItem}
@@ -281,28 +247,6 @@ const NewDiscussion = () => {
           value={participant}
           onChange={(event) => {
             setParticipant(event.target.value);
-          }}
-        />
-        <label htmlFor="research">Research:</label>
-        <input
-          className={formStyles.formItem}
-          type="text"
-          name="research"
-          id="research"
-          value={research}
-          onChange={(event) => {
-            setResearch(event.target.value);
-          }}
-        />
-        <label htmlFor="SEPractise">SEPractise:</label>
-        <input
-          className={formStyles.formItem}
-          type="text"
-          name="SEPractise"
-          id="SEPractise"
-          value={SEPractise}
-          onChange={(event) => {
-            setSEPractise(event.target.value);
           }}
         />
         <button

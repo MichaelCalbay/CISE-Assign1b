@@ -22,7 +22,7 @@ let ArticleService = class ArticleService {
         this.articleModel = articleModel;
     }
     async createArticle(articleDto) {
-        const { title, authors, source, pubyear, doi, claim, evidence, participant, research, SEPractise } = articleDto;
+        const { title, authors, source, pubyear, doi, participant, } = articleDto;
         try {
             const article = await this.articleModel.create({
                 title,
@@ -30,11 +30,7 @@ let ArticleService = class ArticleService {
                 source,
                 pubyear,
                 doi,
-                claim,
-                evidence,
                 participant,
-                research,
-                SEPractise
             });
             return article;
         }

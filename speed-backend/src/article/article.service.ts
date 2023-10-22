@@ -1,6 +1,6 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { SuggestedArticle } from './schemas/article.schema';
+import { PublishedArticle, SuggestedArticle } from './schemas/article.schema';
 import { Model } from 'mongoose';
 import { ArticleDto } from './dto/article.dto';
 
@@ -9,6 +9,8 @@ export class ArticleService {
     constructor(
         @InjectModel(SuggestedArticle.name)
         private articleModel: Model<SuggestedArticle>,
+        // @InjectModel(PublishedArticle.name)
+        // private articlePublishedModel: Model<PublishedArticle>,
     ){}
 
     async createArticle(articleDto: ArticleDto) {
@@ -18,11 +20,7 @@ export class ArticleService {
           source,
           pubyear,
           doi,
-          claim,
-          evidence,
           participant,
-          research,
-          SEPractise
         } = articleDto;
       
         try {
@@ -33,11 +31,7 @@ export class ArticleService {
             source,
             pubyear,
             doi,
-            claim,
-            evidence,
             participant,
-            research,
-            SEPractise
           });
       
           // Return the created article as a success response
@@ -57,6 +51,11 @@ export class ArticleService {
         const articles = await this.articleModel.find();
         return  articles
     }
+
+  //   async findPublishedArticle(): Promise<PublishedArticle[]> {
+  //     const articles = await this.articlePublishedModel.find();
+  //     return  articles
+  // }
 }
 
 

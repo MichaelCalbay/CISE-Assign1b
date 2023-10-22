@@ -21,19 +21,7 @@ export class SuggestedArticle {
     doi: string
 
     @Prop()
-    claim: string
-
-    @Prop()
-    evidence: string
-
-    @Prop()
     participant: string
-
-    @Prop()
-    research: string
-
-    @Prop()
-    SEPractise: string
 }
 
 export class ModeratedArticle {

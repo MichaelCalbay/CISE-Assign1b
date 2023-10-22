@@ -37,23 +37,7 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
-], SuggestedArticle.prototype, "claim", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], SuggestedArticle.prototype, "evidence", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
 ], SuggestedArticle.prototype, "participant", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], SuggestedArticle.prototype, "research", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], SuggestedArticle.prototype, "SEPractise", void 0);
 exports.SuggestedArticle = SuggestedArticle = __decorate([
     (0, mongoose_1.Schema)({
         timestamps: true,

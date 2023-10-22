@@ -29,11 +29,7 @@ export declare class SuggestedArticle {
     source: string;
     pubyear: number;
     doi: string;
-    claim: string;
-    evidence: string;
     participant: string;
-    research: string;
-    SEPractise: string;
 }
 export declare class ModeratedArticle {
     title: string;

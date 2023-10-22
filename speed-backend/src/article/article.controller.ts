@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Get } from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { ArticleDto } from './dto/article.dto';
-import { SuggestedArticle } from './schemas/article.schema';
+import { PublishedArticle, SuggestedArticle } from './schemas/article.schema';
 
 @Controller('article')
 export class ArticleController {
@@ -18,4 +18,9 @@ export class ArticleController {
     async getAllArticles(): Promise<SuggestedArticle[]> {
         return this.articleService.findAll();
     }
+
+    // @Get('/published')
+    // async getPublishedArticles(): Promise<PublishedArticle[]> {
+    //     return this.articleService.findPublishedArticle();
+    // }
 }
