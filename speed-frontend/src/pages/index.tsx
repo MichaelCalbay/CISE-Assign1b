@@ -221,6 +221,8 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
           {/* Dropdown list for SE practices and other search elements */}
       </form>
 
+      <h2>Search an Article</h2>    
+
       {/* Dropdown list for SE practices */}
       <div className="search-bar">
         <div style={{ marginTop: '0px', marginBottom: '0px' }}>

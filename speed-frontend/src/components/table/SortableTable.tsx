@@ -7,7 +7,7 @@ interface SortableTableProps {
 
 const SortableTable: React.FC<SortableTableProps> = ({ headers, data,}) => (
   <table style={{ border: '1px solid darkgrey', borderCollapse: 'collapse' }}>
-    <thead style={{ backgroundColor: '#ad6b3a', color: 'white' }}>
+    <thead style={{ backgroundColor: '#a4703c', color: 'white' }}>
       <tr>
         {headers.map((header) => (
             <th style={{ border: '1px solid darkgrey', padding: '8px' }} key={header.key}>{header.label}</th>

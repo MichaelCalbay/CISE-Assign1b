@@ -8,7 +8,7 @@ interface SearchTableProps {
 
 const SearchTable: React.FC<SearchTableProps> = ({ headers, data, visibleColumns }) => (
   <table style={{ border: '1px solid darkgrey', borderCollapse: 'collapse' }}>
-    <thead style={{ backgroundColor: '#ad6b3a', color: 'white' }}>
+    <thead style={{ backgroundColor: '#a4703c', color: 'white' }}>
       <tr>
         {headers
           .filter((header) => visibleColumns.includes(header.key)) // Filter headers based on visibility
