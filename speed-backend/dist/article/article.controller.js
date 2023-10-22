@@ -26,6 +26,9 @@ let ArticleController = class ArticleController {
     async getAllArticles() {
         return this.articleService.findAll();
     }
+    async getModeratedArticles() {
+        return this.articleService.findAllModerated();
+    }
 };
 exports.ArticleController = ArticleController;
 __decorate([
@@ -41,6 +44,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ArticleController.prototype, "getAllArticles", null);
+__decorate([
+    (0, common_1.Get)('/moderated'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ArticleController.prototype, "getModeratedArticles", null);
 exports.ArticleController = ArticleController = __decorate([
     (0, common_1.Controller)('article'),
     __metadata("design:paramtypes", [article_service_1.ArticleService])

@@ -22,14 +22,16 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
-import { SuggestedArticle } from './schemas/article.schema';
+import { SuggestedArticle, ModeratedArticle } from './schemas/article.schema';
 import { Model } from 'mongoose';
 import { ArticleDto } from './dto/article.dto';
 export declare class ArticleService {
     private articleModel;
-    constructor(articleModel: Model<SuggestedArticle>);
+    private moderatedArticleModel;
+    constructor(articleModel: Model<SuggestedArticle>, moderatedArticleModel: Model<SuggestedArticle>);
     createArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, SuggestedArticle> & SuggestedArticle & {
         _id: import("mongoose").Types.ObjectId;
     }>;
     findAll(): Promise<SuggestedArticle[]>;
+    findAllModerated(): Promise<ModeratedArticle[]>;
 }

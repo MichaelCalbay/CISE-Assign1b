@@ -20,20 +20,20 @@ export class SuggestedArticle {
     @Prop()
     doi: string
 
-    @Prop()
-    claim: string
+    // @Prop()
+    // claim: string
 
-    @Prop()
-    evidence: string
+    // @Prop()
+    // evidence: string
 
     @Prop()
     participant: string
 
-    @Prop()
-    research: string
+    // @Prop()
+    // research: string
 
-    @Prop()
-    SEPractise: string
+    // @Prop()
+    // SEPractise: string
 }
 
 export class ModeratedArticle {
@@ -52,20 +52,20 @@ export class ModeratedArticle {
     @Prop()
     doi: string
 
-    @Prop()
-    claim: string
+    // @Prop()
+    // claim: string
 
-    @Prop()
-    evidence: string
+    // @Prop()
+    // evidence: string
 
     @Prop()
     participant: string
 
-    @Prop()
-    research: string
+    // @Prop()
+    // research: string
 
-    @Prop()
-    SEPractise: string
+    // @Prop()
+    // SEPractise: string
 }
 
 export class PublishedArticle {

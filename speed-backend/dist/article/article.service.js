@@ -18,11 +18,12 @@ const mongoose_1 = require("@nestjs/mongoose");
 const article_schema_1 = require("./schemas/article.schema");
 const mongoose_2 = require("mongoose");
 let ArticleService = class ArticleService {
-    constructor(articleModel) {
+    constructor(articleModel, moderatedArticleModel) {
         this.articleModel = articleModel;
+        this.moderatedArticleModel = moderatedArticleModel;
     }
     async createArticle(articleDto) {
-        const { title, authors, source, pubyear, doi, claim, evidence, participant, research, SEPractise } = articleDto;
+        const { title, authors, source, pubyear, doi, participant } = articleDto;
         try {
             const article = await this.articleModel.create({
                 title,
@@ -30,11 +31,7 @@ let ArticleService = class ArticleService {
                 source,
                 pubyear,
                 doi,
-                claim,
-                evidence,
-                participant,
-                research,
-                SEPractise
+                participant
             });
             return article;
         }
@@ -47,11 +44,17 @@ let ArticleService = class ArticleService {
         const articles = await this.articleModel.find();
         return articles;
     }
+    async findAllModerated() {
+        const articles = await this.moderatedArticleModel.find();
+        return articles;
+    }
 };
 exports.ArticleService = ArticleService;
 exports.ArticleService = ArticleService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(article_schema_1.SuggestedArticle.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(1, (0, mongoose_1.InjectModel)(article_schema_1.ModeratedArticle.name)),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model])
 ], ArticleService);
 //# sourceMappingURL=article.service.js.map

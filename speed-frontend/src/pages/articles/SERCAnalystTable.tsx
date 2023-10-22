@@ -1,59 +1,62 @@
-import React, { useEffect, useState } from 'react';
+import { GetStaticProps, NextPage } from "next";
+import SortableTable from "../../components/table/SortableTable";
+import { AnalystInterface } from "../../components/table/AnalystInterface";
+import AnalystTable  from "../../components/table/AnalystTable";
 import axios from "axios";
 
-const SERCAnalystTable: React.FC = () => {
-    const [data, setData] = useState([]);
-    //Need to put API/MongoDB URI here so I can link.
-    const apiUrl = '/api/data';
 
-    useEffect(() => {
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => setData(data))
-            .catch(error => console.error(error));
-    }, []); 
 
-    return (
-        <div>
-            <h1>SERC-Analyst QUEUE</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>FUCK</th>
-                        <th>THIS</th>
-                        <th>STUPID</th>
-                        <th>PAPER ON GOD FRFR</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.map((item, index) => (
-                        <tr key={index}>
-                            <td>NEED DATA</td>
-                            <td>URI HERE FROM</td>
-                            <td>MODERATED TABLES</td>
-                            <td>TO POPULATE</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    );
+type AnalytsProps = {
+  articles: AnalystInterface[];
 };
 
-export default SERCAnalystTable;
+// Import the SERCAnalystRow component
+
+const Articles: NextPage<AnalytsProps> = ({ articles }) => {
+  const headers: { key: keyof AnalystInterface; label: string }[] = [
+    { key: "title", label: "Title" },
+    { key: "authors", label: "Authors" },
+    { key: "source", label: "Source" },
+    { key: "pubyear", label: "Publication Year" },
+    { key: "claim", label: "Claim" },
+    { key: "evidence", label: "Evidence" },
+    { key: "SEPractise", label: "SEPractise" },
+  ];
+
+  return (
+    <div className="container">
+      <h1>SERC-Analyst QUEUE</h1>
+      <table>
+        <thead>
+          <tr>
+            {headers.map((header) => (
+              <th key={header.key}>{header.label}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {articles.map((article) => (
+            <AnalystTable key={article.id} data={article} />
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
 
 
+export const getStaticProps: GetStaticProps = async (context) => {
+  //https request to REST API
+  const getData = await axios.get('http://localhost:3032/article/moderated');
+
+  console.log(getData);
 
 
-
-//This is a placeholder
-// const Analysis = () => {
-//     return (
-//       <div>
-//         <h1>Articles for Analysis</h1>
-//         <p>This page contains a list of articles which are analysed or yet to be analysed</p>
-//       </div>
-//     );
-//   };
-  
-//   export default Analysis;
+  //Returning articles
+  return {
+    props: {
+      articles: getData.data
+    },
+  };
+};
+export default Articles;

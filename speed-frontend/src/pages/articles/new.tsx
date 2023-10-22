@@ -10,12 +10,12 @@ const NewDiscussion = () => {
   const [source, setSource] = useState("");
   const [pubyear, setPubYear] = useState<number>(0);
   const [doi, setDoi] = useState("");
-  const [claim, setClaim] = useState("");
-  const [evidence, setEvidence] = useState("");
+  // const [claim, setClaim] = useState("");
+  // const [evidence, setEvidence] = useState("");
   const [bibtexData, setBibtexData] = useState("");
   const [participant, setParticipant] = useState("");
-  const [research, setResearch] = useState("");
-  const [SEPractise, setSEPractise] = useState("");
+  // const [research, setResearch] = useState("");
+  // const [SEPractise, setSEPractise] = useState("");
   //Pop-up message
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState("");
@@ -40,25 +40,25 @@ const NewDiscussion = () => {
       source,
       pubyear,
       doi,
-      claim,
-      evidence,
-      participant,
-      research,
-      SEPractise,
+      // claim,
+      // evidence,
+      participant
+      // research,
+      // SEPractise,
     };
 
     //Validate if a field is empty
     if (
       data.title == "" ||
       data.authors.length == 0 ||
-      data.claim == "" ||
+      // data.claim == "" ||
       data.source == "" ||
       data.pubyear == 0 ||
       data.doi == "" ||
-      data.evidence == "" ||
-      data.participant == "" ||
-      data.research == "" ||
-      data.SEPractise == ""
+      // data.evidence == "" ||
+      data.participant == ""
+      // data.research == "" ||
+      // data.SEPractise == ""
     ) {
       openPopup("Please fill all fields!");
     } else {
@@ -114,24 +114,32 @@ const NewDiscussion = () => {
           source: entry.SOURCE,
           pubyear: entry.PUBYEAR,
           doi: entry.DOI,
-          claim: entry.CLAIM,
-          evidence: entry.EVIDENCE,
-          participant: entry.PARTICIPANT,
-          research: entry.RESEARCH,
-          SEPractise: entry.SEPRACTISE
+          // claim: entry.CLAIM,
+          // evidence: entry.EVIDENCE,
+          participant: entry.PARTICIPANT
+          // research: entry.RESEARCH,
+          // SEPractise: entry.SEPRACTISE
         };
 
-        try {
-          //Sends data into server-side API
-          const responseData = await axios.post(
-            "http://localhost:3032/article/create",
-            populatedData
-          );
+        setTitle(entry.TITLE)
+        addAuthor()
+        setAuthors([entry.AUTHORS])
+        setSource(entry.SOURCE)
+        setPubYear(entry.PUBYEAR)
+        setDoi(entry.DOI)
+        setParticipant(entry.PARTICIPANT)
 
-          openPopup('Article has been submitted')
-        } catch (error) {
-          console.log("Error: ", error);
-        }
+      //   try {
+      //     //Sends data into server-side API
+      //     const responseData = await axios.post(
+      //       "http://localhost:3032/article/create",
+      //       populatedData
+      //     );
+
+      //     openPopup('Article has been submitted')
+      //   } catch (error) {
+      //     console.log("Error: ", error);
+      //   }
       });
     } else {
       // Handle the case when no BibTeX data is available
@@ -241,14 +249,14 @@ const NewDiscussion = () => {
             setDoi(event.target.value);
           }}
         />
-        <label htmlFor="claim">Claim:</label>
+        {/* <label htmlFor="claim">Claim:</label>
         <input
           className={formStyles.formItem}
           name="claim"
           value={claim}
           onChange={(event) => setClaim(event.target.value)}
-        />
-        <label htmlFor="evidence">Evidence:</label>
+        /> */}
+        {/* <label htmlFor="evidence">Evidence:</label>
         <input
           className={formStyles.formItem}
           type="text"
@@ -258,7 +266,7 @@ const NewDiscussion = () => {
           onChange={(event) => {
             setEvidence(event.target.value);
           }}
-        />
+        /> */}
         <label htmlFor="participant">Participant:</label>
         <input
           className={formStyles.formItem}
@@ -270,7 +278,7 @@ const NewDiscussion = () => {
             setParticipant(event.target.value);
           }}
         />
-        <label htmlFor="research">Research:</label>
+        {/* <label htmlFor="research">Research:</label>
         <input
           className={formStyles.formItem}
           type="text"
@@ -291,7 +299,7 @@ const NewDiscussion = () => {
           onChange={(event) => {
             setSEPractise(event.target.value);
           }}
-        />
+        /> */}
         <button
           className={formStyles.formItem}
           type="submit"
