@@ -5,11 +5,13 @@ interface SortableTableProps {
   data: any[];
 }
 
-const SortableTable: React.FC<SortableTableProps> = ({ headers, data,}) => (
+const SearchTable: React.FC<SortableTableProps> = ({ headers, data }) => (
   <table style={{ border: '1px solid darkgrey', borderCollapse: 'collapse' }}>
     <thead style={{ backgroundColor: '#a4703c', color: 'white' }}>
       <tr>
-        {headers.map((header) => (
+        {headers
+
+          .map((header) => (
             <th style={{ border: '1px solid darkgrey', padding: '8px' }} key={header.key}>{header.label}</th>
           ))}
       </tr>
@@ -17,8 +19,11 @@ const SortableTable: React.FC<SortableTableProps> = ({ headers, data,}) => (
     <tbody style={{ backgroundColor: '#ded7cd' }}>
       {data.map((row, i) => (
         <tr key={i}>
-          {headers.map((header) => (
-              <td style={{ border: '1px solid darkgrey', padding: '8px' }} key={header.key}>{row[header.key]}</td>
+          {headers
+            .map((header) => (
+              <td style={{ border: '1px solid darkgrey', padding: '8px' }} key={header.key}>
+                {header.key === 'authors' && Array.isArray(row[header.key]) ? row[header.key].join(', ') : row[header.key]}
+              </td>
             ))
           }
         </tr>
@@ -27,4 +32,4 @@ const SortableTable: React.FC<SortableTableProps> = ({ headers, data,}) => (
   </table>
 );
 
-export default SortableTable;
+export default SearchTable;

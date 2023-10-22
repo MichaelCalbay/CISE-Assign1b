@@ -23,7 +23,9 @@ const SearchTable: React.FC<SearchTableProps> = ({ headers, data, visibleColumns
           {headers
             .filter((header) => visibleColumns.includes(header.key)) // Filter data based on visibility
             .map((header) => (
-              <td style={{ border: '1px solid darkgrey', padding: '8px' }} key={header.key}>{row[header.key]}</td>
+              <td style={{ border: '1px solid darkgrey', padding: '8px' }} key={header.key}>
+                {header.key === 'authors' ? row[header.key].join(', ') : row[header.key]}
+              </td>
             ))
           }
         </tr>
