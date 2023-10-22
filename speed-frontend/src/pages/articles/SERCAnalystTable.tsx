@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
+//import React from "react";
+import { useForm } from "react-hook-form";
 import axios from "axios";
+
+export default function SubmissionForm() {
+    const { register, handleSubmit } = useForm();
+
+    const onSubmit = (data: any) => JSON.stringify(data);
+    
 
 const SERCAnalystTable: React.FC = () => {
     const [data, setData] = useState([]);
@@ -26,21 +34,25 @@ const SERCAnalystTable: React.FC = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((item, index) => (
-                        <tr key={index}>
-                            <td>NEED DATA</td>
-                            <td>URI HERE FROM</td>
-                            <td>MODERATED TABLES</td>
-                            <td>TO POPULATE</td>
+                    <tr>
+                            <td>NEED DATA 
+                                <form onSubmit={handleSubmit(onSubmit)}>
+                                <input {...register("title")} placeholder="Title" />
+                                <input type="submit" />
+                                </form>
+                            </td>
+                            <td>URI HERE FROM </td>
+                            <td>MODERATED TABLES </td>
+                            <td>TO POPULATE </td>
                         </tr>
-                    ))}
+                   
                 </tbody>
-            </table>
+            </table>            
         </div>
     );
 };
-
-export default SERCAnalystTable;
+}
+//export default SERCAnalystTable;
 
 
 

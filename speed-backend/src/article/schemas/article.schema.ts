@@ -35,6 +35,9 @@ export class SuggestedArticle {
 
     @Prop()
     SEPractise: string
+
+    @Prop()
+    Decision: string
 }
 
 export class ModeratedArticle {
@@ -67,6 +70,9 @@ export class ModeratedArticle {
 
     @Prop()
     SEPractise: string
+
+    @Prop()
+    Decision: string
 }
 
 export class PublishedArticle {
@@ -99,6 +105,9 @@ export class PublishedArticle {
 
     @Prop()
     SEPractise: string
+
+    @Prop()
+    Decision: string
 }
 
 export const SggstArticleSchema = SchemaFactory.createForClass(SuggestedArticle);
