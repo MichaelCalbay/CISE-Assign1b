@@ -41,5 +41,16 @@ export declare class ArticleService {
     }>;
     findAll(): Promise<SuggestedArticle[]>;
     findSuggestedArticle(): Promise<SuggestedArticle[]>;
+import { PublishedArticle, SuggestedArticle } from './schemas/article.schema';
+import { Model } from 'mongoose';
+import { ArticleDto } from './dto/article.dto';
+export declare class ArticleService {
+    private articleModel;
+    private articlePublishedModel;
+    constructor(articleModel: Model<SuggestedArticle>, articlePublishedModel: Model<PublishedArticle>);
+    createArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, SuggestedArticle> & SuggestedArticle & {
+        _id: import("mongoose").Types.ObjectId;
+    }>;
+    findAll(): Promise<SuggestedArticle[]>;
     findPublishedArticle(): Promise<PublishedArticle[]>;
 }

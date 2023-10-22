@@ -49,9 +49,9 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], ArticleController.prototype, "getArticles", null);
+], ArticleController.prototype, "getAllArticles", null);
 __decorate([
-    (0, common_1.Get)(),
+    (0, common_1.Get)('/published'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)

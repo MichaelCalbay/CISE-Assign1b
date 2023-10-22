@@ -99,6 +99,10 @@ let ArticleService = class ArticleService {
         const articles = await this.articlePublishedModel.find();
         return articles;
     }
+    async findPublishedArticle() {
+        const articles = await this.articlePublishedModel.find();
+        return articles;
+    }
 };
 exports.ArticleService = ArticleService;
 exports.ArticleService = ArticleService = __decorate([

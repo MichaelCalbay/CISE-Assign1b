@@ -121,17 +121,30 @@ const NewDiscussion = () => {
           SEPractise: entry.SEPRACTISE
         };
 
-        try {
-          //Sends data into server-side API
-          const responseData = await axios.post(
-            "http://localhost:3032/article/create",
-            populatedData
-          );
+        setTitle(populatedData.title);
+        addAuthor();
+        setAuthors([populatedData.authors]);
+        setSource(populatedData.source);
+        setPubYear(populatedData.pubyear);
+        setDoi(populatedData.doi);
+        setClaim(populatedData.claim);
+        setEvidence(populatedData.evidence);
+        setParticipant(populatedData.participant);
+        setResearch(populatedData.research);
+        setSEPractise(populatedData.SEPractise);
 
-          openPopup('Article has been submitted')
-        } catch (error) {
-          console.log("Error: ", error);
-        }
+
+        // try {
+        //   //Sends data into server-side API
+        //   const responseData = await axios.post(
+        //     "http://localhost:3032/article/create",
+        //     populatedData
+        //   );
+
+        //   openPopup('Article has been submitted')
+        // } catch (error) {
+        //   console.log("Error: ", error);
+        // }
       });
     } else {
       // Handle the case when no BibTeX data is available
@@ -157,13 +170,32 @@ const NewDiscussion = () => {
   // return the full form & bibtex
   return (
     <div className="container">
-      <h1>Attach Bibtex Articles</h1>
-      <input type="file" accept=".bib" onChange={handleFileChange} />
-      <button onClick={parseBibtex}>Submit BibTeX</button>
-      <h1>Suggest an Article</h1>
+      <h1>Submit Articles Page</h1>    
+
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+  <div className="Form" style={{ border: '1px solid #ccc', padding: '30px', width: '800px', backgroundColor: '#ded7cd' }}>
+
+      <div className="centered-content"> 
+      <h2>Attach Bibtex Articles</h2>
+
+      <div className="row" style={{ marginBottom: '70px' }}>
+        <input type="file" accept=".bib" onChange={handleFileChange} />
+        <button
+          onClick={parseBibtex}
+          style={{
+            padding: '10px 20px', 
+          }}
+        >
+          Enter
+        </button>
+      </div>
+
+      <h2>Suggest an Article</h2>
+
       <div className={formStyles.form} onSubmit={submitNewArticle}>
-        <label htmlFor="title">Title:</label>
+        <label htmlFor="title" style={{ width: '100px', textAlign: 'left', marginTop: '30px' }}>Title:</label>
         <input
+          style={{ width: '500px' }}
           className={formStyles.formItem}
           type="text"
           name="title"
@@ -173,7 +205,7 @@ const NewDiscussion = () => {
             setTitle(event.target.value);
           }}
         />
-        <label htmlFor="author">Authors:</label>
+        <label htmlFor="author" style={{ width: '100px', textAlign: 'left' }}>Authors:</label>
         {authors.map((author, index) => {
           return (
             <div key={`author ${index}`} className={formStyles.arrayItem}>
@@ -198,12 +230,12 @@ const NewDiscussion = () => {
         <button
           onClick={() => addAuthor()}
           className={formStyles.buttonItem}
-          style={{ marginLeft: "auto" }}
+          style={{ marginLeft: "auto", marginBottom: '30px' }}
           type="button"
         >
           +
         </button>
-        <label htmlFor="source">Source:</label>
+        <label htmlFor="source" style={{ width: '100px', textAlign: 'left' }}>Source:</label>
         <input
           className={formStyles.formItem}
           type="text"
@@ -214,7 +246,7 @@ const NewDiscussion = () => {
             setSource(event.target.value);
           }}
         />
-        <label htmlFor="pubYear">Publication Year:</label>
+        <label htmlFor="pubYear" style={{ width: '100px', textAlign: 'left' }}>Publication Year:</label>
         <input
           className={formStyles.formItem}
           type="number"
@@ -230,7 +262,7 @@ const NewDiscussion = () => {
             }
           }}
         />
-        <label htmlFor="doi">DOI:</label>
+        <label htmlFor="doi" style={{ width: '100px', textAlign: 'left' }}>DOI:</label>
         <input
           className={formStyles.formItem}
           type="text"
@@ -241,14 +273,14 @@ const NewDiscussion = () => {
             setDoi(event.target.value);
           }}
         />
-        <label htmlFor="claim">Claim:</label>
+        <label htmlFor="claim" style={{ width: '100px', textAlign: 'left' }}>Claim:</label>
         <input
           className={formStyles.formItem}
           name="claim"
           value={claim}
           onChange={(event) => setClaim(event.target.value)}
         />
-        <label htmlFor="evidence">Evidence:</label>
+        <label htmlFor="evidence" style={{ width: '100px', textAlign: 'left' }}>Evidence:</label>
         <input
           className={formStyles.formItem}
           type="text"
@@ -259,7 +291,7 @@ const NewDiscussion = () => {
             setEvidence(event.target.value);
           }}
         />
-        <label htmlFor="participant">Participant:</label>
+        <label htmlFor="participant" style={{ width: '100px', textAlign: 'left' }}>Participant:</label>
         <input
           className={formStyles.formItem}
           type="text"
@@ -270,7 +302,7 @@ const NewDiscussion = () => {
             setParticipant(event.target.value);
           }}
         />
-        <label htmlFor="research">Research:</label>
+        <label htmlFor="research" style={{ width: '100px', textAlign: 'left' }}>Research:</label>
         <input
           className={formStyles.formItem}
           type="text"
@@ -281,7 +313,7 @@ const NewDiscussion = () => {
             setResearch(event.target.value);
           }}
         />
-        <label htmlFor="SEPractise">SEPractise:</label>
+        <label htmlFor="SEPractise" style={{ width: '100px', textAlign: 'left' }}>SE Practise:</label>
         <input
           className={formStyles.formItem}
           type="text"
@@ -294,6 +326,7 @@ const NewDiscussion = () => {
         />
         <button
           className={formStyles.formItem}
+          style={{ width: '150px', marginLeft: 'auto'  }}
           type="submit"
           onClick={submitNewArticle}
         >
@@ -307,6 +340,9 @@ const NewDiscussion = () => {
           />
         </div>
       </div>
+    </div>
+    </div>
+    </div>
     </div>
   );
 };
