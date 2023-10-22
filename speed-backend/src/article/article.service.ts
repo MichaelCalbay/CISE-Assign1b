@@ -127,10 +127,10 @@ export class ArticleService {
         } catch (error) {
           // Handle any errors that may occur during the creation
           // Log the error for debugging
-          console.error('Error creating article:', error);
+          console.error('Error confirming article:', error);
       
           // You can throw a custom error, return an error response, or handle the error as needed
-          throw new HttpException('Unable to create article', HttpStatus.INTERNAL_SERVER_ERROR);
+          throw new HttpException('Unable to confirm article', HttpStatus.INTERNAL_SERVER_ERROR);
         }
       }
 

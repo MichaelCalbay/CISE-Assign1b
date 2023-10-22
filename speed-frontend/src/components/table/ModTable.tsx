@@ -26,7 +26,7 @@ const ModRow: React.FC<ModRowProps> = ({ data }) => {
     axios.post("http://localhost:3032/article/confirmModeration", {
       // Assuming you want to send the entire `data` object
       data,
-      decision: decision // Include the decision value
+      //decision: decision // Include the decision value
     })
     .then(response => {
       // Handle the response from the server
