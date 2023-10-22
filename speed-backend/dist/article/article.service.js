@@ -83,8 +83,8 @@ let ArticleService = class ArticleService {
             return article;
         }
         catch (error) {
-            console.error('Error creating article:', error);
-            throw new common_1.HttpException('Unable to create article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+            console.error('Error confirming article:', error);
+            throw new common_1.HttpException('Unable to confirm article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     async findAll() {
@@ -93,10 +93,6 @@ let ArticleService = class ArticleService {
     }
     async findSuggestedArticle() {
         const articles = await this.articleSuggestedModel.find();
-        return articles;
-    }
-    async findPublishedArticle() {
-        const articles = await this.articlePublishedModel.find();
         return articles;
     }
     async findPublishedArticle() {

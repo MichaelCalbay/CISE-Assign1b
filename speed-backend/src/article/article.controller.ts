@@ -20,7 +20,7 @@ export class ArticleController {
         return this.articleService.findAll();
     }
 
-    @Get()
+    @Get('/published')
     async getPublishedArticles(): Promise<PublishedArticle[]> {
         return this.articleService.findPublishedArticle();
     }
