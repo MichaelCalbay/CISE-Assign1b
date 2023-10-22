@@ -26,7 +26,7 @@
 }
 
 body {
-    background-color: #beb8af; 
+    background-color: #e7e7e7; 
     color: #7e4a22; 
 }
 
@@ -34,13 +34,16 @@ h1 {
     font-size: 50px;
     text-align: center;
     margin-bottom: 70px;
-    color: #635f50;
+    //color: #701f03;
+    color: #4c4c4c;
 }
 
 h2 {
     font-size: 30px;
+    margin-top: 0px;
     margin-bottom: 30px;
-    color: #332c1b;
+    //color: #944222;
+    color: #613a26;
 }
 
 button {
@@ -48,3 +51,12 @@ button {
     color: white; 
   }
 
+  .centered-content {
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Center content horizontally */
+    text-align: center; /* Center text within elements */
+    min-height: 100vh; /* Ensure content is centered within the viewport height */
+  }
+
+  

@@ -217,10 +217,9 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
       <h1>Articles Index Page</h1>    
 
       <div className="search-sort-box" style={{ border: '1px solid #ccc', padding: '20px', marginLeft: '70px', marginRight: '70px',backgroundColor: '#ded7cd' }}>
-      <form onSubmit={handleSearchSubmit}>
-          {/* Dropdown list for SE practices and other search elements */}
-      </form>
+      <h2>Search an Article</h2>    
 
+      <form onSubmit={handleSearchSubmit}> 
       {/* Dropdown list for SE practices */}
       <div className="search-bar">
         <div style={{ marginTop: '0px', marginBottom: '0px' }}>
@@ -267,8 +266,9 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
             />
           </p>
         </div>
-        <button type="submit">Enter</button>
+        <button type="submit" onClick={handleSearchSubmit}>Enter</button>
       </div>
+      </form>
 
       <form onSubmit={handleShowAllArticles}>
         <div style={{ marginTop: '10px' }}>
