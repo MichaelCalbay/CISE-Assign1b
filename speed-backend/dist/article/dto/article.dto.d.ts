@@ -9,5 +9,4 @@ export declare class ArticleDto {
     readonly participant: string;
     readonly research: string;
     readonly SEPractise: string;
-    readonly decision: string;
 }
