@@ -18,14 +18,15 @@ const mongoose_1 = require("@nestjs/mongoose");
 const article_schema_1 = require("./schemas/article.schema");
 const mongoose_2 = require("mongoose");
 let ArticleService = class ArticleService {
-    constructor(articleModel, articlePublishedModel) {
-        this.articleModel = articleModel;
+    constructor(articleSuggestedModel, articlePublishedModel, articleModeratedModel) {
+        this.articleSuggestedModel = articleSuggestedModel;
         this.articlePublishedModel = articlePublishedModel;
+        this.articleModeratedModel = articleModeratedModel;
     }
     async createArticle(articleDto) {
-        const { title, authors, source, pubyear, doi, claim, evidence, participant, research, SEPractise } = articleDto;
+        const { title, authors, source, pubyear, doi, claim, evidence, participant, research, SEPractise, decision } = articleDto;
         try {
-            const article = await this.articleModel.create({
+            const article = await this.articleModeratedModel.create({
                 title,
                 authors,
                 source,
@@ -35,7 +36,8 @@ let ArticleService = class ArticleService {
                 evidence,
                 participant,
                 research,
-                SEPractise
+                SEPractise,
+                decision
             });
             return article;
         }
@@ -44,8 +46,57 @@ let ArticleService = class ArticleService {
             throw new common_1.HttpException('Unable to create article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    async editSuggestedArticle(articleDto) {
+        const { title, authors, source, pubyear, doi, claim, evidence, participant, research, SEPractise, decision } = articleDto;
+        try {
+            const article = await this.articlePublishedModel.create({
+                title,
+                authors,
+                source,
+                pubyear,
+                doi,
+                claim,
+                evidence,
+                participant,
+                research,
+                SEPractise,
+                decision
+            });
+            return article;
+        }
+        catch (error) {
+            console.error('Error creating article:', error);
+            throw new common_1.HttpException('Unable to create article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    async confirmModeration(articleDto) {
+        const { title, authors, source, pubyear, doi, decision } = articleDto;
+        try {
+            const article = await this.articleModeratedModel.create({
+                title,
+                authors,
+                source,
+                pubyear,
+                doi,
+                decision
+            });
+            return article;
+        }
+        catch (error) {
+            console.error('Error confirming article:', error);
+            throw new common_1.HttpException('Unable to confirm article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     async findAll() {
-        const articles = await this.articleModel.find();
+        const articles = await this.articlePublishedModel.find();
+        return articles;
+    }
+    async findSuggestedArticle() {
+        const articles = await this.articleSuggestedModel.find();
+        return articles;
+    }
+    async findPublishedArticle() {
+        const articles = await this.articlePublishedModel.find();
         return articles;
     }
     async findPublishedArticle() {
@@ -58,7 +109,9 @@ exports.ArticleService = ArticleService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(article_schema_1.SuggestedArticle.name)),
     __param(1, (0, mongoose_1.InjectModel)(article_schema_1.PublishedArticle.name)),
+    __param(2, (0, mongoose_1.InjectModel)(article_schema_1.ModeratedArticle.name)),
     __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model,
         mongoose_2.Model])
 ], ArticleService);
 //# sourceMappingURL=article.service.js.map
