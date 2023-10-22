@@ -46,7 +46,6 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
 
   );
   const [filteredArticles, setFilteredArticles] = useState(articles); // Initialize with all articles
-  
   const handleDropdownChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedOptionValue = event.target.value as keyof ArticlesInterface;
     setSelectedOption(selectedOptionValue); // Update the selected value in the dropdown
