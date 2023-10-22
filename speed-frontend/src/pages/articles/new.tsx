@@ -6,7 +6,7 @@ const bibtexParse = require("bibtex-parse");
 
 const NewDiscussion = () => {
   const [title, setTitle] = useState("");
-  const [authors, setAuthors] = useState< []>([]);
+  const [authors, setAuthors] = useState<string[]>([]);
   const [source, setSource] = useState("");
   const [pubyear, setPubYear] = useState<number>(0);
   const [doi, setDoi] = useState("");
