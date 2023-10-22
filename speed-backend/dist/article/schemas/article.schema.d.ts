@@ -34,6 +34,7 @@ export declare class SuggestedArticle {
     participant: string;
     research: string;
     SEPractise: string;
+    Decision: string;
 }
 export declare class ModeratedArticle {
     title: string;
@@ -46,6 +47,7 @@ export declare class ModeratedArticle {
     participant: string;
     research: string;
     SEPractise: string;
+    Decision: string;
 }
 export declare class PublishedArticle {
     title: string;
@@ -58,6 +60,7 @@ export declare class PublishedArticle {
     participant: string;
     research: string;
     SEPractise: string;
+    Decision: string;
 }
 export declare const SggstArticleSchema: import("mongoose").Schema<SuggestedArticle, import("mongoose").Model<SuggestedArticle, any, any, any, import("mongoose").Document<unknown, any, SuggestedArticle> & SuggestedArticle & {
     _id: import("mongoose").Types.ObjectId;

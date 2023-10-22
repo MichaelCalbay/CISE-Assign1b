@@ -54,6 +54,10 @@ __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], SuggestedArticle.prototype, "SEPractise", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], SuggestedArticle.prototype, "Decision", void 0);
 exports.SuggestedArticle = SuggestedArticle = __decorate([
     (0, mongoose_1.Schema)({
         timestamps: true,
@@ -102,6 +106,10 @@ __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], ModeratedArticle.prototype, "SEPractise", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], ModeratedArticle.prototype, "Decision", void 0);
 class PublishedArticle {
 }
 exports.PublishedArticle = PublishedArticle;
@@ -145,6 +153,10 @@ __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], PublishedArticle.prototype, "SEPractise", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], PublishedArticle.prototype, "Decision", void 0);
 exports.SggstArticleSchema = mongoose_1.SchemaFactory.createForClass(SuggestedArticle);
 exports.ModArticleSchema = mongoose_1.SchemaFactory.createForClass(ModeratedArticle);
 exports.ArticleSchema = mongoose_1.SchemaFactory.createForClass(PublishedArticle);

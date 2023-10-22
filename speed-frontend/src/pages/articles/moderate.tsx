@@ -1,50 +1,48 @@
 import { GetStaticProps, NextPage } from "next";
-import React from "react";
-import { useForm } from "react-hook-form";
-import SortableTable from "../../components/table/SortableTable";
-//import data from "../utils/dummydata.json";
+//import SortableTable from "../../components/table/SortableTable";
+import { ModInterface } from "../../components/table/ModInterface";
+import AnalystTable  from "../../components/table/ModTable";
 import axios from "axios";
 
-interface ArticlesInterface {
-  id: string;
-  title: string;
-  authors: string;
-  source: string;
-  pubyear: string;
-  doi: string;
-//   claim: string;
-//   evidence: string;
-  participant: string;
-  research: string;
-//   SEPractise: string;
-}
 
-type ArticlesProps = {
-  articles: ArticlesInterface[];
+
+type AnalytsProps = {
+  articles: ModInterface[];
 };
 
-const Articles: NextPage<ArticlesProps> = ({ articles }) => {
-  const headers: { key: keyof ArticlesInterface; label: string }[] = [
+// Import the SERCAnalystRow component
+
+const Articles: NextPage<AnalytsProps> = ({ articles }) => {
+  const headers: { key: keyof ModInterface; label: string }[] = [
     { key: "title", label: "Title" },
     { key: "authors", label: "Authors" },
     { key: "source", label: "Source" },
     { key: "pubyear", label: "Publication Year" },
     { key: "doi", label: "DOI" },
-    // { key: "claim", label: "Claim" },
-    // { key: "evidence", label: "Evidence" },
-    { key: "participant", label: "Participant" },
-    { key: "research", label: "Research" },
-    // { key: "SEPractise", label: "SEPractise" },
+    { key: "decision", label: "decision" },
   ];
+
   return (
     <div className="container">
-      <h1>Articles Index Page</h1>
-      <p>Page containing a table of articles:</p>
-      <SortableTable headers={headers} data={articles} />
+      <h1>Moderator Queue</h1>
+      <table>
+        <thead>
+          <tr>
+            {headers.map((header) => (
+              <th key={header.key}>{header.label}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {articles.map((article) => (
+            <AnalystTable key={article.id} data={article} />
+          ))}
+        </tbody>
+      </table>
     </div>
-
   );
 };
+
 
 export const getStaticProps: GetStaticProps = async (context) => {
   //https request to REST API
@@ -52,7 +50,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   console.log(getData);
 
-
+  //Returning articles
   return {
     props: {
       articles: getData.data

@@ -29,9 +29,13 @@ import { PublishedArticle, SuggestedArticle } from './schemas/article.schema';
 export declare class ArticleController {
     private articleService;
     constructor(articleService: ArticleService);
-    populateArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, PublishedArticle> & PublishedArticle & {
+    populateArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, import("./schemas/article.schema").ModeratedArticle> & import("./schemas/article.schema").ModeratedArticle & {
         _id: import("mongoose").Types.ObjectId;
     }>;
+    getArticles(): Promise<PublishedArticle[]>;
     getPublishedArticles(): Promise<PublishedArticle[]>;
     getSuggestedArticles(): Promise<SuggestedArticle[]>;
+    editSuggestion(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, PublishedArticle> & PublishedArticle & {
+        _id: import("mongoose").Types.ObjectId;
+    }>;
 }
