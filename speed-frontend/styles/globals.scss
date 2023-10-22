@@ -23,4 +23,28 @@
     height: 3rem;
     flex-grow: 0;
     font-size: 1.5em;
-    }
+}
+
+body {
+    background-color: #beb8af; 
+    color: #7e4a22; 
+}
+
+h1 {
+    font-size: 50px;
+    text-align: center;
+    margin-bottom: 70px;
+    color: #635f50;
+}
+
+h2 {
+    font-size: 30px;
+    margin-bottom: 30px;
+    color: #332c1b;
+}
+
+button {
+    background-color: #4c4442;
+    color: white; 
+  }
+

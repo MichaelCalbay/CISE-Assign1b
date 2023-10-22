@@ -170,10 +170,16 @@ const NewDiscussion = () => {
   // return the full form & bibtex
   return (
     <div className="container">
-      <h1>Attach Bibtex Articles</h1>
+      <h1>Submit Articles Page</h1>    
+
+      <div className="Form" style={{ border: '1px solid #ccc', paddingLeft: '30px', marginLeft: '70px', marginRight: '70px',backgroundColor: '#ded7cd'}}>
+      <h2>Attach Bibtex Articles</h2>
+
       <input type="file" accept=".bib" onChange={handleFileChange} />
       <button onClick={parseBibtex}>Enter</button>
-      <h1>Suggest an Article</h1>
+
+      <h2>Suggest an Article</h2>
+
       <div className={formStyles.form} onSubmit={submitNewArticle}>
         <label htmlFor="title">Title:</label>
         <input
@@ -320,6 +326,7 @@ const NewDiscussion = () => {
           />
         </div>
       </div>
+    </div>
     </div>
   );
 };

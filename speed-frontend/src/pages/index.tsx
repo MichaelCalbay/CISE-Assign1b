@@ -1,6 +1,6 @@
 import { GetStaticProps, NextPage } from "next";
 import React, { useState } from "react";
-import SortableTable from "../components/table/SortableTable";
+import SearchTable from "../components/table/SearchTable";
 //import data from "../utils/dummydata.json";
 import axios from "axios";
 
@@ -36,15 +36,14 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
     { key: "SEPractise", label: "SE Practise" },
   ];
 
-  const tableStyles = {
-    border: '1px solid #ccc', // Define the border style for the table
-  };
-
   const [selectedOption, setSelectedOption] = useState("");
   const [searchKeyword, setSearchKeyword] = useState(""); 
   const [searchYearStart, setSearchYearStart] = useState("");
   const [searchYearEnd, setSearchYearEnd] = useState("");
+  const [showAllArticles, setShowAllArticles] = useState(false);
   const [visibleColumns, setVisibleColumns] = useState(headers.map((column) => column.key)
+  
+
   );
   const [filteredArticles, setFilteredArticles] = useState(articles); // Initialize with all articles
   
@@ -75,6 +74,15 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
   const handleSearchSubmit = (event: React.FormEvent) => {
     event.preventDefault(); // Prevent the default form submission
     filterArticles(selectedOption, searchKeyword, searchYearStart, searchYearEnd); // Pass all search criteria
+  };
+
+  const handleShowAllArticles = () => {
+    setShowAllArticles(true);
+    setSelectedOption("");
+    setSearchKeyword("");
+    setSearchYearStart("");
+    setSearchYearEnd("");
+    setFilteredArticles(articles);
   };
 
   //Filters the articles based on SE practice, keyword or publication year
@@ -197,17 +205,25 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
     }
   };
 
+  const resetColumns = () => {
+    setVisibleColumns(headers.map((column) => column.key));
+  };
+
 
 
   return (
-    <div className="Search" style={{ marginLeft: '50px' }}>
-      <h1 style={{ textAlign: 'center' }}>Articles Index Page</h1>
+    
+    <div className="Search Page">
+      <h1>Articles Index Page</h1>    
 
-      <form onSubmit={handleSearchSubmit}> {/* Use a form element to handle submission */}
+      <div className="search-sort-box" style={{ border: '1px solid #ccc', padding: '20px', marginLeft: '70px', marginRight: '70px',backgroundColor: '#ded7cd' }}>
+      <form onSubmit={handleSearchSubmit}>
+          {/* Dropdown list for SE practices and other search elements */}
+      </form>
+
       {/* Dropdown list for SE practices */}
-
       <div className="search-bar">
-        <div style={{ marginTop: '70px', marginBottom: '10px' }}>
+        <div style={{ marginTop: '0px', marginBottom: '0px' }}>
           <p style={{ fontWeight: 'bold' }}>Search by: {' '}
             <select value={selectedOption} onChange={handleDropdownChange}>
               <option value="">SE Practise</option>
@@ -219,8 +235,8 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
           </p>
         </div>
 
-
-        <div style={{ marginBottom: '10px' }}> {/* Add margin at the bottom */}
+        {/* Keyword search bar */}
+        <div style={{ marginBottom: '10px' }}> 
           <p>or {' '}
             <input
               type="text"
@@ -231,6 +247,7 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
           </p>
         </div>
 
+        {/* Publication year range */}
         <div>
           <p>or {' '}
             <input
@@ -252,15 +269,21 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
         </div>
         <button type="submit">Enter</button>
       </div>
+
+      <form onSubmit={handleShowAllArticles}>
+        <div style={{ marginTop: '10px' }}>
+          <button type="button" onClick={handleShowAllArticles}>Show All Articles</button>
+        </div>
       </form>
 
       <p style={{ fontStyle: 'italic' }}>
-        Note, if you press enter with no values then the full list of articles will be shown.
+        Note: If you choose the option &lsquo;SE Practise&rsquo; and submit the form with no other search criteria, the full list of articles will be shown.
       </p>
 
-      
+
+      {/* Sorts the columns */}
       <div className="sort-buttons">
-        <div style={{ marginTop: '80px' }}>
+        <div style={{ marginTop: '60px' }}>
         <p style={{ fontWeight: 'bold' }}>Sort by: {' '}
             <button onClick={() => toggleSortDirection("authors")} style={{ marginRight: '10px' }}>Authors</button>
             <button onClick={() => toggleSortDirection("pubyear")} style={{ marginRight: '10px' }}>Publication Year</button>
@@ -269,7 +292,9 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
           </p>
         </div>
       </div>  
+    
 
+      {/* Hide/shows table columns */}
       <div className="column-toggle">
         <p>
           <span style={{ fontWeight: 'bold' }}>Show/Hide Columns:</span>
@@ -283,12 +308,20 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
               {column.label}
             </label>
           ))}
+          <button onClick={resetColumns} style={{ marginLeft: '10px' }}>Show All columns</button>
         </p>
       </div>
+    </div>
 
-      <div style={{ marginTop: '30px' }}>
-      <SortableTable headers={headers} data={filteredArticles} visibleColumns={visibleColumns} />
+       {/* Displays the articles table */}     
+       <div style={{ marginTop: '60px', marginLeft: '70px', marginRight: '70px' }}>
+        {filteredArticles.length === 0 ? (
+          <p style={{ color: 'red' }}>No articles found with the provided search criteria.</p>
+        ) : (
+          <SearchTable headers={headers} data={filteredArticles} visibleColumns={visibleColumns} />
+        )}
       </div>
+
     </div>
   );
 };
