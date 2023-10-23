@@ -13,6 +13,7 @@ const Articles: NextPage<AnalytsProps> = ({ articles }) => {
     { key: "authors", label: "Authors" },
     { key: "source", label: "Source" },
     { key: "pubyear", label: "Publication Year" },
+    { key: "doi", label: "DOI" },
     { key: "claim", label: "Claim" },
     { key: "evidence", label: "Evidence" },
     { key: "research", label: "Research" },

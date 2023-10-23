@@ -23,6 +23,9 @@ let ArticleController = class ArticleController {
     populateArticle(articleDto) {
         return this.articleService.createArticle(articleDto);
     }
+    publishArticle(articleDto) {
+        return this.articleService.publishArticle(articleDto);
+    }
     async getAllArticles() {
         return this.articleService.findAll();
     }
@@ -38,6 +41,13 @@ __decorate([
     __metadata("design:paramtypes", [article_dto_1.ArticleDto]),
     __metadata("design:returntype", void 0)
 ], ArticleController.prototype, "populateArticle", null);
+__decorate([
+    (0, common_1.Post)('/publish'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [article_dto_1.ArticleDto]),
+    __metadata("design:returntype", void 0)
+], ArticleController.prototype, "publishArticle", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),

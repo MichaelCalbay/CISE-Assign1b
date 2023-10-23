@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { AnalystInterface } from "../../components/table/AnalystInterface";
 import axios from "axios";
+import { AnalystInterface } from "./AnalystInterface";
 
 interface SERCAnalystRowProps {
   data: AnalystInterface;
@@ -15,13 +15,14 @@ const SEPracticeOptions = [
 ];
 
 const SERCAnalystRow: React.FC<SERCAnalystRowProps> = ({ data }) => {
-  const [sePractice, setSEPractice] = useState(data.SEPractise);
-  const [otherPracticeValue, setOtherPracticeValue] = useState("");
+  const [SEPractise, setSEPractise] = useState(data.SEPractise);
+  const [otherPractiseValue, setOtherPractiseValue] = useState("");
   const [claim, setClaim] = useState(data.claim);
   const [evidence, setEvidence] = useState(data.evidence);
+  const [research, setResearch] = useState(data.research);
 
   const handleSEPracticeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSEPractice(event.target.value);
+    setSEPractise(event.target.value);
   };
 
   const handlePublish = () => {
@@ -30,16 +31,17 @@ const SERCAnalystRow: React.FC<SERCAnalystRowProps> = ({ data }) => {
       authors: data.authors,
       source: data.source,
       pubyear: data.pubyear,
+      doi: data.doi,
       claim: claim,
-      evidence: evidence, 
-      research: data.research,
-      SEPractise: sePractice === "Other" ? otherPracticeValue : sePractice,
+      evidence: evidence,
+      research: research,
+      SEPractise: SEPractise,
     };
-
     axios
       .post("http://localhost:3032/article/publish", publishData)
       .then((response) => {
-        console.log(response);
+        console.log("AnalystTable")
+        console.log(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -52,10 +54,12 @@ const SERCAnalystRow: React.FC<SERCAnalystRowProps> = ({ data }) => {
       <td>{data.authors}</td>
       <td>{data.source}</td>
       <td>{data.pubyear}</td>
+      <td>{data.doi}</td>
       <td>
         <input
           type="text"
           value={claim}
+          placeholder="Enter Claim"
           onChange={(e) => setClaim(e.target.value)}
         />
       </td>
@@ -63,31 +67,42 @@ const SERCAnalystRow: React.FC<SERCAnalystRowProps> = ({ data }) => {
         <input
           type="text"
           value={evidence}
+          placeholder="Enter Evidence"
           onChange={(e) => setEvidence(e.target.value)}
         />
       </td>
       <td>
-        <input type="text" value={data.research} />
+        <input
+            type="text"
+            value={research}
+            placeholder="Enter Research"
+            onChange={(e) => setResearch(e.target.value)}
+        />
       </td>
       <td>
-        <select value={sePractice} onChange={handleSEPracticeChange}>
+        <select value={SEPractise} onChange={handleSEPracticeChange}>
           {SEPracticeOptions.map((option) => (
             <option key={option} value={option}>
               {option}
             </option>
           ))}
         </select>
-        {sePractice === "Other" && (
+        {SEPractise === "Other" && (
           <input
             type="text"
             placeholder="Enter SE Practice"
-            value={otherPracticeValue}
-            onChange={(e) => setOtherPracticeValue(e.target.value)}
+            value={otherPractiseValue}
+            onChange={(e) => setOtherPractiseValue(e.target.value)}
           />
         )}
       </td>
       <td>
-        <button onClick={handlePublish}>Publish</button>
+        <button
+            type="submit"
+            onClick={handlePublish}
+        >
+            Publish
+        </button>
       </td>
     </tr>
   );

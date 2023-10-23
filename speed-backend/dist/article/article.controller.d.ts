@@ -25,13 +25,17 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { ArticleService } from './article.service';
 import { ArticleDto } from './dto/article.dto';
-import { ModeratedArticle, SuggestedArticle } from './schemas/article.schema';
+import { SuggestedArticles } from './schemas/suggest.schema';
+import { ModeratedArticles } from './schemas/moderated.schema';
 export declare class ArticleController {
     private articleService;
     constructor(articleService: ArticleService);
-    populateArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, SuggestedArticle> & SuggestedArticle & {
+    populateArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, SuggestedArticles> & SuggestedArticles & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    getAllArticles(): Promise<SuggestedArticle[]>;
-    getModeratedArticles(): Promise<ModeratedArticle[]>;
+    publishArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, import("./schemas/published.schema").PublishedArticles> & import("./schemas/published.schema").PublishedArticles & {
+        _id: import("mongoose").Types.ObjectId;
+    }>;
+    getAllArticles(): Promise<SuggestedArticles[]>;
+    getModeratedArticles(): Promise<ModeratedArticles[]>;
 }

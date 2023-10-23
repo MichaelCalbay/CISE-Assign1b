@@ -15,14 +15,44 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArticleService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
-const article_schema_1 = require("./schemas/article.schema");
+const suggest_schema_1 = require("./schemas/suggest.schema");
 const mongoose_2 = require("mongoose");
+const published_schema_1 = require("./schemas/published.schema");
+const moderated_schema_1 = require("./schemas/moderated.schema");
 let ArticleService = class ArticleService {
-    constructor(articleModel, moderatedArticleModel) {
+    constructor(publishedArticleModel, articleModel, moderatedArticleModel) {
+        this.publishedArticleModel = publishedArticleModel;
         this.articleModel = articleModel;
         this.moderatedArticleModel = moderatedArticleModel;
     }
+    async publishArticle(articleDto) {
+        console.log("PUBLISH ARTICLE CALLED");
+        const { title, authors, source, pubyear, doi, claim, evidence, research, SEPractise } = articleDto;
+        console.log("ARTICLE DTO");
+        console.log(articleDto);
+        try {
+            const publishedArticle = await this.publishedArticleModel.create({
+                title,
+                authors,
+                source,
+                pubyear,
+                doi,
+                claim,
+                evidence,
+                research,
+                SEPractise
+            });
+            console.log("PUBLISHED ARTICLE");
+            console.log(publishedArticle);
+            return publishedArticle;
+        }
+        catch (error) {
+            console.error('Error Publishing Article:', error);
+            throw new common_1.HttpException('Unable to Publish Article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     async createArticle(articleDto) {
+        console.log("CREATE ARTICLE CALLED");
         const { title, authors, source, pubyear, doi, participant } = articleDto;
         try {
             const article = await this.articleModel.create({
@@ -33,6 +63,7 @@ let ArticleService = class ArticleService {
                 doi,
                 participant
             });
+            console.log(article);
             return article;
         }
         catch (error) {
@@ -52,9 +83,11 @@ let ArticleService = class ArticleService {
 exports.ArticleService = ArticleService;
 exports.ArticleService = ArticleService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, mongoose_1.InjectModel)(article_schema_1.SuggestedArticle.name)),
-    __param(1, (0, mongoose_1.InjectModel)(article_schema_1.ModeratedArticle.name)),
+    __param(0, (0, mongoose_1.InjectModel)(published_schema_1.PublishedArticles.name)),
+    __param(1, (0, mongoose_1.InjectModel)(suggest_schema_1.SuggestedArticles.name)),
+    __param(2, (0, mongoose_1.InjectModel)(moderated_schema_1.ModeratedArticles.name)),
     __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model,
         mongoose_2.Model])
 ], ArticleService);
 //# sourceMappingURL=article.service.js.map

@@ -1,109 +1,104 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { SuggestedArticle, ModeratedArticle, PublishedArticle } from './schemas/article.schema';
+import { SuggestedArticles } from './schemas/suggest.schema';
 import { Model } from 'mongoose';
 import { ArticleDto } from './dto/article.dto';
+import { PublishedArticles } from './schemas/published.schema';
+import { ModeratedArticles } from './schemas/moderated.schema';
 
 @Injectable()
 export class ArticleService {
-    constructor(
-        @InjectModel(SuggestedArticle.name)
-        private articleModel: Model<SuggestedArticle>,
-        @InjectModel(ModeratedArticle.name)
-        private moderatedArticleModel: Model<SuggestedArticle>,
-        @InjectModel(PublishedArticle.name)
-        private publishedArticleModel: Model<PublishedArticle>,
-    ){}
+  constructor(
+    @InjectModel(PublishedArticles.name)
+    private publishedArticleModel: Model<PublishedArticles>,
+    @InjectModel(SuggestedArticles.name)
+    private articleModel: Model<SuggestedArticles>,
+    @InjectModel(ModeratedArticles.name)
+    private moderatedArticleModel: Model<ModeratedArticles>,
+  ) {}
+  
+  async publishArticle(articleDto: ArticleDto) {
+    console.log("PUBLISH ARTICLE CALLED")
+    const {
+      title,
+      authors,
+      source,
+      pubyear,
+      doi,
+      claim,
+      evidence,
+      research,
+      SEPractise
+    } = articleDto;
+    console.log("ARTICLE DTO");
+    console.log(articleDto);
+    try {
+      // Create the article in your database using the Mongoose model
+      const publishedArticle = await this.publishedArticleModel.create({
+        title,
+        authors,
+        source,
+        pubyear,
+        doi,
+        claim,
+        evidence,
+        research,
+        SEPractise
+      });
+  
+      console.log("PUBLISHED ARTICLE");
+      console.log(publishedArticle);
+      return publishedArticle;
+    } catch (error) {
 
-    async createArticle(articleDto: ArticleDto) {
-        const {
-          title,
-          authors,
-          source,
-          pubyear,
-          doi,
-          participant
-        } = articleDto;
-      
-        try {
-          // Create the article in your database using the Mongoose model
-          const article = await this.articleModel.create({
-            title,
-            authors,
-            source,
-            pubyear,
-            doi,
-            participant
-          });
-      
-          // Return the created article as a success response
-          return article;
-        } catch (error) {
-          // Handle any errors that may occur during the creation
-          // Log the error for debugging
-          console.error('Error creating article:', error);
-      
-          // You can throw a custom error, return an error response, or handle the error as needed
-          throw new HttpException('Unable to create article', HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-      }
-
-      async publishArticle(articleDto: ArticleDto) {
-        const {
-          title,
-          authors,
-          source,
-          pubyear,
-          doi,
-          claim,
-          evidence,
-          participant,
-          research,
-          SEPractise
-        } = articleDto;
-      
-        try {
-          // Create the article in your database using the Mongoose model
-          const article = await this.articleModel.create({
-            title,
-            authors,
-            source,
-            pubyear,
-            doi,
-            claim,
-            evidence,
-            participant,
-            research,
-            SEPractise
-          });
-      
-          // Return the created article as a success response
-          return article;
-        } catch (error) {
-          // Handle any errors that may occur during the creation
-          // Log the error for debugging
-          console.error('Error Publishing Article:', error);
-      
-          // You can throw a custom error, return an error response, or handle the error as needed
-          throw new HttpException('Unable to Publish Article', HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-      }
-      
-
-    async findAll(): Promise<SuggestedArticle[]> {
-        const articles = await this.articleModel.find();
-        return  articles
+      console.error('Error Publishing Article:', error);
+  
+      throw new HttpException('Unable to Publish Article', HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }  
 
-    async findAllModerated(): Promise<ModeratedArticle[]> {
-      const articles = await this.moderatedArticleModel.find();
-      return  articles
+  async createArticle(articleDto: ArticleDto) {
+    console.log("CREATE ARTICLE CALLED")
+    const {
+      title,
+      authors,
+      source,
+      pubyear,
+      doi,
+      participant
+    } = articleDto;
+
+    try {
+      // Create the article in your database using the Mongoose model
+      const article = await this.articleModel.create({
+        title,
+        authors,
+        source,
+        pubyear,
+        doi,
+        participant
+      });
+
+      // Return the created article as a success response
+      console.log(article);
+      return article;
+    } catch (error) {
+      // Handle any errors that may occur during the creation
+      // Log the error for debugging
+      console.error('Error creating article:', error);
+
+      // You can throw a custom error, return an error response, or handle the error as needed
+      throw new HttpException('Unable to create article', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
-    async findAllPublished(): Promise<PublishedArticle[]> {
-      const articles = await this.publishedArticleModel.find();
-      return  articles
+  async findAll(): Promise<SuggestedArticles[]> {
+    const articles = await this.articleModel.find();
+    return articles;
+  }
+
+  async findAllModerated(): Promise<ModeratedArticles[]> {
+    const articles = await this.moderatedArticleModel.find();
+    return articles;
   }
 }
-
-
