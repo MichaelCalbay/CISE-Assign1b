@@ -15,18 +15,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArticleService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
-const article_schema_1 = require("./schemas/article.schema");
+const published_schema_1 = require("./schemas/published.schema");
+const moderated_schema_1 = require("./schemas/moderated.schema");
 const mongoose_2 = require("mongoose");
+const suggest_schema_1 = require("./schemas/suggest.schema");
 let ArticleService = class ArticleService {
-    constructor(articleSuggestedModel, articlePublishedModel, articleModeratedModel) {
-        this.articleSuggestedModel = articleSuggestedModel;
-        this.articlePublishedModel = articlePublishedModel;
-        this.articleModeratedModel = articleModeratedModel;
+    constructor(publishedArticleModel, articleModel, moderatedArticleModel) {
+        this.publishedArticleModel = publishedArticleModel;
+        this.articleModel = articleModel;
+        this.moderatedArticleModel = moderatedArticleModel;
     }
     async createArticle(articleDto) {
         const { title, authors, source, pubyear, doi, claim, evidence, participant, research, SEPractise, decision } = articleDto;
         try {
-            const article = await this.articleModeratedModel.create({
+            const article = await this.moderatedArticleModel.create({
                 title,
                 authors,
                 source,
@@ -49,7 +51,7 @@ let ArticleService = class ArticleService {
     async editSuggestedArticle(articleDto) {
         const { title, authors, source, pubyear, doi, claim, evidence, participant, research, SEPractise, decision } = articleDto;
         try {
-            const article = await this.articlePublishedModel.create({
+            const article = await this.articleModel.create({
                 title,
                 authors,
                 source,
@@ -70,9 +72,12 @@ let ArticleService = class ArticleService {
         }
     }
     async confirmModeration(articleDto) {
+        console.log("CONFIRM ARTICLE MODERATION CALLED");
         const { title, authors, source, pubyear, doi, decision } = articleDto;
+        console.log("ARTICLE DTO");
+        console.log(articleDto);
         try {
-            const article = await this.articleModeratedModel.create({
+            const moderatedArticle = await this.moderatedArticleModel.create({
                 title,
                 authors,
                 source,
@@ -80,32 +85,50 @@ let ArticleService = class ArticleService {
                 doi,
                 decision
             });
-            return article;
+            console.log("MODERATED ARTICLE");
+            console.log(moderatedArticle);
+            return moderatedArticle;
         }
         catch (error) {
-            console.error('Error confirming article:', error);
-            throw new common_1.HttpException('Unable to confirm article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+            console.error('Error Publishing Article:', error);
+            throw new common_1.HttpException('Unable to Publish Article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    async findSubmissionByCoolId(coolId) {
+        try {
+            const article = await this.articleModel.findOneAndDelete({ coolId });
+            if (article) {
+                return article;
+            }
+            else {
+                console.log("Did not find any article.");
+                return null;
+            }
+        }
+        catch (error) {
+            console.error('Error finding suggested article by coolId:', error);
+            throw new common_1.HttpException('Unable to find suggested article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     async findAll() {
-        const articles = await this.articlePublishedModel.find();
+        const articles = await this.articleModel.find();
         return articles;
     }
     async findSuggestedArticle() {
-        const articles = await this.articleSuggestedModel.find();
+        const articles = await this.articleModel.find();
         return articles;
     }
     async findPublishedArticle() {
-        const articles = await this.articlePublishedModel.find();
+        const articles = await this.publishedArticleModel.find();
         return articles;
     }
 };
 exports.ArticleService = ArticleService;
 exports.ArticleService = ArticleService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, mongoose_1.InjectModel)(article_schema_1.SuggestedArticle.name)),
-    __param(1, (0, mongoose_1.InjectModel)(article_schema_1.PublishedArticle.name)),
-    __param(2, (0, mongoose_1.InjectModel)(article_schema_1.ModeratedArticle.name)),
+    __param(0, (0, mongoose_1.InjectModel)(published_schema_1.PublishedArticles.name)),
+    __param(1, (0, mongoose_1.InjectModel)(suggest_schema_1.SuggestedArticles.name)),
+    __param(2, (0, mongoose_1.InjectModel)(moderated_schema_1.ModeratedArticles.name)),
     __metadata("design:paramtypes", [mongoose_2.Model,
         mongoose_2.Model,
         mongoose_2.Model])

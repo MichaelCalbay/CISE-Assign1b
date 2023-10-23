@@ -23,9 +23,6 @@ let ArticleController = class ArticleController {
     populateArticle(articleDto) {
         return this.articleService.createArticle(articleDto);
     }
-    async getArticles() {
-        return this.articleService.findAll();
-    }
     async getPublishedArticles() {
         return this.articleService.findPublishedArticle();
     }
@@ -33,7 +30,13 @@ let ArticleController = class ArticleController {
         return this.articleService.findSuggestedArticle();
     }
     editSuggestion(articleDto) {
-        return this.articleService.editSuggestedArticle(articleDto);
+        return this.articleService.confirmModeration(articleDto);
+    }
+    async deleteSubmittedArticle(coolId) {
+        const deletedArticle = await this.articleService.findSubmissionByCoolId(coolId);
+        if (!deletedArticle) {
+            return `Moderated article with customId ${coolId} not found.`;
+        }
     }
 };
 exports.ArticleController = ArticleController;
@@ -44,12 +47,6 @@ __decorate([
     __metadata("design:paramtypes", [article_dto_1.ArticleDto]),
     __metadata("design:returntype", void 0)
 ], ArticleController.prototype, "populateArticle", null);
-__decorate([
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], ArticleController.prototype, "getArticles", null);
 __decorate([
     (0, common_1.Get)('/published'),
     __metadata("design:type", Function),
@@ -63,12 +60,19 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ArticleController.prototype, "getSuggestedArticles", null);
 __decorate([
-    (0, common_1.Post)('/moderate'),
+    (0, common_1.Post)('/confirmModeration'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [article_dto_1.ArticleDto]),
     __metadata("design:returntype", void 0)
 ], ArticleController.prototype, "editSuggestion", null);
+__decorate([
+    (0, common_1.Delete)(':coolId'),
+    __param(0, (0, common_1.Param)('coolId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], ArticleController.prototype, "deleteSubmittedArticle", null);
 exports.ArticleController = ArticleController = __decorate([
     (0, common_1.Controller)('article'),
     __metadata("design:paramtypes", [article_service_1.ArticleService])

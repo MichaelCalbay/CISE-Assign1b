@@ -25,17 +25,18 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { ArticleService } from './article.service';
 import { ArticleDto } from './dto/article.dto';
-import { PublishedArticle, SuggestedArticle } from './schemas/article.schema';
+import { SuggestedArticles } from './schemas/suggest.schema';
+import { PublishedArticles } from './schemas/published.schema';
 export declare class ArticleController {
     private articleService;
     constructor(articleService: ArticleService);
-    populateArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, import("./schemas/article.schema").ModeratedArticle> & import("./schemas/article.schema").ModeratedArticle & {
+    populateArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, import("./schemas/moderated.schema").ModeratedArticles> & import("./schemas/moderated.schema").ModeratedArticles & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    getArticles(): Promise<PublishedArticle[]>;
-    getPublishedArticles(): Promise<PublishedArticle[]>;
-    getSuggestedArticles(): Promise<SuggestedArticle[]>;
-    editSuggestion(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, PublishedArticle> & PublishedArticle & {
+    getPublishedArticles(): Promise<PublishedArticles[]>;
+    getSuggestedArticles(): Promise<SuggestedArticles[]>;
+    editSuggestion(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, import("./schemas/moderated.schema").ModeratedArticles> & import("./schemas/moderated.schema").ModeratedArticles & {
         _id: import("mongoose").Types.ObjectId;
     }>;
+    deleteSubmittedArticle(coolId: number): Promise<string>;
 }

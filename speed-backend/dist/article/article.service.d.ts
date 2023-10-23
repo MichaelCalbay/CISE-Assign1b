@@ -22,24 +22,27 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
-import { ModeratedArticle, PublishedArticle, SuggestedArticle } from './schemas/article.schema';
+import { PublishedArticles } from './schemas/published.schema';
+import { ModeratedArticles } from './schemas/moderated.schema';
 import { Model } from 'mongoose';
 import { ArticleDto } from './dto/article.dto';
+import { SuggestedArticles } from './schemas/suggest.schema';
 export declare class ArticleService {
-    private articleSuggestedModel;
-    private articlePublishedModel;
-    private articleModeratedModel;
-    constructor(articleSuggestedModel: Model<SuggestedArticle>, articlePublishedModel: Model<PublishedArticle>, articleModeratedModel: Model<ModeratedArticle>);
-    createArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, ModeratedArticle> & ModeratedArticle & {
+    private publishedArticleModel;
+    private articleModel;
+    private moderatedArticleModel;
+    constructor(publishedArticleModel: Model<PublishedArticles>, articleModel: Model<SuggestedArticles>, moderatedArticleModel: Model<ModeratedArticles>);
+    createArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, ModeratedArticles> & ModeratedArticles & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    editSuggestedArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, PublishedArticle> & PublishedArticle & {
+    editSuggestedArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, SuggestedArticles> & SuggestedArticles & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    confirmModeration(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, ModeratedArticle> & ModeratedArticle & {
+    confirmModeration(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, ModeratedArticles> & ModeratedArticles & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    findAll(): Promise<SuggestedArticle[]>;
-    findSuggestedArticle(): Promise<SuggestedArticle[]>;
-    findPublishedArticle(): Promise<PublishedArticle[]>;
+    findSubmissionByCoolId(coolId: number): Promise<SuggestedArticles | null>;
+    findAll(): Promise<SuggestedArticles[]>;
+    findSuggestedArticle(): Promise<SuggestedArticles[]>;
+    findPublishedArticle(): Promise<PublishedArticles[]>;
 }

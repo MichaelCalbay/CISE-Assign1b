@@ -1,8 +1,10 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Post, Get } from '@nestjs/common';
+import { Body, Controller, Post, Get , Delete, Param} from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { ArticleDto } from './dto/article.dto';
-import { PublishedArticle, SuggestedArticle } from './schemas/article.schema';
+import { SuggestedArticles } from './schemas/suggest.schema';
+//import { ModeratedArticles } from './schemas/moderated.schema';
+import { PublishedArticles } from './schemas/published.schema';
 
 @Controller('article')
 export class ArticleController {
@@ -15,23 +17,29 @@ export class ArticleController {
         return this.articleService.createArticle(articleDto);
     }
 
-    @Get()
-    async getArticles(): Promise<PublishedArticle[]> {
-        return this.articleService.findAll();
-    }
-
     @Get('/published')
-    async getPublishedArticles(): Promise<PublishedArticle[]> {
+    async getPublishedArticles(): Promise<PublishedArticles[]> {
         return this.articleService.findPublishedArticle();
     }
 
     @Get('/moderate')
-    async getSuggestedArticles(): Promise<SuggestedArticle[]> {
+    async getSuggestedArticles(): Promise<SuggestedArticles[]> {
         return this.articleService.findSuggestedArticle();
     }
 
-    @Post('/moderate')
+    @Post('/confirmModeration')
     editSuggestion(@Body() articleDto: ArticleDto) {
-        return this.articleService.editSuggestedArticle(articleDto);
+        return this.articleService.confirmModeration(articleDto);
     }
+
+    @Delete(':coolId')
+    async deleteSubmittedArticle(@Param('coolId') coolId: number) {
+    const deletedArticle = await this.articleService.findSubmissionByCoolId(
+      coolId,
+    );
+
+    if (!deletedArticle) {
+      return `Moderated article with customId ${coolId} not found.`;
+    }
+  }
 }
