@@ -41,6 +41,7 @@ export declare class ArticleService {
     confirmModeration(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, ModeratedArticles> & ModeratedArticles & {
         _id: import("mongoose").Types.ObjectId;
     }>;
+    findSubmissionByCoolId(coolId: number): Promise<SuggestedArticles | null>;
     findAll(): Promise<SuggestedArticles[]>;
     findSuggestedArticle(): Promise<SuggestedArticles[]>;
     findPublishedArticle(): Promise<PublishedArticles[]>;

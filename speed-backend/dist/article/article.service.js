@@ -94,6 +94,22 @@ let ArticleService = class ArticleService {
             throw new common_1.HttpException('Unable to Publish Article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    async findSubmissionByCoolId(coolId) {
+        try {
+            const article = await this.articleModel.findOneAndDelete({ coolId });
+            if (article) {
+                return article;
+            }
+            else {
+                console.log("Did not find any article.");
+                return null;
+            }
+        }
+        catch (error) {
+            console.error('Error finding suggested article by coolId:', error);
+            throw new common_1.HttpException('Unable to find suggested article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     async findAll() {
         const articles = await this.articleModel.find();
         return articles;

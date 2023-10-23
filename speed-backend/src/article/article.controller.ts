@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Post, Get } from '@nestjs/common';
+import { Body, Controller, Post, Get , Delete, Param} from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { ArticleDto } from './dto/article.dto';
 import { SuggestedArticles } from './schemas/suggest.schema';
@@ -31,4 +31,15 @@ export class ArticleController {
     editSuggestion(@Body() articleDto: ArticleDto) {
         return this.articleService.confirmModeration(articleDto);
     }
+
+    @Delete(':coolId')
+    async deleteSubmittedArticle(@Param('coolId') coolId: number) {
+    const deletedArticle = await this.articleService.findSubmissionByCoolId(
+      coolId,
+    );
+
+    if (!deletedArticle) {
+      return `Moderated article with customId ${coolId} not found.`;
+    }
+  }
 }

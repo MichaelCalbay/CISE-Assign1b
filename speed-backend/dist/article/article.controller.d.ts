@@ -38,4 +38,5 @@ export declare class ArticleController {
     editSuggestion(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, import("./schemas/moderated.schema").ModeratedArticles> & import("./schemas/moderated.schema").ModeratedArticles & {
         _id: import("mongoose").Types.ObjectId;
     }>;
+    deleteSubmittedArticle(coolId: number): Promise<string>;
 }

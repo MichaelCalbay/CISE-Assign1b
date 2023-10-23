@@ -39,16 +39,22 @@ const handleSubmit = () => {
     .post("http://localhost:3032/article/confirmModeration", 
     moderateData)
     .then((response) => {
-      console.log(response);
+      console.log(response.data);
+
+      axios
+      .delete(`http://localhost:3032/article/${data.coolId}`)
+      .then((deleteResponse) => {
+        console.log("Deleted:", deleteResponse.data);
+        window.location.reload();
+      })
+      .catch((deleteError) => {
+        console.error("Deletion Error:", deleteError);
+      });
     })
-    .then(response => {
-      // Handle the response from the server
-      console.log(response);
-    })
-    .catch(error => {
-      console.error('Error:', error);
+    .catch((error) => {
+      console.error(error);
     });
-  };
+};
 
   return (
     <tr>
@@ -71,7 +77,7 @@ const handleSubmit = () => {
       </td>
       <td>
       <button type="submit" onClick={handleSubmit}>
-            Confirm Moderation
+            Send to Analyst
         </button>
 
       </td>

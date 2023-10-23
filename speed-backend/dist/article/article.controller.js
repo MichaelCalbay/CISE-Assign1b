@@ -32,6 +32,12 @@ let ArticleController = class ArticleController {
     editSuggestion(articleDto) {
         return this.articleService.confirmModeration(articleDto);
     }
+    async deleteSubmittedArticle(coolId) {
+        const deletedArticle = await this.articleService.findSubmissionByCoolId(coolId);
+        if (!deletedArticle) {
+            return `Moderated article with customId ${coolId} not found.`;
+        }
+    }
 };
 exports.ArticleController = ArticleController;
 __decorate([
@@ -60,6 +66,13 @@ __decorate([
     __metadata("design:paramtypes", [article_dto_1.ArticleDto]),
     __metadata("design:returntype", void 0)
 ], ArticleController.prototype, "editSuggestion", null);
+__decorate([
+    (0, common_1.Delete)(':coolId'),
+    __param(0, (0, common_1.Param)('coolId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], ArticleController.prototype, "deleteSubmittedArticle", null);
 exports.ArticleController = ArticleController = __decorate([
     (0, common_1.Controller)('article'),
     __metadata("design:paramtypes", [article_service_1.ArticleService])

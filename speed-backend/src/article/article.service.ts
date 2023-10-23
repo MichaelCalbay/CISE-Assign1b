@@ -137,7 +137,21 @@ export class ArticleService {
         }
       }  
 
-
+      async findSubmissionByCoolId(coolId: number): Promise<SuggestedArticles | null> {
+        try {
+          const article = await this.articleModel.findOneAndDelete({ coolId });
+          
+          if (article) {
+            return article;
+          } else {
+            console.log("Did not find any article.");
+            return null;
+          }
+        } catch (error) {
+          console.error('Error finding suggested article by coolId:', error);
+          throw new HttpException('Unable to find suggested article', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+      }
 
     async findAll(): Promise<SuggestedArticles[]> {
         const articles = await this.articleModel.find();
