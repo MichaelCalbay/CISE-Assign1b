@@ -15,16 +15,48 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArticleService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
-const article_schema_1 = require("./schemas/article.schema");
+const suggest_schema_1 = require("./schemas/suggest.schema");
 const mongoose_2 = require("mongoose");
+const published_schema_1 = require("./schemas/published.schema");
+const moderated_schema_1 = require("./schemas/moderated.schema");
 let ArticleService = class ArticleService {
-    constructor(articleModel) {
+    constructor(publishedArticleModel, articleModel, moderatedArticleModel) {
+        this.publishedArticleModel = publishedArticleModel;
         this.articleModel = articleModel;
+        this.moderatedArticleModel = moderatedArticleModel;
+    }
+    async publishArticle(articleDto) {
+        console.log('PUBLISH ARTICLE CALLED');
+        const { title, authors, source, pubyear, doi, claim, evidence, research, SEPractise, } = articleDto;
+        try {
+            const publishedArticle = await this.publishedArticleModel.create({
+                title,
+                authors,
+                source,
+                pubyear,
+                doi,
+                claim,
+                evidence,
+                research,
+                SEPractise,
+            });
+            console.log('PUBLISHED ARTICLE');
+            console.log(publishedArticle);
+            return publishedArticle;
+        }
+        catch (error) {
+            console.error('Error Publishing Article:', error);
+            throw new common_1.HttpException('Unable to Publish Article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     async createArticle(articleDto) {
-        const { title, authors, source, pubyear, doi, participant, } = articleDto;
+        console.log('CREATE ARTICLE CALLED');
+        const { customId, title, authors, source, pubyear, doi, participant } = articleDto;
         try {
+            const count = await this.articleModel.countDocuments();
+            const customId = count + 1;
             const article = await this.articleModel.create({
+                customId,
                 title,
                 authors,
                 source,
@@ -32,6 +64,7 @@ let ArticleService = class ArticleService {
                 doi,
                 participant,
             });
+            console.log(article);
             return article;
         }
         catch (error) {
@@ -39,15 +72,68 @@ let ArticleService = class ArticleService {
             throw new common_1.HttpException('Unable to create article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    async findAll() {
+    async confirmModeration(articleDto) {
+        console.log('CONFIRM ARTICLE MODERATION CALLED');
+        const { title, authors, source, pubyear, doi, decision } = articleDto;
+        console.log('ARTICLE DTO');
+        console.log(articleDto);
+        try {
+            const moderatedArticle = await this.moderatedArticleModel.create({
+                title,
+                authors,
+                source,
+                pubyear,
+                doi,
+                decision,
+            });
+            console.log('MODERATED ARTICLE');
+            console.log(moderatedArticle);
+            return moderatedArticle;
+        }
+        catch (error) {
+            console.error('Error Publishing Article:', error);
+            throw new common_1.HttpException('Unable to Publish Article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    async findAllSuggested() {
         const articles = await this.articleModel.find();
         return articles;
+    }
+    async findAllModerated() {
+        const articles = await this.moderatedArticleModel.find();
+        return articles;
+    }
+    async findPublishedArticle() {
+        const articles = await this.publishedArticleModel.find();
+        return articles;
+    }
+    async findModeratedByCustomId(customId) {
+        try {
+            const article = await this.moderatedArticleModel.findOneAndDelete({
+                customId,
+            });
+            if (article) {
+                return article;
+            }
+            else {
+                console.log('Did not find any article.');
+                return null;
+            }
+        }
+        catch (error) {
+            console.error('Error finding moderated article by customId:', error);
+            throw new common_1.HttpException('Unable to find moderated article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 };
 exports.ArticleService = ArticleService;
 exports.ArticleService = ArticleService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, mongoose_1.InjectModel)(article_schema_1.SuggestedArticle.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(0, (0, mongoose_1.InjectModel)(published_schema_1.PublishedArticles.name)),
+    __param(1, (0, mongoose_1.InjectModel)(suggest_schema_1.SuggestedArticles.name)),
+    __param(2, (0, mongoose_1.InjectModel)(moderated_schema_1.ModeratedArticles.name)),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model,
+        mongoose_2.Model])
 ], ArticleService);
 //# sourceMappingURL=article.service.js.map

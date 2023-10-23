@@ -25,12 +25,24 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { ArticleService } from './article.service';
 import { ArticleDto } from './dto/article.dto';
-import { SuggestedArticle } from './schemas/article.schema';
+import { SuggestedArticles } from './schemas/suggest.schema';
+import { ModeratedArticles } from './schemas/moderated.schema';
+import { PublishedArticles } from './schemas/published.schema';
 export declare class ArticleController {
     private articleService;
     constructor(articleService: ArticleService);
-    populateArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, SuggestedArticle> & SuggestedArticle & {
+    populateArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, SuggestedArticles> & SuggestedArticles & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    getAllArticles(): Promise<SuggestedArticle[]>;
+    publishArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, PublishedArticles> & PublishedArticles & {
+        _id: import("mongoose").Types.ObjectId;
+    }>;
+    editSuggestion(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, ModeratedArticles> & ModeratedArticles & {
+        _id: import("mongoose").Types.ObjectId;
+    }>;
+    getPublishedArticles(): Promise<PublishedArticles[]>;
+    getAllArticles(): Promise<SuggestedArticles[]>;
+    getSuggestedArticles(): Promise<SuggestedArticles[]>;
+    getModeratedArticles(): Promise<ModeratedArticles[]>;
+    deleteModeratedArticle(customId: number): Promise<string>;
 }

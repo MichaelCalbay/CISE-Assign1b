@@ -10,8 +10,12 @@ const NewDiscussion = () => {
   const [source, setSource] = useState("");
   const [pubyear, setPubYear] = useState<number>(0);
   const [doi, setDoi] = useState("");
+  // const [claim, setClaim] = useState("");
+  // const [evidence, setEvidence] = useState("");
   const [bibtexData, setBibtexData] = useState("");
   const [participant, setParticipant] = useState("");
+  // const [research, setResearch] = useState("");
+  // const [SEPractise, setSEPractise] = useState("");
   //Pop-up message
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState("");
@@ -36,17 +40,25 @@ const NewDiscussion = () => {
       source,
       pubyear,
       doi,
-      participant,
+      // claim,
+      // evidence,
+      participant
+      // research,
+      // SEPractise,
     };
 
     //Validate if a field is empty
     if (
       data.title == "" ||
       data.authors.length == 0 ||
+      // data.claim == "" ||
       data.source == "" ||
       data.pubyear == 0 ||
       data.doi == "" ||
+      // data.evidence == "" ||
       data.participant == ""
+      // data.research == "" ||
+      // data.SEPractise == ""
     ) {
       openPopup("Please fill all fields!");
     } else {
@@ -102,33 +114,32 @@ const NewDiscussion = () => {
           source: entry.SOURCE,
           pubyear: entry.PUBYEAR,
           doi: entry.DOI,
-          claim: entry.CLAIM,
-          evidence: entry.EVIDENCE,
-          participant: entry.PARTICIPANT,
-          research: entry.RESEARCH,
-          SEPractise: entry.SEPRACTISE
+          // claim: entry.CLAIM,
+          // evidence: entry.EVIDENCE,
+          participant: entry.PARTICIPANT
+          // research: entry.RESEARCH,
+          // SEPractise: entry.SEPRACTISE
         };
 
-        setTitle(populatedData.title);
-        addAuthor();
-        setAuthors([populatedData.authors]);
-        setSource(populatedData.source);
-        setPubYear(populatedData.pubyear);
-        setDoi(populatedData.doi);
-        setParticipant(populatedData.participant);
+        setTitle(entry.TITLE)
+        addAuthor()
+        setAuthors([entry.AUTHORS])
+        setSource(entry.SOURCE)
+        setPubYear(entry.PUBYEAR)
+        setDoi(entry.DOI)
+        setParticipant(entry.PARTICIPANT)
 
-        //Does't need anymore, bibtex feature is just to populate the textfields
-        // try {
-        //   //Sends data into server-side API
-        //   const responseData = await axios.post(
-        //     "http://localhost:3032/article/create",
-        //     populatedData
-        //   );
+      //   try {
+      //     //Sends data into server-side API
+      //     const responseData = await axios.post(
+      //       "http://localhost:3032/article/create",
+      //       populatedData
+      //     );
 
-        //   openPopup('Article has been submitted')
-        // } catch (error) {
-        //   console.log("Error: ", error);
-        // }
+      //     openPopup('Article has been submitted')
+      //   } catch (error) {
+      //     console.log("Error: ", error);
+      //   }
       });
     } else {
       // Handle the case when no BibTeX data is available
@@ -156,7 +167,7 @@ const NewDiscussion = () => {
     <div className="container">
       <h1>Attach Bibtex Articles</h1>
       <input type="file" accept=".bib" onChange={handleFileChange} />
-      <button onClick={parseBibtex}>Enter</button>
+      <button onClick={parseBibtex}>Submit BibTeX</button>
       <h1>Suggest an Article</h1>
       <div className={formStyles.form} onSubmit={submitNewArticle}>
         <label htmlFor="title">Title:</label>
@@ -238,6 +249,24 @@ const NewDiscussion = () => {
             setDoi(event.target.value);
           }}
         />
+        {/* <label htmlFor="claim">Claim:</label>
+        <input
+          className={formStyles.formItem}
+          name="claim"
+          value={claim}
+          onChange={(event) => setClaim(event.target.value)}
+        /> */}
+        {/* <label htmlFor="evidence">Evidence:</label>
+        <input
+          className={formStyles.formItem}
+          type="text"
+          name="evidence"
+          id="evidence"
+          value={evidence}
+          onChange={(event) => {
+            setEvidence(event.target.value);
+          }}
+        /> */}
         <label htmlFor="participant">Participant:</label>
         <input
           className={formStyles.formItem}
@@ -249,6 +278,28 @@ const NewDiscussion = () => {
             setParticipant(event.target.value);
           }}
         />
+        {/* <label htmlFor="research">Research:</label>
+        <input
+          className={formStyles.formItem}
+          type="text"
+          name="research"
+          id="research"
+          value={research}
+          onChange={(event) => {
+            setResearch(event.target.value);
+          }}
+        />
+        <label htmlFor="SEPractise">SEPractise:</label>
+        <input
+          className={formStyles.formItem}
+          type="text"
+          name="SEPractise"
+          id="SEPractise"
+          value={SEPractise}
+          onChange={(event) => {
+            setSEPractise(event.target.value);
+          }}
+        /> */}
         <button
           className={formStyles.formItem}
           type="submit"

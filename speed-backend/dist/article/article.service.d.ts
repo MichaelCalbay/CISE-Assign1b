@@ -22,14 +22,27 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
-import { SuggestedArticle } from './schemas/article.schema';
+import { SuggestedArticles } from './schemas/suggest.schema';
 import { Model } from 'mongoose';
 import { ArticleDto } from './dto/article.dto';
+import { PublishedArticles } from './schemas/published.schema';
+import { ModeratedArticles } from './schemas/moderated.schema';
 export declare class ArticleService {
+    private publishedArticleModel;
     private articleModel;
-    constructor(articleModel: Model<SuggestedArticle>);
-    createArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, SuggestedArticle> & SuggestedArticle & {
+    private moderatedArticleModel;
+    constructor(publishedArticleModel: Model<PublishedArticles>, articleModel: Model<SuggestedArticles>, moderatedArticleModel: Model<ModeratedArticles>);
+    publishArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, PublishedArticles> & PublishedArticles & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    findAll(): Promise<SuggestedArticle[]>;
+    createArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, SuggestedArticles> & SuggestedArticles & {
+        _id: import("mongoose").Types.ObjectId;
+    }>;
+    confirmModeration(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, ModeratedArticles> & ModeratedArticles & {
+        _id: import("mongoose").Types.ObjectId;
+    }>;
+    findAllSuggested(): Promise<SuggestedArticles[]>;
+    findAllModerated(): Promise<ModeratedArticles[]>;
+    findPublishedArticle(): Promise<PublishedArticles[]>;
+    findModeratedByCustomId(customId: number): Promise<ModeratedArticles | null>;
 }

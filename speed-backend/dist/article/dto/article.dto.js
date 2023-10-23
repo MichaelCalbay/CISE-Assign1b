@@ -15,6 +15,11 @@ class ArticleDto {
 }
 exports.ArticleDto = ArticleDto;
 __decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", Number)
+], ArticleDto.prototype, "customId", void 0);
+__decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
@@ -40,12 +45,12 @@ __decorate([
     __metadata("design:type", String)
 ], ArticleDto.prototype, "doi", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], ArticleDto.prototype, "claim", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], ArticleDto.prototype, "evidence", void 0);
@@ -55,13 +60,18 @@ __decorate([
     __metadata("design:type", String)
 ], ArticleDto.prototype, "participant", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], ArticleDto.prototype, "research", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], ArticleDto.prototype, "SEPractise", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ArticleDto.prototype, "decision", void 0);
 //# sourceMappingURL=article.dto.js.map

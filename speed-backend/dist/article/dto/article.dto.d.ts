@@ -1,4 +1,5 @@
 export declare class ArticleDto {
+    readonly customId: number;
     readonly title: string;
     readonly authors: string[];
     readonly source: string;
@@ -9,4 +10,5 @@ export declare class ArticleDto {
     readonly participant: string;
     readonly research: string;
     readonly SEPractise: string;
+    readonly decision: string;
 }
