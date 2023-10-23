@@ -1,7 +1,7 @@
 import { GetStaticProps, NextPage } from "next";
 //import SortableTable from "../../components/table/SortableTable";
 import { ModInterface } from "../../components/table/ModInterface";
-import AnalystTable  from "../../components/table/ModTable";
+import ModTable  from "../../components/table/ModTable";
 import axios from "axios";
 
 
@@ -14,6 +14,7 @@ type AnalytsProps = {
 
 const Articles: NextPage<AnalytsProps> = ({ articles }) => {
   const headers: { key: keyof ModInterface; label: string }[] = [
+    { key: "customId", label: "ID" },
     { key: "title", label: "Title" },
     { key: "authors", label: "Authors" },
     { key: "source", label: "Source" },
@@ -35,7 +36,7 @@ const Articles: NextPage<AnalytsProps> = ({ articles }) => {
         </thead>
         <tbody>
           {articles.map((article) => (
-            <AnalystTable key={article.id} data={article} />
+            <ModTable key={article.customId} data={article} />
           ))}
         </tbody>
       </table>

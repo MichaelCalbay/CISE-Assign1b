@@ -1,5 +1,5 @@
 export interface ModInterface {
-    id: string;
+    customId: number;
     title: string;
     authors: string;
     source: string;

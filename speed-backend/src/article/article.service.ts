@@ -106,6 +106,7 @@ export class ArticleService {
       async confirmModeration(articleDto: ArticleDto) {
         console.log("CONFIRM ARTICLE MODERATION CALLED")
         const {
+          customId,
           title,
           authors,
           source,
@@ -113,11 +114,14 @@ export class ArticleService {
           doi,
           decision
         } = articleDto;
+        console.log("ID no:") 
+        console.log( articleDto.customId);
         console.log("ARTICLE DTO");
         console.log(articleDto);
         try {
           // Create the article in your database using the Mongoose model
           const moderatedArticle = await this.moderatedArticleModel.create({
+            customId,
             title,
             authors,
             source,
@@ -137,19 +141,26 @@ export class ArticleService {
         }
       }  
 
-      async findSubmissionByCoolId(coolId: number): Promise<SuggestedArticles | null> {
+      async findSuggestedByCustomId(
+        customId: number,
+      ): Promise<SuggestedArticles | null> {
         try {
-          const article = await this.articleModel.findOneAndDelete({ coolId });
-          
+          const article = await this.articleModel.findOneAndDelete({
+            customId,
+          });
+          console.log(article);
           if (article) {
             return article;
           } else {
-            console.log("Did not find any article.");
+            console.log('Did not find any article.');
             return null;
           }
         } catch (error) {
-          console.error('Error finding suggested article by coolId:', error);
-          throw new HttpException('Unable to find suggested article', HttpStatus.INTERNAL_SERVER_ERROR);
+          console.error('Error finding moderated article by customId:', error);
+          throw new HttpException(
+            'Unable to find moderated article',
+            HttpStatus.INTERNAL_SERVER_ERROR,
+          );
         }
       }
 

@@ -73,11 +73,14 @@ let ArticleService = class ArticleService {
     }
     async confirmModeration(articleDto) {
         console.log("CONFIRM ARTICLE MODERATION CALLED");
-        const { title, authors, source, pubyear, doi, decision } = articleDto;
+        const { customId, title, authors, source, pubyear, doi, decision } = articleDto;
+        console.log("ID no:");
+        console.log(articleDto.customId);
         console.log("ARTICLE DTO");
         console.log(articleDto);
         try {
             const moderatedArticle = await this.moderatedArticleModel.create({
+                customId,
                 title,
                 authors,
                 source,
@@ -94,20 +97,23 @@ let ArticleService = class ArticleService {
             throw new common_1.HttpException('Unable to Publish Article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    async findSubmissionByCoolId(coolId) {
+    async findSuggestedByCustomId(customId) {
         try {
-            const article = await this.articleModel.findOneAndDelete({ coolId });
+            const article = await this.articleModel.findOneAndDelete({
+                customId,
+            });
+            console.log(article);
             if (article) {
                 return article;
             }
             else {
-                console.log("Did not find any article.");
+                console.log('Did not find any article.');
                 return null;
             }
         }
         catch (error) {
-            console.error('Error finding suggested article by coolId:', error);
-            throw new common_1.HttpException('Unable to find suggested article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+            console.error('Error finding moderated article by customId:', error);
+            throw new common_1.HttpException('Unable to find moderated article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     async findAll() {
