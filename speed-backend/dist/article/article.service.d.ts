@@ -38,7 +38,10 @@ export declare class ArticleService {
     createArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, SuggestedArticles> & SuggestedArticles & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    findAll(): Promise<SuggestedArticles[]>;
+    confirmModeration(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, ModeratedArticles> & ModeratedArticles & {
+        _id: import("mongoose").Types.ObjectId;
+    }>;
+    findAllSuggested(): Promise<SuggestedArticles[]>;
     findAllModerated(): Promise<ModeratedArticles[]>;
     findPublishedArticle(): Promise<PublishedArticles[]>;
     findModeratedByCustomId(customId: number): Promise<ModeratedArticles | null>;

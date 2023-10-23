@@ -19,14 +19,24 @@ export class ArticleController {
     return this.articleService.publishArticle(articleDto);
   }
 
+  @Post('/confirmModeration')
+  editSuggestion(@Body() articleDto: ArticleDto) {
+    return this.articleService.confirmModeration(articleDto);
+  }
+
   @Get('/published')
-    async getPublishedArticles(): Promise<PublishedArticles[]> {
-        return this.articleService.findPublishedArticle();
-    }
+  async getPublishedArticles(): Promise<PublishedArticles[]> {
+    return this.articleService.findPublishedArticle();
+  }
 
   @Get()
   async getAllArticles(): Promise<SuggestedArticles[]> {
-    return this.articleService.findAll();
+    return this.articleService.findAllSuggested();
+  }
+
+  @Get('/moderate')
+  async getSuggestedArticles(): Promise<SuggestedArticles[]> {
+    return this.articleService.findAllSuggested();
   }
 
   @Get('/moderated')

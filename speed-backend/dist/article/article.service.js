@@ -26,8 +26,8 @@ let ArticleService = class ArticleService {
         this.moderatedArticleModel = moderatedArticleModel;
     }
     async publishArticle(articleDto) {
-        console.log("PUBLISH ARTICLE CALLED");
-        const { title, authors, source, pubyear, doi, claim, evidence, research, SEPractise } = articleDto;
+        console.log('PUBLISH ARTICLE CALLED');
+        const { title, authors, source, pubyear, doi, claim, evidence, research, SEPractise, } = articleDto;
         try {
             const publishedArticle = await this.publishedArticleModel.create({
                 title,
@@ -38,9 +38,9 @@ let ArticleService = class ArticleService {
                 claim,
                 evidence,
                 research,
-                SEPractise
+                SEPractise,
             });
-            console.log("PUBLISHED ARTICLE");
+            console.log('PUBLISHED ARTICLE');
             console.log(publishedArticle);
             return publishedArticle;
         }
@@ -50,7 +50,7 @@ let ArticleService = class ArticleService {
         }
     }
     async createArticle(articleDto) {
-        console.log("CREATE ARTICLE CALLED");
+        console.log('CREATE ARTICLE CALLED');
         const { customId, title, authors, source, pubyear, doi, participant } = articleDto;
         try {
             const count = await this.articleModel.countDocuments();
@@ -62,7 +62,7 @@ let ArticleService = class ArticleService {
                 source,
                 pubyear,
                 doi,
-                participant
+                participant,
             });
             console.log(article);
             return article;
@@ -73,9 +73,9 @@ let ArticleService = class ArticleService {
         }
     }
     async confirmModeration(articleDto) {
-        console.log("CONFIRM ARTICLE MODERATION CALLED");
+        console.log('CONFIRM ARTICLE MODERATION CALLED');
         const { title, authors, source, pubyear, doi, decision } = articleDto;
-        console.log("ARTICLE DTO");
+        console.log('ARTICLE DTO');
         console.log(articleDto);
         try {
             const moderatedArticle = await this.moderatedArticleModel.create({
@@ -84,9 +84,9 @@ let ArticleService = class ArticleService {
                 source,
                 pubyear,
                 doi,
-                decision
+                decision,
             });
-            console.log("MODERATED ARTICLE");
+            console.log('MODERATED ARTICLE');
             console.log(moderatedArticle);
             return moderatedArticle;
         }
@@ -95,23 +95,7 @@ let ArticleService = class ArticleService {
             throw new common_1.HttpException('Unable to Publish Article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    async findSubmissionByCoolId(coolId) {
-        try {
-            const article = await this.articleModel.findOneAndDelete({ coolId });
-            if (article) {
-                return article;
-            }
-            else {
-                console.log("Did not find any article.");
-                return null;
-            }
-        }
-        catch (error) {
-            console.error('Error finding suggested article by coolId:', error);
-            throw new common_1.HttpException('Unable to find suggested article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-    async findAll() {
+    async findAllSuggested() {
         const articles = await this.articleModel.find();
         return articles;
     }
@@ -125,12 +109,14 @@ let ArticleService = class ArticleService {
     }
     async findModeratedByCustomId(customId) {
         try {
-            const article = await this.moderatedArticleModel.findOneAndDelete({ customId });
+            const article = await this.moderatedArticleModel.findOneAndDelete({
+                customId,
+            });
             if (article) {
                 return article;
             }
             else {
-                console.log("Did not find any article.");
+                console.log('Did not find any article.');
                 return null;
             }
         }

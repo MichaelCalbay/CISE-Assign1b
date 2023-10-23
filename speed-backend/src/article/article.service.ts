@@ -17,9 +17,9 @@ export class ArticleService {
     @InjectModel(ModeratedArticles.name)
     private moderatedArticleModel: Model<ModeratedArticles>,
   ) {}
-  
+
   async publishArticle(articleDto: ArticleDto) {
-    console.log("PUBLISH ARTICLE CALLED")
+    console.log('PUBLISH ARTICLE CALLED');
     const {
       title,
       authors,
@@ -29,7 +29,7 @@ export class ArticleService {
       claim,
       evidence,
       research,
-      SEPractise
+      SEPractise,
     } = articleDto;
     try {
       // Create the article in your database using the Mongoose model
@@ -42,31 +42,26 @@ export class ArticleService {
         claim,
         evidence,
         research,
-        SEPractise
+        SEPractise,
       });
-  
-      console.log("PUBLISHED ARTICLE");
+
+      console.log('PUBLISHED ARTICLE');
       console.log(publishedArticle);
       return publishedArticle;
     } catch (error) {
-
       console.error('Error Publishing Article:', error);
-  
-      throw new HttpException('Unable to Publish Article', HttpStatus.INTERNAL_SERVER_ERROR);
+
+      throw new HttpException(
+        'Unable to Publish Article',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
-  }  
+  }
 
   async createArticle(articleDto: ArticleDto) {
-    console.log("CREATE ARTICLE CALLED")
-    const {
-      customId,
-      title,
-      authors,
-      source,
-      pubyear,
-      doi,
-      participant
-    } = articleDto;
+    console.log('CREATE ARTICLE CALLED');
+    const { customId, title, authors, source, pubyear, doi, participant } =
+      articleDto;
 
     try {
       // Create the article in your database using the Mongoose model
@@ -79,7 +74,7 @@ export class ArticleService {
         source,
         pubyear,
         doi,
-        participant
+        participant,
       });
 
       // Return the created article as a success response
@@ -91,11 +86,44 @@ export class ArticleService {
       console.error('Error creating article:', error);
 
       // You can throw a custom error, return an error response, or handle the error as needed
-      throw new HttpException('Unable to create article', HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(
+        'Unable to create article',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 
-  async findAll(): Promise<SuggestedArticles[]> {
+  async confirmModeration(articleDto: ArticleDto) {
+    console.log('CONFIRM ARTICLE MODERATION CALLED');
+    const { customId ,title, authors, source, pubyear, doi, decision } = articleDto;
+    console.log('ARTICLE DTO');
+    console.log(articleDto);
+    try {
+      // Create the article in your database using the Mongoose model
+      const moderatedArticle = await this.moderatedArticleModel.create({
+        customId,
+        title,
+        authors,
+        source,
+        pubyear,
+        doi,
+        decision,
+      });
+
+      console.log('MODERATED ARTICLE');
+      console.log(moderatedArticle);
+      return moderatedArticle;
+    } catch (error) {
+      console.error('Error Publishing Article:', error);
+
+      throw new HttpException(
+        'Unable to Publish Article',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  async findAllSuggested(): Promise<SuggestedArticles[]> {
     const articles = await this.articleModel.find();
     return articles;
   }
@@ -110,21 +138,26 @@ export class ArticleService {
     return articles;
   }
 
-  async findModeratedByCustomId(customId: number): Promise<ModeratedArticles | null> {
+  async findModeratedByCustomId(
+    customId: number,
+  ): Promise<ModeratedArticles | null> {
     try {
-      const article = await this.moderatedArticleModel.findOneAndDelete({ customId });
-      
+      const article = await this.moderatedArticleModel.findOneAndDelete({
+        customId,
+      });
+
       if (article) {
         return article;
       } else {
-        console.log("Did not find any article.");
+        console.log('Did not find any article.');
         return null;
       }
     } catch (error) {
       console.error('Error finding moderated article by customId:', error);
-      throw new HttpException('Unable to find moderated article', HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(
+        'Unable to find moderated article',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
-  
-  
 }

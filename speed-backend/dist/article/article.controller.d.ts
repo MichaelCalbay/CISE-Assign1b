@@ -37,9 +37,12 @@ export declare class ArticleController {
     publishArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, PublishedArticles> & PublishedArticles & {
         _id: import("mongoose").Types.ObjectId;
     }>;
+    editSuggestion(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, ModeratedArticles> & ModeratedArticles & {
+        _id: import("mongoose").Types.ObjectId;
+    }>;
     getPublishedArticles(): Promise<PublishedArticles[]>;
     getAllArticles(): Promise<SuggestedArticles[]>;
+    getSuggestedArticles(): Promise<SuggestedArticles[]>;
     getModeratedArticles(): Promise<ModeratedArticles[]>;
     deleteModeratedArticle(customId: number): Promise<string>;
-    deleteSubmittedArticle(coolId: number): Promise<string>;
 }

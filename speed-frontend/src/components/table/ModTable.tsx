@@ -27,6 +27,7 @@ const ModRow: React.FC<ModRowProps> = ({ data }) => {
 
 const handleSubmit = () => {
   const moderateData = {
+    customId: data.customId,
     title: data.title,
     authors: data.authors,
     source: data.source,
@@ -42,7 +43,7 @@ const handleSubmit = () => {
       console.log(response.data);
 
       axios
-      .delete(`http://localhost:3032/article/${data.coolId}`)
+      .delete(`http://localhost:3032/article/${data.customId}`)
       .then((deleteResponse) => {
         console.log("Deleted:", deleteResponse.data);
         window.location.reload();
