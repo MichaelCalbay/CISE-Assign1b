@@ -1,4 +1,12 @@
-import { Body, Controller, Post, Get, Delete, Param } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Get,
+  Delete,
+  Param,
+  Query,
+} from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { ArticleDto } from './dto/article.dto';
 import { SuggestedArticles } from './schemas/suggest.schema';
@@ -45,13 +53,26 @@ export class ArticleController {
   }
 
   @Delete(':customId')
-  async deleteModeratedArticle(@Param('customId') customId: number) {
-    const deletedArticle = await this.articleService.findModeratedByCustomId(
-      customId,
-    );
+  async deleteArticle(
+    @Query('type') type: string,
+    @Param('customId') customId: number,
+  ) {
+    let deletedArticle;
+
+    if (type === 'moderated') {
+      deletedArticle = await this.articleService.findModeratedByCustomId(
+        customId,
+      );
+    } else if (type === 'suggested') {
+      deletedArticle = await this.articleService.findSuggestedByCustomId(
+        customId,
+      );
+    } else {
+      return `Invalid deletion type: ${type}`;
+    }
 
     if (!deletedArticle) {
-      return `Moderated article with customId ${customId} not found.`;
+      return `${type} article with customId ${customId} not found.`;
     }
   }
 }

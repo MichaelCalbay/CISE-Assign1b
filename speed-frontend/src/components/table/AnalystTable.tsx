@@ -21,7 +21,9 @@ const SERCAnalystRow: React.FC<SERCAnalystRowProps> = ({ data }) => {
   const [evidence, setEvidence] = useState(data.evidence);
   const [research, setResearch] = useState(data.research);
 
-  const handleSEPracticeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSEPracticeChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setSEPractise(event.target.value);
   };
 
@@ -38,23 +40,23 @@ const SERCAnalystRow: React.FC<SERCAnalystRowProps> = ({ data }) => {
       SEPractise: SEPractise,
     };
 
-
-    
     axios
       .post("http://localhost:3032/article/publish", publishData)
       .then((response) => {
-        console.log("AnalystTable")
+        console.log("AnalystTable");
         console.log(response.data);
 
         axios
-        .delete(`http://localhost:3032/article/${data.customId}`)
-        .then((deleteResponse) => {
-          console.log("Deleted:", deleteResponse.data);
-          window.location.reload();
-        })
-        .catch((deleteError) => {
-          console.error("Deletion Error:", deleteError);
-        });
+          .delete(
+            `http://localhost:3032/article/${data.customId}?type=moderated`
+          )
+          .then((deleteResponse) => {
+            console.log("Deleted:", deleteResponse.data);
+            window.location.reload();
+          })
+          .catch((deleteError) => {
+            console.error("Deletion Error:", deleteError);
+          });
       })
       .catch((error) => {
         console.error(error);
@@ -87,10 +89,10 @@ const SERCAnalystRow: React.FC<SERCAnalystRowProps> = ({ data }) => {
       </td>
       <td>
         <input
-            type="text"
-            value={research}
-            placeholder="Enter Research"
-            onChange={(e) => setResearch(e.target.value)}
+          type="text"
+          value={research}
+          placeholder="Enter Research"
+          onChange={(e) => setResearch(e.target.value)}
         />
       </td>
       <td>
@@ -111,11 +113,8 @@ const SERCAnalystRow: React.FC<SERCAnalystRowProps> = ({ data }) => {
         )}
       </td>
       <td>
-        <button
-            type="submit"
-            onClick={handlePublish}
-        >
-            Publish
+        <button type="submit" onClick={handlePublish}>
+          Publish
         </button>
       </td>
     </tr>

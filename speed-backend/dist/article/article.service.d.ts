@@ -45,4 +45,5 @@ export declare class ArticleService {
     findAllModerated(): Promise<ModeratedArticles[]>;
     findPublishedArticle(): Promise<PublishedArticles[]>;
     findModeratedByCustomId(customId: number): Promise<ModeratedArticles | null>;
+    findSuggestedByCustomId(customId: number): Promise<SuggestedArticles | null>;
 }

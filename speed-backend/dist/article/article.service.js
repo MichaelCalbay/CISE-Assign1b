@@ -126,6 +126,24 @@ let ArticleService = class ArticleService {
             throw new common_1.HttpException('Unable to find moderated article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    async findSuggestedByCustomId(customId) {
+        try {
+            const article = await this.articleModel.findOneAndDelete({
+                customId,
+            });
+            if (article) {
+                return article;
+            }
+            else {
+                console.log('Did not find any article.');
+                return null;
+            }
+        }
+        catch (error) {
+            console.error('Error finding suggested article by customId:', error);
+            throw new common_1.HttpException('Unable to find suggested article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 };
 exports.ArticleService = ArticleService;
 exports.ArticleService = ArticleService = __decorate([
