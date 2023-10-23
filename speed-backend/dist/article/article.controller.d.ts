@@ -44,6 +44,5 @@ export declare class ArticleController {
     getAllArticles(): Promise<SuggestedArticles[]>;
     getSuggestedArticles(): Promise<SuggestedArticles[]>;
     getModeratedArticles(): Promise<ModeratedArticles[]>;
-    deleteModeratedArticle(customId: number): Promise<string>;
-    deleteSuggestedArticle(customId: number): Promise<string>;
+    deleteArticle(type: string, customId: number): Promise<string>;
 }

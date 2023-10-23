@@ -41,16 +41,19 @@ let ArticleController = class ArticleController {
     async getModeratedArticles() {
         return this.articleService.findAllModerated();
     }
-    async deleteModeratedArticle(customId) {
-        const deletedArticle = await this.articleService.findModeratedByCustomId(customId);
-        if (!deletedArticle) {
-            return `Moderated article with customId ${customId} not found.`;
+    async deleteArticle(type, customId) {
+        let deletedArticle;
+        if (type === 'moderated') {
+            deletedArticle = await this.articleService.findModeratedByCustomId(customId);
         }
-    }
-    async deleteSuggestedArticle(customId) {
-        const deletedArticle = await this.articleService.findSuggestedByCustomId(customId);
+        else if (type === 'suggested') {
+            deletedArticle = await this.articleService.findSuggestedByCustomId(customId);
+        }
+        else {
+            return `Invalid deletion type: ${type}`;
+        }
         if (!deletedArticle) {
-            return `Suggested article with customId ${customId} not found.`;
+            return `${type} article with customId ${customId} not found.`;
         }
     }
 };
@@ -102,18 +105,12 @@ __decorate([
 ], ArticleController.prototype, "getModeratedArticles", null);
 __decorate([
     (0, common_1.Delete)(':customId'),
-    __param(0, (0, common_1.Param)('customId')),
+    __param(0, (0, common_1.Query)('type')),
+    __param(1, (0, common_1.Param)('customId')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [String, Number]),
     __metadata("design:returntype", Promise)
-], ArticleController.prototype, "deleteModeratedArticle", null);
-__decorate([
-    (0, common_1.Delete)(':customId'),
-    __param(0, (0, common_1.Param)('customId')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", Promise)
-], ArticleController.prototype, "deleteSuggestedArticle", null);
+], ArticleController.prototype, "deleteArticle", null);
 exports.ArticleController = ArticleController = __decorate([
     (0, common_1.Controller)('article'),
     __metadata("design:paramtypes", [article_service_1.ArticleService])
