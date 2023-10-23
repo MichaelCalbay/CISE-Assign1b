@@ -160,4 +160,27 @@ export class ArticleService {
       );
     }
   }
+
+  async findSuggestedByCustomId(
+    customId: number,
+  ): Promise<SuggestedArticles | null> {
+    try {
+      const article = await this.articleModel.findOneAndDelete({
+        customId,
+      });
+
+      if (article) {
+        return article;
+      } else {
+        console.log('Did not find any article.');
+        return null;
+      }
+    } catch (error) {
+      console.error('Error finding suggested article by customId:', error);
+      throw new HttpException(
+        'Unable to find suggested article',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
 }

@@ -49,8 +49,4 @@ export class ArticleDto{
     @IsString()
     readonly decision: string
 
-    @IsNotEmpty()
-    @IsString()
-    readonly customId: number
-
 }

@@ -43,12 +43,14 @@ let ArticleController = class ArticleController {
     }
     async deleteModeratedArticle(customId) {
         const deletedArticle = await this.articleService.findModeratedByCustomId(customId);
-    }
-    async deleteModeratedArticle(customId) {
-        console.log("controller called?");
-        const deletedArticle = await this.articleService.findSuggestedByCustomId(customId);
         if (!deletedArticle) {
             return `Moderated article with customId ${customId} not found.`;
+        }
+    }
+    async deleteSuggestedArticle(customId) {
+        const deletedArticle = await this.articleService.findSuggestedByCustomId(customId);
+        if (!deletedArticle) {
+            return `Suggested article with customId ${customId} not found.`;
         }
     }
 };
@@ -105,6 +107,13 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], ArticleController.prototype, "deleteModeratedArticle", null);
+__decorate([
+    (0, common_1.Delete)(':customId'),
+    __param(0, (0, common_1.Param)('customId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], ArticleController.prototype, "deleteSuggestedArticle", null);
 exports.ArticleController = ArticleController = __decorate([
     (0, common_1.Controller)('article'),
     __metadata("design:paramtypes", [article_service_1.ArticleService])
