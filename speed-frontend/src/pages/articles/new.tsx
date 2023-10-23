@@ -65,7 +65,7 @@ const NewDiscussion = () => {
       try {
         //Sends data into server-side API
         const responseData = await axios.post(
-          "http://localhost:3032/article/create",
+          "http://cise-assign1b-six.vercel.app/article/create",
           data
         );
 

@@ -42,14 +42,14 @@ const SERCAnalystRow: React.FC<SERCAnalystRowProps> = ({ data }) => {
     };
 
     axios
-      .post("http://localhost:3032/article/publish", publishData)
+      .post("http://cise-assign1b-six.vercel.app/article/publish", publishData)
       .then((response) => {
         console.log("AnalystTable");
         console.log(response.data);
 
         axios
           .delete(
-            `http://localhost:3032/article/${data.customId}?type=moderated`
+            `http://cise-assign1b-six.vercel.app/article/${data.customId}?type=moderated`
           )
           .then((deleteResponse) => {
             console.log("Deleted:", deleteResponse.data);

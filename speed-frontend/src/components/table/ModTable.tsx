@@ -33,14 +33,14 @@ const ModRow: React.FC<ModRowProps> = ({ data }) => {
     };
 
     axios
-      .post("http://localhost:3032/article/confirmModeration", moderateData)
+      .post("http://cise-assign1b-six.vercel.app/article/confirmModeration", moderateData)
       .then((response) => {
         console.log("AnalystTable");
         console.log(response.data);
 
         axios
           .delete(
-            `http://localhost:3032/article/${data.customId}?type=suggested`
+            `http://cise-assign1b-six.vercel.app/article/${data.customId}?type=suggested`
           )
           .then((deleteResponse) => {
             console.log("Deleted:", deleteResponse.data);
@@ -57,7 +57,7 @@ const ModRow: React.FC<ModRowProps> = ({ data }) => {
 
   const handleReject = () => {
     axios
-      .delete(`http://localhost:3032/article/${data.customId}?type=suggested`)
+      .delete(`http://cise-assign1b-six.vercel.app/article/${data.customId}?type=suggested`)
       .then((deleteResponse) => {
         console.log("Deleted:", deleteResponse.data);
         window.location.reload();

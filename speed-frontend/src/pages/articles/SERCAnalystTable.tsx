@@ -48,7 +48,7 @@ const Articles: NextPage<AnalytsProps> = ({ articles }) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   //https request to REST API
-  const getData = await axios.get('http://localhost:3032/article/moderated');
+  const getData = await axios.get('http://cise-assign1b-six.vercel.app/article/moderated');
 
   console.log(getData);
 
