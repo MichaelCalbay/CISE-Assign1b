@@ -32,6 +32,12 @@ let ArticleController = class ArticleController {
     async getModeratedArticles() {
         return this.articleService.findAllModerated();
     }
+    async deleteModeratedArticle(customId) {
+        const deletedArticle = await this.articleService.findModeratedByCustomId(customId);
+        if (!deletedArticle) {
+            return `Moderated article with customId ${customId} not found.`;
+        }
+    }
 };
 exports.ArticleController = ArticleController;
 __decorate([
@@ -60,6 +66,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ArticleController.prototype, "getModeratedArticles", null);
+__decorate([
+    (0, common_1.Delete)(':customId'),
+    __param(0, (0, common_1.Param)('customId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], ArticleController.prototype, "deleteModeratedArticle", null);
 exports.ArticleController = ArticleController = __decorate([
     (0, common_1.Controller)('article'),
     __metadata("design:paramtypes", [article_service_1.ArticleService])

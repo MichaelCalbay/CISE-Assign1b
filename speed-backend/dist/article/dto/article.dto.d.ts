@@ -1,4 +1,5 @@
 export declare class ArticleDto {
+    readonly customId: number;
     readonly title: string;
     readonly authors: string[];
     readonly source: string;

@@ -28,8 +28,6 @@ let ArticleService = class ArticleService {
     async publishArticle(articleDto) {
         console.log("PUBLISH ARTICLE CALLED");
         const { title, authors, source, pubyear, doi, claim, evidence, research, SEPractise } = articleDto;
-        console.log("ARTICLE DTO");
-        console.log(articleDto);
         try {
             const publishedArticle = await this.publishedArticleModel.create({
                 title,
@@ -53,9 +51,12 @@ let ArticleService = class ArticleService {
     }
     async createArticle(articleDto) {
         console.log("CREATE ARTICLE CALLED");
-        const { title, authors, source, pubyear, doi, participant } = articleDto;
+        const { customId, title, authors, source, pubyear, doi, participant } = articleDto;
         try {
+            const count = await this.articleModel.countDocuments();
+            const customId = count + 1;
             const article = await this.articleModel.create({
+                customId,
                 title,
                 authors,
                 source,
@@ -78,6 +79,22 @@ let ArticleService = class ArticleService {
     async findAllModerated() {
         const articles = await this.moderatedArticleModel.find();
         return articles;
+    }
+    async findModeratedByCustomId(customId) {
+        try {
+            const article = await this.moderatedArticleModel.findOneAndDelete({ customId });
+            if (article) {
+                return article;
+            }
+            else {
+                console.log("Did not find any article.");
+                return null;
+            }
+        }
+        catch (error) {
+            console.error('Error finding moderated article by customId:', error);
+            throw new common_1.HttpException('Unable to find moderated article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 };
 exports.ArticleService = ArticleService;

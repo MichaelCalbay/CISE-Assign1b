@@ -38,4 +38,5 @@ export declare class ArticleController {
     }>;
     getAllArticles(): Promise<SuggestedArticles[]>;
     getModeratedArticles(): Promise<ModeratedArticles[]>;
+    deleteModeratedArticle(customId: number): Promise<string>;
 }

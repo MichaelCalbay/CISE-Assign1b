@@ -37,11 +37,24 @@ const SERCAnalystRow: React.FC<SERCAnalystRowProps> = ({ data }) => {
       research: research,
       SEPractise: SEPractise,
     };
+
+
+    
     axios
       .post("http://localhost:3032/article/publish", publishData)
       .then((response) => {
         console.log("AnalystTable")
         console.log(response.data);
+
+        axios
+        .delete(`http://localhost:3032/article/${data.customId}`)
+        .then((deleteResponse) => {
+          console.log("Deleted:", deleteResponse.data);
+          window.location.reload();
+        })
+        .catch((deleteError) => {
+          console.error("Deletion Error:", deleteError);
+        });
       })
       .catch((error) => {
         console.error(error);
@@ -50,6 +63,7 @@ const SERCAnalystRow: React.FC<SERCAnalystRowProps> = ({ data }) => {
 
   return (
     <tr>
+      <td>{data.customId}</td>
       <td>{data.title}</td>
       <td>{data.authors}</td>
       <td>{data.source}</td>

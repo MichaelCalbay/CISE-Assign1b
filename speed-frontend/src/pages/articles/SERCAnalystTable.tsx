@@ -1,4 +1,4 @@
-import { GetStaticProps, NextPage } from "next";
+import { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import { AnalystInterface } from "../../components/table/AnalystInterface";
 import AnalystTable  from "../../components/table/AnalystTable";
 import axios from "axios";
@@ -9,6 +9,7 @@ type AnalytsProps = {
 
 const Articles: NextPage<AnalytsProps> = ({ articles }) => {
   const headers: { key: keyof AnalystInterface; label: string }[] = [
+    { key: "customId", label: "ID" },
     { key: "title", label: "Title" },
     { key: "authors", label: "Authors" },
     { key: "source", label: "Source" },
@@ -33,13 +34,14 @@ const Articles: NextPage<AnalytsProps> = ({ articles }) => {
         </thead>
         <tbody>
           {articles.map((article) => (
-            <AnalystTable key={article.id} data={article} />
+            <AnalystTable key={article.customId} data={article} />
           ))}
         </tbody>
       </table>
     </div>
   );
 };
+
 
 
 export const getStaticProps: GetStaticProps = async (context) => {

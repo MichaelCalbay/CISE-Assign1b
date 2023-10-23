@@ -1,6 +1,10 @@
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class ArticleDto{
+    @IsOptional()
+    @IsString()
+    readonly customId: number
+
     @IsNotEmpty()
     @IsString()
     readonly title: string

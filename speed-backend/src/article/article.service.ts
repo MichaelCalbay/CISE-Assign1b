@@ -30,8 +30,6 @@ export class ArticleService {
       research,
       SEPractise
     } = articleDto;
-    console.log("ARTICLE DTO");
-    console.log(articleDto);
     try {
       // Create the article in your database using the Mongoose model
       const publishedArticle = await this.publishedArticleModel.create({
@@ -60,6 +58,7 @@ export class ArticleService {
   async createArticle(articleDto: ArticleDto) {
     console.log("CREATE ARTICLE CALLED")
     const {
+      customId,
       title,
       authors,
       source,
@@ -70,7 +69,10 @@ export class ArticleService {
 
     try {
       // Create the article in your database using the Mongoose model
+      const count = await this.articleModel.countDocuments();
+      const customId = count + 1;
       const article = await this.articleModel.create({
+        customId,
         title,
         authors,
         source,
@@ -101,4 +103,22 @@ export class ArticleService {
     const articles = await this.moderatedArticleModel.find();
     return articles;
   }
+
+  async findModeratedByCustomId(customId: number): Promise<ModeratedArticles | null> {
+    try {
+      const article = await this.moderatedArticleModel.findOneAndDelete({ customId });
+      
+      if (article) {
+        return article;
+      } else {
+        console.log("Did not find any article.");
+        return null;
+      }
+    } catch (error) {
+      console.error('Error finding moderated article by customId:', error);
+      throw new HttpException('Unable to find moderated article', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+  
+  
 }
