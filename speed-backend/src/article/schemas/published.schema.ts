@@ -32,6 +32,9 @@ export class PublishedArticles {
   research: string;
 
   @Prop()
+  participant: string;
+
+  @Prop()
   SEPractise: string;
 }
 

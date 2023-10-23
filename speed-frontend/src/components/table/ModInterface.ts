@@ -6,5 +6,6 @@ export interface ModInterface {
     pubyear: string;
     doi: string;
     decision: string;
+    participant: string;
   }
   

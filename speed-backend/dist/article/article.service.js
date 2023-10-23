@@ -27,7 +27,7 @@ let ArticleService = class ArticleService {
     }
     async publishArticle(articleDto) {
         console.log('PUBLISH ARTICLE CALLED');
-        const { title, authors, source, pubyear, doi, claim, evidence, research, SEPractise, } = articleDto;
+        const { title, authors, source, pubyear, doi, claim, evidence, research, SEPractise, participant, } = articleDto;
         try {
             const publishedArticle = await this.publishedArticleModel.create({
                 title,
@@ -39,6 +39,7 @@ let ArticleService = class ArticleService {
                 evidence,
                 research,
                 SEPractise,
+                participant,
             });
             console.log('PUBLISHED ARTICLE');
             console.log(publishedArticle);
@@ -74,7 +75,7 @@ let ArticleService = class ArticleService {
     }
     async confirmModeration(articleDto) {
         console.log('CONFIRM ARTICLE MODERATION CALLED');
-        const { customId, title, authors, source, pubyear, doi, decision } = articleDto;
+        const { customId, title, authors, source, pubyear, doi, decision, participant } = articleDto;
         console.log('ARTICLE DTO');
         console.log(articleDto);
         try {
@@ -86,6 +87,7 @@ let ArticleService = class ArticleService {
                 pubyear,
                 doi,
                 decision,
+                participant,
             });
             console.log('MODERATED ARTICLE');
             console.log(moderatedArticle);

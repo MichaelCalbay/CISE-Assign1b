@@ -27,6 +27,7 @@ const ModRow: React.FC<ModRowProps> = ({ data }) => {
       authors: data.authors,
       source: data.source,
       pubyear: data.pubyear,
+      participant: data.participant,
       doi: data.doi,
       decision: decision,
     };

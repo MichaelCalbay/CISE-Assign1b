@@ -33,6 +33,7 @@ const SERCAnalystRow: React.FC<SERCAnalystRowProps> = ({ data }) => {
       authors: data.authors,
       source: data.source,
       pubyear: data.pubyear,
+      participant: data.participant,
       doi: data.doi,
       claim: claim,
       evidence: evidence,

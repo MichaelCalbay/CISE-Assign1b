@@ -30,6 +30,7 @@ export class ArticleService {
       evidence,
       research,
       SEPractise,
+      participant,
     } = articleDto;
     try {
       // Create the article in your database using the Mongoose model
@@ -43,6 +44,7 @@ export class ArticleService {
         evidence,
         research,
         SEPractise,
+        participant,
       });
 
       console.log('PUBLISHED ARTICLE');
@@ -95,7 +97,8 @@ export class ArticleService {
 
   async confirmModeration(articleDto: ArticleDto) {
     console.log('CONFIRM ARTICLE MODERATION CALLED');
-    const { customId ,title, authors, source, pubyear, doi, decision } = articleDto;
+    const { customId, title, authors, source, pubyear, doi, decision, participant } =
+      articleDto;
     console.log('ARTICLE DTO');
     console.log(articleDto);
     try {
@@ -108,6 +111,7 @@ export class ArticleService {
         pubyear,
         doi,
         decision,
+        participant,
       });
 
       console.log('MODERATED ARTICLE');
