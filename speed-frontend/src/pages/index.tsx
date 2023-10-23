@@ -225,10 +225,11 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
           <p style={{ fontWeight: 'bold' }}>Search by: {' '}
             <select value={selectedOption} onChange={handleDropdownChange}>
               <option value="">SE Practise</option>
-              <option value="TDD">TDD</option>
-              <option value="Microservices">Microservices</option>
+              <option value="Code Review">Code Review</option>
+              <option value="Agile">Agile</option>
               <option value="Continuous Integration">Continuous Integration</option>
-              <option value="Refactored">Refactored</option>
+              <option value="Waterfall">Waterfall</option>
+              <option value="Other">Other</option>
             </select>
           </p>
         </div>
