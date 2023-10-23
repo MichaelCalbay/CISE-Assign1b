@@ -26,6 +26,9 @@ let ArticleController = class ArticleController {
     publishArticle(articleDto) {
         return this.articleService.publishArticle(articleDto);
     }
+    async getPublishedArticles() {
+        return this.articleService.findPublishedArticle();
+    }
     async getAllArticles() {
         return this.articleService.findAll();
     }
@@ -54,6 +57,12 @@ __decorate([
     __metadata("design:paramtypes", [article_dto_1.ArticleDto]),
     __metadata("design:returntype", void 0)
 ], ArticleController.prototype, "publishArticle", null);
+__decorate([
+    (0, common_1.Get)('/published'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ArticleController.prototype, "getPublishedArticles", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),

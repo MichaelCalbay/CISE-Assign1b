@@ -80,6 +80,10 @@ let ArticleService = class ArticleService {
         const articles = await this.moderatedArticleModel.find();
         return articles;
     }
+    async findPublishedArticle() {
+        const articles = await this.publishedArticleModel.find();
+        return articles;
+    }
     async findModeratedByCustomId(customId) {
         try {
             const article = await this.moderatedArticleModel.findOneAndDelete({ customId });

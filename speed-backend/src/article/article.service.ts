@@ -105,6 +105,11 @@ export class ArticleService {
     return articles;
   }
 
+  async findPublishedArticle(): Promise<PublishedArticles[]> {
+    const articles = await this.publishedArticleModel.find();
+    return articles;
+  }
+
   async findModeratedByCustomId(customId: number): Promise<ModeratedArticles | null> {
     try {
       const article = await this.moderatedArticleModel.findOneAndDelete({ customId });

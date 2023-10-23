@@ -3,6 +3,7 @@ import { ArticleService } from './article.service';
 import { ArticleDto } from './dto/article.dto';
 import { SuggestedArticles } from './schemas/suggest.schema';
 import { ModeratedArticles } from './schemas/moderated.schema';
+import { PublishedArticles } from './schemas/published.schema';
 
 @Controller('article')
 export class ArticleController {
@@ -17,6 +18,11 @@ export class ArticleController {
   publishArticle(@Body() articleDto: ArticleDto) {
     return this.articleService.publishArticle(articleDto);
   }
+
+  @Get('/published')
+    async getPublishedArticles(): Promise<PublishedArticles[]> {
+        return this.articleService.findPublishedArticle();
+    }
 
   @Get()
   async getAllArticles(): Promise<SuggestedArticles[]> {

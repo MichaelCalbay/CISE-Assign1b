@@ -27,15 +27,17 @@ import { ArticleService } from './article.service';
 import { ArticleDto } from './dto/article.dto';
 import { SuggestedArticles } from './schemas/suggest.schema';
 import { ModeratedArticles } from './schemas/moderated.schema';
+import { PublishedArticles } from './schemas/published.schema';
 export declare class ArticleController {
     private articleService;
     constructor(articleService: ArticleService);
     populateArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, SuggestedArticles> & SuggestedArticles & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    publishArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, import("./schemas/published.schema").PublishedArticles> & import("./schemas/published.schema").PublishedArticles & {
+    publishArticle(articleDto: ArticleDto): Promise<import("mongoose").Document<unknown, {}, PublishedArticles> & PublishedArticles & {
         _id: import("mongoose").Types.ObjectId;
     }>;
+    getPublishedArticles(): Promise<PublishedArticles[]>;
     getAllArticles(): Promise<SuggestedArticles[]>;
     getModeratedArticles(): Promise<ModeratedArticles[]>;
     deleteModeratedArticle(customId: number): Promise<string>;

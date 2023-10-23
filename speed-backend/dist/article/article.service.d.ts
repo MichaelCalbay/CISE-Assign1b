@@ -40,5 +40,6 @@ export declare class ArticleService {
     }>;
     findAll(): Promise<SuggestedArticles[]>;
     findAllModerated(): Promise<ModeratedArticles[]>;
+    findPublishedArticle(): Promise<PublishedArticles[]>;
     findModeratedByCustomId(customId: number): Promise<ModeratedArticles | null>;
 }
