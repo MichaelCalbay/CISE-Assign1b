@@ -1,71 +1,61 @@
-import React, { useEffect, useState } from 'react';
-//import React from "react";
-import { useForm } from "react-hook-form";
+import { GetServerSideProps, GetStaticProps, NextPage } from "next";
+import { AnalystInterface } from "../../components/table/AnalystInterface";
+import AnalystTable  from "../../components/table/AnalystTable";
 import axios from "axios";
 
-export default function SubmissionForm() {
-    const { register, handleSubmit } = useForm();
-
-    const onSubmit = (data: any) => JSON.stringify(data);
-    
-
-const SERCAnalystTable: React.FC = () => {
-    const [data, setData] = useState([]);
-    //Need to put API/MongoDB URI here so I can link.
-    const apiUrl = '/api/data';
-
-    useEffect(() => {
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => setData(data))
-            .catch(error => console.error(error));
-    }, []); 
-
-    return (
-        <div>
-            <h1>SERC-Analyst QUEUE</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>FUCK</th>
-                        <th>THIS</th>
-                        <th>STUPID</th>
-                        <th>PAPER ON GOD FRFR</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                            <td>NEED DATA 
-                                <form onSubmit={handleSubmit(onSubmit)}>
-                                <input {...register("title")} placeholder="Title" />
-                                <input type="submit" />
-                                </form>
-                            </td>
-                            <td>URI HERE FROM </td>
-                            <td>MODERATED TABLES </td>
-                            <td>TO POPULATE </td>
-                        </tr>
-                   
-                </tbody>
-            </table>            
-        </div>
-    );
+type AnalytsProps = {
+  articles: AnalystInterface[];
 };
-}
-//export default SERCAnalystTable;
+
+const Articles: NextPage<AnalytsProps> = ({ articles }) => {
+  const headers: { key: keyof AnalystInterface; label: string }[] = [
+    { key: "customId", label: "ID" },
+    { key: "title", label: "Title" },
+    { key: "authors", label: "Authors" },
+    { key: "source", label: "Source" },
+    { key: "pubyear", label: "Publication Year" },
+    { key: "doi", label: "DOI" },
+    { key: "claim", label: "Claim" },
+    { key: "evidence", label: "Evidence" },
+    { key: "research", label: "Research" },
+    { key: "SEPractise", label: "SEPractise" },
+  ];
+
+  return (
+    <div className="container">
+      <h1>SERC-Analyst QUEUE</h1>
+      <table>
+        <thead>
+          <tr>
+            {headers.map((header) => (
+              <th key={header.key}>{header.label}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {articles.map((article) => (
+            <AnalystTable key={article.customId} data={article} />
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
 
 
 
+export const getStaticProps: GetStaticProps = async (context) => {
+  //https request to REST API
+  const getData = await axios.get('http://localhost:3032/article/moderated');
+
+  console.log(getData);
 
 
-//This is a placeholder
-// const Analysis = () => {
-//     return (
-//       <div>
-//         <h1>Articles for Analysis</h1>
-//         <p>This page contains a list of articles which are analysed or yet to be analysed</p>
-//       </div>
-//     );
-//   };
-  
-//   export default Analysis;
+  //Returning articles
+  return {
+    props: {
+      articles: getData.data
+    },
+  };
+};
+export default Articles;

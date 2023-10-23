@@ -1,7 +1,10 @@
-/* eslint-disable prettier/prettier */
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class ArticleDto{
+    @IsOptional()
+    @IsString()
+    readonly customId: number
+
     @IsNotEmpty()
     @IsString()
     readonly title: string
@@ -22,11 +25,11 @@ export class ArticleDto{
     @IsString()
     readonly doi: string
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
     readonly claim: string
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
     readonly evidence: string
 
@@ -34,11 +37,11 @@ export class ArticleDto{
     @IsString()
     readonly participant: string
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
     readonly research: string
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
     readonly SEPractise: string
 

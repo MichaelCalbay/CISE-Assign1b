@@ -1,28 +1,29 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({
-    timestamps: true,
+  timestamps: true,
 })
-
 export class ModeratedArticles {
-    @Prop()
-    title: string
+  @Prop()
+  customId: number;
+  
+  @Prop()
+  title: string;
 
-    @Prop([String])
-    authors: string[]
+  @Prop([String])
+  authors: string[];
 
-    @Prop()
-    source: string
+  @Prop()
+  source: string;
 
-    @Prop()
-    pubyear: number
+  @Prop()
+  pubyear: number;
 
-    @Prop()
-    doi: string
+  @Prop()
+  doi: string;
 
-    @Prop()
-    decision: string
+  @Prop()
+  participant: string;
 }
 
 export const ModArticleSchema = SchemaFactory.createForClass(ModeratedArticles);
-

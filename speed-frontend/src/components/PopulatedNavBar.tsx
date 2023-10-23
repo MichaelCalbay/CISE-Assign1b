@@ -4,7 +4,7 @@ import NavDropdown from "./nav/NavDropdown";
 import NavItem from "./nav/NavItem";
 
 const PopulatedNavBar = () => {
-    return (
+  return (
     <NavBar>
     <NavItem>SPEED</NavItem>
     <NavItem route="/" end>
@@ -20,8 +20,6 @@ const PopulatedNavBar = () => {
     </NavDropdown>
     </NavItem>
     </NavBar>
-    );
-    };
-    export default PopulatedNavBar;
-
-    
+  );
+};
+export default PopulatedNavBar;

@@ -17,6 +17,9 @@ export class PublishedArticles {
   pubyear: number;
 
   @Prop()
+  doi: string;
+
+  @Prop()
   claim: string;
 
   @Prop()

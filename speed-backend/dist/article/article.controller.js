@@ -23,19 +23,22 @@ let ArticleController = class ArticleController {
     populateArticle(articleDto) {
         return this.articleService.createArticle(articleDto);
     }
+    publishArticle(articleDto) {
+        return this.articleService.publishArticle(articleDto);
+    }
     async getPublishedArticles() {
         return this.articleService.findPublishedArticle();
     }
-    async getSuggestedArticles() {
-        return this.articleService.findSuggestedArticle();
+    async getAllArticles() {
+        return this.articleService.findAll();
     }
-    editSuggestion(articleDto) {
-        return this.articleService.confirmModeration(articleDto);
+    async getModeratedArticles() {
+        return this.articleService.findAllModerated();
     }
-    async deleteSubmittedArticle(coolId) {
-        const deletedArticle = await this.articleService.findSubmissionByCoolId(coolId);
+    async deleteModeratedArticle(customId) {
+        const deletedArticle = await this.articleService.findModeratedByCustomId(customId);
         if (!deletedArticle) {
-            return `Moderated article with customId ${coolId} not found.`;
+            return `Moderated article with customId ${customId} not found.`;
         }
     }
 };
@@ -48,24 +51,37 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ArticleController.prototype, "populateArticle", null);
 __decorate([
+    (0, common_1.Post)('/publish'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [article_dto_1.ArticleDto]),
+    __metadata("design:returntype", void 0)
+], ArticleController.prototype, "publishArticle", null);
+__decorate([
     (0, common_1.Get)('/published'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ArticleController.prototype, "getPublishedArticles", null);
 __decorate([
-    (0, common_1.Get)('/moderate'),
+    (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], ArticleController.prototype, "getSuggestedArticles", null);
+], ArticleController.prototype, "getAllArticles", null);
 __decorate([
-    (0, common_1.Post)('/confirmModeration'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Get)('/moderated'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [article_dto_1.ArticleDto]),
-    __metadata("design:returntype", void 0)
-], ArticleController.prototype, "editSuggestion", null);
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ArticleController.prototype, "getModeratedArticles", null);
+__decorate([
+    (0, common_1.Delete)(':customId'),
+    __param(0, (0, common_1.Param)('customId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], ArticleController.prototype, "deleteModeratedArticle", null);
 __decorate([
     (0, common_1.Delete)(':coolId'),
     __param(0, (0, common_1.Param)('coolId')),

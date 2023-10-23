@@ -6,6 +6,9 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 export class SuggestedArticles {
   @Prop()
+  customId: number;
+
+  @Prop()
   title: string;
 
   @Prop([String])

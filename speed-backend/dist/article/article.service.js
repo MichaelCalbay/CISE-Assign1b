@@ -15,20 +15,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArticleService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
+const suggest_schema_1 = require("./schemas/suggest.schema");
+const mongoose_2 = require("mongoose");
 const published_schema_1 = require("./schemas/published.schema");
 const moderated_schema_1 = require("./schemas/moderated.schema");
-const mongoose_2 = require("mongoose");
-const suggest_schema_1 = require("./schemas/suggest.schema");
 let ArticleService = class ArticleService {
     constructor(publishedArticleModel, articleModel, moderatedArticleModel) {
         this.publishedArticleModel = publishedArticleModel;
         this.articleModel = articleModel;
         this.moderatedArticleModel = moderatedArticleModel;
     }
-    async createArticle(articleDto) {
-        const { title, authors, source, pubyear, doi, claim, evidence, participant, research, SEPractise, decision } = articleDto;
+    async publishArticle(articleDto) {
+        console.log("PUBLISH ARTICLE CALLED");
+        const { title, authors, source, pubyear, doi, claim, evidence, research, SEPractise } = articleDto;
         try {
-            const article = await this.moderatedArticleModel.create({
+            const publishedArticle = await this.publishedArticleModel.create({
                 title,
                 authors,
                 source,
@@ -36,34 +37,34 @@ let ArticleService = class ArticleService {
                 doi,
                 claim,
                 evidence,
-                participant,
                 research,
-                SEPractise,
-                decision
+                SEPractise
             });
-            return article;
+            console.log("PUBLISHED ARTICLE");
+            console.log(publishedArticle);
+            return publishedArticle;
         }
         catch (error) {
-            console.error('Error creating article:', error);
-            throw new common_1.HttpException('Unable to create article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+            console.error('Error Publishing Article:', error);
+            throw new common_1.HttpException('Unable to Publish Article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    async editSuggestedArticle(articleDto) {
-        const { title, authors, source, pubyear, doi, claim, evidence, participant, research, SEPractise, decision } = articleDto;
+    async createArticle(articleDto) {
+        console.log("CREATE ARTICLE CALLED");
+        const { customId, title, authors, source, pubyear, doi, participant } = articleDto;
         try {
+            const count = await this.articleModel.countDocuments();
+            const customId = count + 1;
             const article = await this.articleModel.create({
+                customId,
                 title,
                 authors,
                 source,
                 pubyear,
                 doi,
-                claim,
-                evidence,
-                participant,
-                research,
-                SEPractise,
-                decision
+                participant
             });
+            console.log(article);
             return article;
         }
         catch (error) {
@@ -114,13 +115,29 @@ let ArticleService = class ArticleService {
         const articles = await this.articleModel.find();
         return articles;
     }
-    async findSuggestedArticle() {
-        const articles = await this.articleModel.find();
+    async findAllModerated() {
+        const articles = await this.moderatedArticleModel.find();
         return articles;
     }
     async findPublishedArticle() {
         const articles = await this.publishedArticleModel.find();
         return articles;
+    }
+    async findModeratedByCustomId(customId) {
+        try {
+            const article = await this.moderatedArticleModel.findOneAndDelete({ customId });
+            if (article) {
+                return article;
+            }
+            else {
+                console.log("Did not find any article.");
+                return null;
+            }
+        }
+        catch (error) {
+            console.error('Error finding moderated article by customId:', error);
+            throw new common_1.HttpException('Unable to find moderated article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 };
 exports.ArticleService = ArticleService;
