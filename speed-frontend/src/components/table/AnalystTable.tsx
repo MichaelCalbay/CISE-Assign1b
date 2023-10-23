@@ -65,13 +65,16 @@ const SERCAnalystRow: React.FC<SERCAnalystRowProps> = ({ data }) => {
 
   return (
     <tr>
-      <td>{data.customId}</td>
-      <td>{data.title}</td>
-      <td>{data.authors}</td>
-      <td>{data.source}</td>
-      <td>{data.pubyear}</td>
-      <td>{data.doi}</td>
-      <td>
+      <td style={{ border: '1px solid darkgrey', padding: '8px' }}>{data.customId}</td>
+      <td style={{ border: '1px solid darkgrey', padding: '8px' }}>{data.title}</td>
+      <td style={{ border: '1px solid darkgrey', padding: '8px' }}>{data.authors}</td>
+      <td style={{ border: '1px solid darkgrey', padding: '8px' }}>{data.source}</td>
+      <td style={{ border: '1px solid darkgrey', padding: '8px' }}>{data.pubyear}</td>
+      <td style={{ border: '1px solid darkgrey', padding: '8px' }}>{data.doi}</td>
+      <td style={{ border: '1px solid darkgrey', padding: '8px' }}>
+        {/* ... Other code ... */}
+      </td>
+      <td style={{ border: '1px solid darkgrey' }}>
         <input
           type="text"
           value={claim}
@@ -79,7 +82,7 @@ const SERCAnalystRow: React.FC<SERCAnalystRowProps> = ({ data }) => {
           onChange={(e) => setClaim(e.target.value)}
         />
       </td>
-      <td>
+      <td style={{ border: '1px solid darkgrey' }}>
         <input
           type="text"
           value={evidence}
@@ -87,7 +90,7 @@ const SERCAnalystRow: React.FC<SERCAnalystRowProps> = ({ data }) => {
           onChange={(e) => setEvidence(e.target.value)}
         />
       </td>
-      <td>
+      <td style={{ border: '1px solid darkgrey' }}>
         <input
           type="text"
           value={research}
@@ -95,7 +98,7 @@ const SERCAnalystRow: React.FC<SERCAnalystRowProps> = ({ data }) => {
           onChange={(e) => setResearch(e.target.value)}
         />
       </td>
-      <td>
+      <td style={{ border: '1px solid darkgrey' }}>
         <select value={SEPractise} onChange={handleSEPracticeChange}>
           {SEPracticeOptions.map((option) => (
             <option key={option} value={option}>
@@ -112,7 +115,7 @@ const SERCAnalystRow: React.FC<SERCAnalystRowProps> = ({ data }) => {
           />
         )}
       </td>
-      <td>
+      <td style={{ border: '1px solid darkgrey' }}>
         <button type="submit" onClick={handlePublish}>
           Publish
         </button>
