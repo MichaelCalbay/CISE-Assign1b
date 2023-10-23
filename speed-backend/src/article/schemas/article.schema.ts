@@ -1,114 +1,48 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
-@Schema({
-    timestamps: true,
-})
+export class ArticleDto{
+    @IsNotEmpty()
+    @IsString()
+    readonly title: string
 
-export class SuggestedArticle {
-    @Prop()
-    title: string
+    @IsNotEmpty()
+    @IsString()
+    readonly authors: string[]
 
-    @Prop([String])
-    authors: string[]
+    @IsNotEmpty()
+    @IsString()
+    readonly source: string
 
-    @Prop()
-    source: string
+    @IsNotEmpty()
+    @IsNumber()
+    readonly pubyear: number
 
-    @Prop()
-    pubyear: number
+    @IsNotEmpty()
+    @IsString()
+    readonly doi: string
 
-    @Prop()
-    doi: string
+    @IsOptional()
+    @IsString()
+    readonly claim: string
 
-    @Prop()
-    claim: string
+    @IsOptional()
+    @IsString()
+    readonly evidence: string
 
-    @Prop()
-    evidence: string
+    @IsNotEmpty()
+    @IsString()
+    readonly participant: string
 
-    @Prop()
-    participant: string
+    @IsOptional()
+    @IsString()
+    readonly research: string
 
-    @Prop()
-    research: string
+    @IsOptional()
+    @IsString()
+    readonly SEPractise: string
 
-    @Prop()
-    SEPractise: string
+    @IsOptional()
+    @IsString()
+    readonly decision: string
 
-    @Prop()
-    Decision: string
 }
-
-export class ModeratedArticle {
-    @Prop()
-    title: string
-
-    @Prop([String])
-    authors: string[]
-
-    @Prop()
-    source: string
-
-    @Prop()
-    pubyear: number
-
-    @Prop()
-    doi: string
-
-    @Prop()
-    claim: string
-
-    @Prop()
-    evidence: string
-
-    @Prop()
-    participant: string
-
-    @Prop()
-    research: string
-
-    @Prop()
-    SEPractise: string
-
-    @Prop()
-    Decision: string
-}
-
-export class PublishedArticle {
-    @Prop()
-    title: string
-
-    @Prop([String])
-    authors: string[]
-
-    @Prop()
-    source: string
-
-    @Prop()
-    pubyear: number
-
-    @Prop()
-    doi: string
-
-    @Prop()
-    claim: string
-
-    @Prop()
-    evidence: string
-
-    @Prop()
-    participant: string
-
-    @Prop()
-    research: string
-
-    @Prop()
-    SEPractise: string
-
-    @Prop()
-    Decision: string
-}
-
-export const SggstArticleSchema = SchemaFactory.createForClass(SuggestedArticle);
-export const ModArticleSchema = SchemaFactory.createForClass(ModeratedArticle);
-export const ArticleSchema = SchemaFactory.createForClass(PublishedArticle);

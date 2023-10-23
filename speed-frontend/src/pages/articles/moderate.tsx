@@ -10,7 +10,7 @@ type ModRowProps = {
   articles: ModInterface[];
 };
 
-// Import the SERCAnalystRow component
+// Import the modrow component
 
 const Articles: NextPage<ModRowProps> = ({ articles }) => {
   const headers: { key: keyof ModInterface; label: string }[] = [

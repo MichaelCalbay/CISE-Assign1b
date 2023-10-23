@@ -1,18 +1,20 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { ModeratedArticle, PublishedArticle, SuggestedArticle } from './schemas/article.schema';
+import { PublishedArticles } from './schemas/published.schema';
+import { ModeratedArticles } from './schemas/moderated.schema';
 import { Model } from 'mongoose';
 import { ArticleDto } from './dto/article.dto';
+import { SuggestedArticles } from './schemas/suggest.schema';
 
 @Injectable()
 export class ArticleService {
     constructor(
-        @InjectModel(SuggestedArticle.name)
-        private articleSuggestedModel: Model<SuggestedArticle>,
-        @InjectModel(PublishedArticle.name)
-        private articlePublishedModel: Model<PublishedArticle>,
-        @InjectModel(ModeratedArticle.name)
-        private articleModeratedModel: Model<ModeratedArticle>,
+      @InjectModel(PublishedArticles.name)
+      private publishedArticleModel: Model<PublishedArticles>,
+      @InjectModel(SuggestedArticles.name)
+      private articleModel: Model<SuggestedArticles>,
+      @InjectModel(ModeratedArticles.name)
+      private moderatedArticleModel: Model<ModeratedArticles>,
     ){}
 
     async createArticle(articleDto: ArticleDto) {
@@ -32,7 +34,7 @@ export class ArticleService {
       
         try {
           // Create the article in your database using the Mongoose model
-          const article = await this.articleModeratedModel.create({
+          const article = await this.moderatedArticleModel.create({
             title,
             authors,
             source,
@@ -75,7 +77,7 @@ export class ArticleService {
       
         try {
           // Create the article in your database using the Mongoose model
-          const article = await this.articlePublishedModel.create({
+          const article = await this.articleModel.create({
             title,
             authors,
             source,
@@ -100,8 +102,8 @@ export class ArticleService {
           throw new HttpException('Unable to create article', HttpStatus.INTERNAL_SERVER_ERROR);
         }
       }
-      
       async confirmModeration(articleDto: ArticleDto) {
+        console.log("CONFIRM ARTICLE MODERATION CALLED")
         const {
           title,
           authors,
@@ -110,10 +112,11 @@ export class ArticleService {
           doi,
           decision
         } = articleDto;
-      
+        console.log("ARTICLE DTO");
+        console.log(articleDto);
         try {
           // Create the article in your database using the Mongoose model
-          const article = await this.articleModeratedModel.create({
+          const moderatedArticle = await this.moderatedArticleModel.create({
             title,
             authors,
             source,
@@ -122,30 +125,31 @@ export class ArticleService {
             decision
           });
       
-          // Return the created article as a success response
-          return article;
+          console.log("MODERATED ARTICLE");
+          console.log(moderatedArticle);
+          return moderatedArticle;
         } catch (error) {
-          // Handle any errors that may occur during the creation
-          // Log the error for debugging
-          console.error('Error confirming article:', error);
+    
+          console.error('Error Publishing Article:', error);
       
-          // You can throw a custom error, return an error response, or handle the error as needed
-          throw new HttpException('Unable to confirm article', HttpStatus.INTERNAL_SERVER_ERROR);
+          throw new HttpException('Unable to Publish Article', HttpStatus.INTERNAL_SERVER_ERROR);
         }
-      }
+      }  
 
-    async findAll(): Promise<SuggestedArticle[]> {
-        const articles = await this.articlePublishedModel.find();
+
+
+    async findAll(): Promise<SuggestedArticles[]> {
+        const articles = await this.articleModel.find();
         return  articles
     }
 
-    async findSuggestedArticle(): Promise<SuggestedArticle[]> {
-      const articles = await this.articleSuggestedModel.find();
+    async findSuggestedArticle(): Promise<SuggestedArticles[]> {
+      const articles = await this.articleModel.find();
       return  articles
   }
 
-  async findPublishedArticle(): Promise<PublishedArticle[]> {
-    const articles = await this.articlePublishedModel.find();
+  async findPublishedArticle(): Promise<PublishedArticles[]> {
+    const articles = await this.publishedArticleModel.find();
     return  articles
 }
 }

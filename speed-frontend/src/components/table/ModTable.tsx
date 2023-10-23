@@ -9,32 +9,35 @@ interface ModRowProps {
 
 const decisionOptions = [
   "Accepted",
-  "Rejected",
+  "Rejected"
 ];
 
 const ModRow: React.FC<ModRowProps> = ({ data }) => {
-  const [decision, setDecision] = useState(data.decision);
-  const [otherDecision, setOtherPracticeValue] = useState("");
-  //const [claim, setClaim] = useState(data.claim);
-  //const [evidence, setEvidence] = useState(data.evidence);
 
+  const [title, setTitle] = useState(data.title);
+  const [authors, setAuthors] = useState(data.authors);
+  const [source, setSource] = useState(data.source);
+  const [pubyear, setPubyear] = useState(data.pubyear);
+  const [doi, setDoi] = useState(data.doi);
+  const [decision, setDecision] = useState(data.decision);
+  
   const handleModDecision = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setDecision(event.target.value);
   };
 
 const handleSubmit = () => {
-  const publishData = {
-    title: data.title,
-    authors: data.authors,
-    source: data.source,
-    pubyear: data.pubyear,
-
-    decision: decision === "Accepted" ? otherDecision : decision,
+  const moderateData = {
+    title: title,
+    authors: authors,
+    source: source,
+    pubyear: pubyear,
+    doi: doi,
+    decision: decision
   };
 
   axios
     .post("http://localhost:3032/article/confirmModeration", 
-    publishData)
+    moderateData)
     .then((response) => {
       console.log(response);
     })
@@ -45,27 +48,34 @@ const handleSubmit = () => {
 
   return (
     <tr>
-      <td><input type="text" defaultValue={data.title} /></td>
-      <td><input type="text" defaultValue={data.authors}/></td>
-      <td><input type="text" defaultValue={data.source}/></td>
-      <td><input type="text" defaultValue={data.pubyear}/></td>
+      <td><input
+          type="text"
+          value={title}
+          placeholder={data.title}
+          onChange={(e) => setTitle(e.target.value)}
+        /></td>
+      <td><input type="text" value={authors} placeholder={data.authors}onChange={(e) => setAuthors(e.target.value)}/></td>
+      <td><input type="text" value={source} placeholder={data.source}onChange={(e) => setSource(e.target.value)}/></td>
+      <td><input type="number" value={pubyear} placeholder={data.pubyear}onChange={(e) => setPubyear(e.target.value)}/></td>
       <td>
-        <input type="text" defaultValue={data.doi} />
+        <input type="text" value={doi} placeholder={data.doi} onChange={(e) => setDoi(e.target.value) }/>
       </td>
       <td>
-        <select value={decision} onChange={handleModDecision} defaultValue={"Accepted"}>
+        <select value={decision} onChange={handleModDecision}>
           {decisionOptions.map((option) => (
             <option key={option} value={option}>
               {option}
+              
             </option>
           ))}
         </select>
 
       </td>
       <td>
-      <form  onSubmit={handleSubmit}>
-      <input type="submit" />
-      </form>
+      <button type="submit" onClick={handleSubmit}>
+            Confirm Moderation
+        </button>
+
       </td>
     </tr>
   );
