@@ -27,11 +27,11 @@ const ModRow: React.FC<ModRowProps> = ({ data }) => {
 
 const handleSubmit = () => {
   const moderateData = {
-    title: title,
-    authors: authors,
-    source: source,
-    pubyear: pubyear,
-    doi: doi,
+    title: data.title,
+    authors: data.authors,
+    source: data.source,
+    pubyear: data.pubyear,
+    doi: data.doi,
     decision: decision
   };
 
@@ -52,18 +52,12 @@ const handleSubmit = () => {
 
   return (
     <tr>
-      <td><input
-          type="text"
-          value={title}
-          placeholder={data.title}
-          onChange={(e) => setTitle(e.target.value)}
-        /></td>
-      <td><input type="text" value={authors} placeholder={data.authors}onChange={(e) => setAuthors(e.target.value)}/></td>
-      <td><input type="text" value={source} placeholder={data.source}onChange={(e) => setSource(e.target.value)}/></td>
-      <td><input type="number" value={pubyear} placeholder={data.pubyear}onChange={(e) => setPubyear(e.target.value)}/></td>
+      <td>{data.title}</td>
+      <td>{data.authors}</td>
+      <td>{data.source}</td>
+      <td>{data.pubyear}</td>
       <td>
-        <input type="text" value={doi} placeholder={data.doi} onChange={(e) => setDoi(e.target.value) }/>
-      </td>
+        {data.doi}</td>
       <td>
         <select value={decision} onChange={handleModDecision}>
           {decisionOptions.map((option) => (

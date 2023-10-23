@@ -30,7 +30,7 @@ let ArticleController = class ArticleController {
         return this.articleService.findSuggestedArticle();
     }
     editSuggestion(articleDto) {
-        return this.articleService.editSuggestedArticle(articleDto);
+        return this.articleService.confirmModeration(articleDto);
     }
 };
 exports.ArticleController = ArticleController;
@@ -54,7 +54,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ArticleController.prototype, "getSuggestedArticles", null);
 __decorate([
-    (0, common_1.Post)('/moderate'),
+    (0, common_1.Post)('/confirmModeration'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [article_dto_1.ArticleDto]),

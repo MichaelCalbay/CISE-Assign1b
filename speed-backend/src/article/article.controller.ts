@@ -27,8 +27,8 @@ export class ArticleController {
         return this.articleService.findSuggestedArticle();
     }
 
-    @Post('/moderate')
+    @Post('/confirmModeration')
     editSuggestion(@Body() articleDto: ArticleDto) {
-        return this.articleService.editSuggestedArticle(articleDto);
+        return this.articleService.confirmModeration(articleDto);
     }
 }
