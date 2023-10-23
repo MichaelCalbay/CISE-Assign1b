@@ -45,4 +45,8 @@ export class ArticleDto{
     @IsString()
     readonly SEPractise: string
 
+    @IsNotEmpty()
+    @IsString()
+    readonly decision: string
+
 }

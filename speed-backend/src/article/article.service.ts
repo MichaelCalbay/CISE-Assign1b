@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { SuggestedArticles } from './schemas/suggest.schema';
