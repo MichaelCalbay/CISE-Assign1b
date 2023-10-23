@@ -148,7 +148,8 @@ export class ArticleService {
           const article = await this.articleModel.findOneAndDelete({
             customId,
           });
-          console.log(article);
+          console.log("does this run?");
+          console.log(customId);
           if (article) {
             return article;
           } else {

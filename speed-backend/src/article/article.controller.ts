@@ -34,6 +34,7 @@ export class ArticleController {
 
     @Delete(':customId')
     async deleteModeratedArticle(@Param('customId') customId: number) {
+        console.log("controller called?")
       const deletedArticle = await this.articleService.findSuggestedByCustomId(
         customId,
       );

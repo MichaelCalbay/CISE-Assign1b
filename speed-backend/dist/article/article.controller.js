@@ -33,6 +33,7 @@ let ArticleController = class ArticleController {
         return this.articleService.confirmModeration(articleDto);
     }
     async deleteModeratedArticle(customId) {
+        console.log("controller called?");
         const deletedArticle = await this.articleService.findSuggestedByCustomId(customId);
         if (!deletedArticle) {
             return `Moderated article with customId ${customId} not found.`;

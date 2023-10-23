@@ -43,7 +43,7 @@ const handleSubmit = () => {
       console.log(response.data);
 
       axios
-      .delete(`http://localhost:3000/articles/${data.customId}`)
+      .delete(`http://localhost:3000/article/${data.customId}`)
       .then((response) => {
         console.log("Deleted:", response);
         window.location.reload();
