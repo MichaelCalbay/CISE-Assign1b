@@ -18,23 +18,31 @@ const Articles: NextPage<AnalytsProps> = ({ articles }) => {
     { key: "claim", label: "Claim" },
     { key: "evidence", label: "Evidence" },
     { key: "research", label: "Research" },
-    { key: "SEPractise", label: "SEPractise" },
+    { key: "SEPractise", label: "SE Practise" },
   ];
 
   return (
     <div className="container">
-      <h1>SERC-Analyst QUEUE</h1>
-      <table>
-        <thead>
+      <h1>SERC-Analyst Queue</h1>
+      <table style={{ border: '1px solid darkgrey', borderCollapse: 'collapse', margin: '70px auto' }}>
+        <thead style={{ backgroundColor: '#a4703c', color: 'white' }}>
           <tr>
             {headers.map((header) => (
-              <th key={header.key}>{header.label}</th>
+              <th style={{ border: '1px solid darkgrey', padding: '8px' }} key={header.key}>
+                {header.label}
+              </th>
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody style={{ backgroundColor: '#ded7cd' }}>
           {articles.map((article) => (
-            <AnalystTable key={article.customId} data={article} />
+            <tr key={article.customId}>
+              {headers.map((header) => (
+                <td style={{ border: '1px solid darkgrey', padding: '8px' }} key={header.key}>
+                  {article[header.key]}
+                </td>
+              ))}
+            </tr>
           ))}
         </tbody>
       </table>
