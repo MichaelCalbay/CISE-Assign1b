@@ -85,7 +85,7 @@ let ArticleService = class ArticleService {
                 doi,
                 decision
             });
-            console.log("PUBLISHED ARTICLE");
+            console.log("MODERATED ARTICLE");
             console.log(moderatedArticle);
             return moderatedArticle;
         }

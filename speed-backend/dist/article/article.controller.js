@@ -23,14 +23,14 @@ let ArticleController = class ArticleController {
     populateArticle(articleDto) {
         return this.articleService.createArticle(articleDto);
     }
+    async getPublishedArticles() {
+        return this.articleService.findPublishedArticle();
+    }
     async getSuggestedArticles() {
         return this.articleService.findSuggestedArticle();
     }
     editSuggestion(articleDto) {
         return this.articleService.editSuggestedArticle(articleDto);
-    }
-    confirmModeration(articleDto) {
-        return this.articleService.confirmModeration(articleDto);
     }
 };
 exports.ArticleController = ArticleController;
@@ -41,12 +41,6 @@ __decorate([
     __metadata("design:paramtypes", [article_dto_1.ArticleDto]),
     __metadata("design:returntype", void 0)
 ], ArticleController.prototype, "populateArticle", null);
-__decorate([
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], ArticleController.prototype, "getArticles", null);
 __decorate([
     (0, common_1.Get)('/published'),
     __metadata("design:type", Function),
@@ -66,13 +60,6 @@ __decorate([
     __metadata("design:paramtypes", [article_dto_1.ArticleDto]),
     __metadata("design:returntype", void 0)
 ], ArticleController.prototype, "editSuggestion", null);
-__decorate([
-    (0, common_1.Post)('/confirmModeration'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [article_dto_1.ArticleDto]),
-    __metadata("design:returntype", void 0)
-], ArticleController.prototype, "confirmModeration", null);
 exports.ArticleController = ArticleController = __decorate([
     (0, common_1.Controller)('article'),
     __metadata("design:paramtypes", [article_service_1.ArticleService])
