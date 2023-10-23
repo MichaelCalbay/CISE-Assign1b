@@ -25,7 +25,8 @@ const ModRow: React.FC<ModRowProps> = ({ data }) => {
     setDecision(event.target.value);
   };
 
-const handleSubmit = () => {
+const handleSubmit = () => 
+{
   const moderateData = {
     customId: data.customId,
     title: data.title,
@@ -35,6 +36,7 @@ const handleSubmit = () => {
     doi: data.doi,
     decision: decision
   };
+
 
   axios
     .post("http://localhost:3032/article/confirmModeration", moderateData)
@@ -57,6 +59,19 @@ const handleSubmit = () => {
     });
 };
 
+const handleReject = () =>
+{
+  axios
+  .delete(`http://localhost:3032/article/${data.customId}`)
+  .then((response) => {
+    console.log("Rejected:", response);
+    window.location.reload();
+  })
+  .catch((deleteError) => {
+    console.error("Deletion Error:", deleteError);
+  });
+};
+
   return (
     <tr>
       <td>{data.customId}</td>
@@ -67,21 +82,14 @@ const handleSubmit = () => {
       <td>
         {data.doi}</td>
       <td>
-        <select value={decision} onChange={handleModDecision}>
-          {decisionOptions.map((option) => (
-            <option key={option} value={option}>
-              {option}
-              
-            </option>
-          ))}
-        </select>
-
+      <button type="submit" onClick={handleSubmit}>
+            Accept
+        </button>
       </td>
       <td>
-      <button type="submit" onClick={handleSubmit}>
-            Send to Analyst
+      <button type="submit" onClick={handleReject}>
+            Reject
         </button>
-
       </td>
     </tr>
   );
