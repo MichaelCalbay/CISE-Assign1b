@@ -66,7 +66,9 @@ const ModRow: React.FC<ModRowProps> = ({ data }) => {
       });
   };
 
+
   return (
+
     <tr>
       <td>{data.customId}</td>
       <td>{data.title}</td>
@@ -84,6 +86,7 @@ const ModRow: React.FC<ModRowProps> = ({ data }) => {
           Reject
         </button>
       </td>
+
     </tr>
   );
 };
