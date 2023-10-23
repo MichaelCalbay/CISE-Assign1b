@@ -74,11 +74,12 @@ let ArticleService = class ArticleService {
     }
     async confirmModeration(articleDto) {
         console.log('CONFIRM ARTICLE MODERATION CALLED');
-        const { title, authors, source, pubyear, doi, decision } = articleDto;
+        const { customId, title, authors, source, pubyear, doi, decision } = articleDto;
         console.log('ARTICLE DTO');
         console.log(articleDto);
         try {
             const moderatedArticle = await this.moderatedArticleModel.create({
+                customId,
                 title,
                 authors,
                 source,
