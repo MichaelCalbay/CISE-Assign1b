@@ -161,13 +161,17 @@ const NewDiscussion = () => {
       })
     );
   };
+  
 
   // return the full form & bibtex
   return (
-    <div className="container">
-      <h1>Attach Bibtex Articles</h1>
-      <input type="file" accept=".bib" onChange={handleFileChange} />
-      <button onClick={parseBibtex}>Submit BibTeX</button>
+    <div style={{ border: '1px solid darkgrey', paddingLeft: '30px', paddingRight: '30px', marginLeft: '600px', marginRight: '600px', marginTop: '50px', backgroundColor: '#ded7cd'}}>
+      <h1 style={{ marginBottom: '30px' }}>Attach Bibtex Article</h1>
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+  <input type="file" accept=".bib" onChange={handleFileChange} />
+  <button onClick={parseBibtex} style={{ padding: '10px' }}>Submit BibTeX</button>
+</div>
+      
       <h1>Suggest an Article</h1>
       <div className={formStyles.form} onSubmit={submitNewArticle}>
         <label htmlFor="title">Title:</label>
@@ -249,24 +253,6 @@ const NewDiscussion = () => {
             setDoi(event.target.value);
           }}
         />
-        {/* <label htmlFor="claim">Claim:</label>
-        <input
-          className={formStyles.formItem}
-          name="claim"
-          value={claim}
-          onChange={(event) => setClaim(event.target.value)}
-        /> */}
-        {/* <label htmlFor="evidence">Evidence:</label>
-        <input
-          className={formStyles.formItem}
-          type="text"
-          name="evidence"
-          id="evidence"
-          value={evidence}
-          onChange={(event) => {
-            setEvidence(event.target.value);
-          }}
-        /> */}
         <label htmlFor="participant">Participant:</label>
         <input
           className={formStyles.formItem}
@@ -278,32 +264,11 @@ const NewDiscussion = () => {
             setParticipant(event.target.value);
           }}
         />
-        {/* <label htmlFor="research">Research:</label>
-        <input
-          className={formStyles.formItem}
-          type="text"
-          name="research"
-          id="research"
-          value={research}
-          onChange={(event) => {
-            setResearch(event.target.value);
-          }}
-        />
-        <label htmlFor="SEPractise">SEPractise:</label>
-        <input
-          className={formStyles.formItem}
-          type="text"
-          name="SEPractise"
-          id="SEPractise"
-          value={SEPractise}
-          onChange={(event) => {
-            setSEPractise(event.target.value);
-          }}
-        /> */}
         <button
           className={formStyles.formItem}
           type="submit"
           onClick={submitNewArticle}
+          style={{ width: '150px', marginLeft: 'auto'  }} 
         >
           Submit Form
         </button>

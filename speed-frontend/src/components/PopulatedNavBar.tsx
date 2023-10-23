@@ -11,7 +11,7 @@ const PopulatedNavBar = () => {
     View Articles
     </NavItem>
     <NavItem dropdown>
-    Articles <IoMdArrowDropdown />
+    Options <IoMdArrowDropdown />
     <NavDropdown>
     {/* <NavItem route="/articles">View articles</NavItem> */}
     <NavItem route="/articles/new">Submit Article</NavItem>
