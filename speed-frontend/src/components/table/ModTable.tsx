@@ -37,13 +37,13 @@ const handleSubmit = () => {
   };
 
   axios
-    .post("http://localhost:3032/article/confirmModeration", 
-    moderateData)
+    .post("http://localhost:3032/article/confirmModeration", moderateData)
     .then((response) => {
+      console.log("AnalystTable")
       console.log(response.data);
 
       axios
-      .delete(`http://localhost:3000/article/${data.customId}`)
+      .delete(`http://localhost:3032/article/${data.customId}`)
       .then((response) => {
         console.log("Deleted:", response);
         window.location.reload();
