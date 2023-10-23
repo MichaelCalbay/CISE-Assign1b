@@ -9,155 +9,64 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ArticleSchema = exports.ModArticleSchema = exports.SggstArticleSchema = exports.PublishedArticle = exports.ModeratedArticle = exports.SuggestedArticle = void 0;
-const mongoose_1 = require("@nestjs/mongoose");
-let SuggestedArticle = class SuggestedArticle {
-};
-exports.SuggestedArticle = SuggestedArticle;
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], SuggestedArticle.prototype, "title", void 0);
-__decorate([
-    (0, mongoose_1.Prop)([String]),
-    __metadata("design:type", Array)
-], SuggestedArticle.prototype, "authors", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], SuggestedArticle.prototype, "source", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", Number)
-], SuggestedArticle.prototype, "pubyear", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], SuggestedArticle.prototype, "doi", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], SuggestedArticle.prototype, "claim", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], SuggestedArticle.prototype, "evidence", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], SuggestedArticle.prototype, "participant", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], SuggestedArticle.prototype, "research", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], SuggestedArticle.prototype, "SEPractise", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], SuggestedArticle.prototype, "Decision", void 0);
-exports.SuggestedArticle = SuggestedArticle = __decorate([
-    (0, mongoose_1.Schema)({
-        timestamps: true,
-    })
-], SuggestedArticle);
-class ModeratedArticle {
+exports.ArticleDto = void 0;
+const class_validator_1 = require("class-validator");
+class ArticleDto {
 }
-exports.ModeratedArticle = ModeratedArticle;
+exports.ArticleDto = ArticleDto;
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], ModeratedArticle.prototype, "title", void 0);
+], ArticleDto.prototype, "title", void 0);
 __decorate([
-    (0, mongoose_1.Prop)([String]),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", Array)
-], ModeratedArticle.prototype, "authors", void 0);
+], ArticleDto.prototype, "authors", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], ModeratedArticle.prototype, "source", void 0);
+], ArticleDto.prototype, "source", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
-], ModeratedArticle.prototype, "pubyear", void 0);
+], ArticleDto.prototype, "pubyear", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], ModeratedArticle.prototype, "doi", void 0);
+], ArticleDto.prototype, "doi", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], ModeratedArticle.prototype, "claim", void 0);
+], ArticleDto.prototype, "claim", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], ModeratedArticle.prototype, "evidence", void 0);
+], ArticleDto.prototype, "evidence", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], ModeratedArticle.prototype, "participant", void 0);
+], ArticleDto.prototype, "participant", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], ModeratedArticle.prototype, "research", void 0);
+], ArticleDto.prototype, "research", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], ModeratedArticle.prototype, "SEPractise", void 0);
+], ArticleDto.prototype, "SEPractise", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], ModeratedArticle.prototype, "Decision", void 0);
-class PublishedArticle {
-}
-exports.PublishedArticle = PublishedArticle;
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], PublishedArticle.prototype, "title", void 0);
-__decorate([
-    (0, mongoose_1.Prop)([String]),
-    __metadata("design:type", Array)
-], PublishedArticle.prototype, "authors", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], PublishedArticle.prototype, "source", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", Number)
-], PublishedArticle.prototype, "pubyear", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], PublishedArticle.prototype, "doi", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], PublishedArticle.prototype, "claim", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], PublishedArticle.prototype, "evidence", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], PublishedArticle.prototype, "participant", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], PublishedArticle.prototype, "research", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], PublishedArticle.prototype, "SEPractise", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], PublishedArticle.prototype, "Decision", void 0);
-exports.SggstArticleSchema = mongoose_1.SchemaFactory.createForClass(SuggestedArticle);
-exports.ModArticleSchema = mongoose_1.SchemaFactory.createForClass(ModeratedArticle);
-exports.ArticleSchema = mongoose_1.SchemaFactory.createForClass(PublishedArticle);
+], ArticleDto.prototype, "decision", void 0);
 //# sourceMappingURL=article.schema.js.map
