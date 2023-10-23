@@ -57,31 +57,28 @@ const handleSubmit = () => {
     });
 };
 
+
   return (
-    <tr>
-      <td>{data.title}</td>
-      <td>{data.authors}</td>
-      <td>{data.source}</td>
-      <td>{data.pubyear}</td>
-      <td>
-        {data.doi}</td>
-      <td>
+    <tr style={{ border: '1px solid darkgrey' }}>
+      <th style={{ border: '1px solid darkgrey', padding: '8px' }}><strong>{data.title}</strong></th>
+      <th style={{ border: '1px solid darkgrey', padding: '8px' }}><strong>{data.authors}</strong></th>
+      <th style={{ border: '1px solid darkgrey', padding: '8px' }}><strong>{data.source}</strong></th>
+      <th style={{ border: '1px solid darkgrey', padding: '8px' }}><strong>{data.pubyear}</strong></th>
+      <th style={{ border: '1px solid darkgrey', padding: '8px' }}><strong>{data.doi}</strong></th>
+      <th style={{ border: '1px solid darkgrey', padding: '8px' }}>
         <select value={decision} onChange={handleModDecision}>
           {decisionOptions.map((option) => (
             <option key={option} value={option}>
               {option}
-              
             </option>
           ))}
         </select>
-
-      </td>
-      <td>
-      <button type="submit" onClick={handleSubmit}>
-            Send to Analyst
+      </th>
+      <th style={{ border: '1px solid darkgrey', padding: '8px' }}>
+        <button type="submit" onClick={handleSubmit}>
+          Send to Analyst
         </button>
-
-      </td>
+      </th>
     </tr>
   );
 };
