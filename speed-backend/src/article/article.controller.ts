@@ -52,6 +52,17 @@ export class ArticleController {
 
     if (!deletedArticle) {
       return `Moderated article with customId ${customId} not found.`;
+    @Delete(':customId')
+    async deleteModeratedArticle(@Param('customId') customId: number) {
+        console.log("controller called?")
+      const deletedArticle = await this.articleService.findSuggestedByCustomId(
+        customId,
+      );
+  
+      if (!deletedArticle) {
+        return `Moderated article with customId ${customId} not found.`;
+      }
     }
-  }
+
+
 }

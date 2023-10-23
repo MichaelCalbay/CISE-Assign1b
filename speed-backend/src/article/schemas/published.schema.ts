@@ -5,6 +5,9 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 })
 export class PublishedArticles {
   @Prop()
+  customId: number;
+  
+  @Prop()
   title: string;
 
   @Prop([String])

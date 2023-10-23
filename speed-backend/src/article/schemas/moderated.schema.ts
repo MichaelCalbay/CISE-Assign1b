@@ -4,11 +4,11 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
   timestamps: true,
 })
 export class ModeratedArticles {
-  @Prop()
-  customId: number;
-  
-  @Prop()
-  title: string;
+    @Prop()
+    customId: number
+
+    @Prop()
+    title: string
 
   @Prop([String])
   authors: string[];

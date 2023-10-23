@@ -73,12 +73,15 @@ let ArticleService = class ArticleService {
         }
     }
     async confirmModeration(articleDto) {
-        console.log('CONFIRM ARTICLE MODERATION CALLED');
-        const { title, authors, source, pubyear, doi, decision } = articleDto;
-        console.log('ARTICLE DTO');
+        console.log("CONFIRM ARTICLE MODERATION CALLED");
+        const { customId, title, authors, source, pubyear, doi, decision } = articleDto;
+        console.log("ID no:");
+        console.log(articleDto.customId);
+        console.log("ARTICLE DTO");
         console.log(articleDto);
         try {
             const moderatedArticle = await this.moderatedArticleModel.create({
+                customId,
                 title,
                 authors,
                 source,
@@ -95,7 +98,27 @@ let ArticleService = class ArticleService {
             throw new common_1.HttpException('Unable to Publish Article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    async findAllSuggested() {
+    async findSuggestedByCustomId(customId) {
+        try {
+            const article = await this.articleModel.findOneAndDelete({
+                customId,
+            });
+            console.log("does this run?");
+            console.log(customId);
+            if (article) {
+                return article;
+            }
+            else {
+                console.log('Did not find any article.');
+                return null;
+            }
+        }
+        catch (error) {
+            console.error('Error finding moderated article by customId:', error);
+            throw new common_1.HttpException('Unable to find moderated article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    async findAll() {
         const articles = await this.articleModel.find();
         return articles;
     }

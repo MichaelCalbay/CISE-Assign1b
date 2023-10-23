@@ -11,4 +11,5 @@ export declare class ArticleDto {
     readonly research: string;
     readonly SEPractise: string;
     readonly decision: string;
+    readonly customId: number;
 }
