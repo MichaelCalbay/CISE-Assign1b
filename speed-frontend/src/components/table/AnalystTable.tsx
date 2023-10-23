@@ -71,9 +71,6 @@ const SERCAnalystRow: React.FC<SERCAnalystRowProps> = ({ data }) => {
       <td style={{ border: '1px solid darkgrey', padding: '8px' }}>{data.source}</td>
       <td style={{ border: '1px solid darkgrey', padding: '8px' }}>{data.pubyear}</td>
       <td style={{ border: '1px solid darkgrey', padding: '8px' }}>{data.doi}</td>
-      <td style={{ border: '1px solid darkgrey', padding: '8px' }}>
-        {/* ... Other code ... */}
-      </td>
       <td style={{ border: '1px solid darkgrey' }}>
         <input
           type="text"

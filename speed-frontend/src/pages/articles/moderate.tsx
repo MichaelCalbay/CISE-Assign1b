@@ -23,41 +23,27 @@ const Articles: NextPage<AnalytsProps> = ({ articles }) => {
     { key: "decision", label: "decision" },
   ];
 
-  // ...
-
-return (
-  <div>
-    <h1>Moderator Queue</h1>
-    <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <table style={{ border: '1px solid darkgrey', borderCollapse: 'collapse' }}>
-        <thead>
-          <tr>
-            {headers.map((header) => (
-              <th
-                style={{
-                  border: '1px solid darkgrey',
-                  padding: '8px',
-                  backgroundColor: '#a4703c'
-                }}
-                key={header.key}
-              >
-                {header.label}
-              </th>
+  return (
+    <div >
+      <h1>Moderator Queue</h1>
+      <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <table style={{ border: '1px solid darkgrey', borderCollapse: 'collapse' }}>
+          <thead>
+          <tr style={{ backgroundColor: '#a4703c', color: 'white' }}>
+              {headers.map((header) => (
+                <th style={{ border: '1px solid darkgrey', padding: '8px',  }} key={header.key}>{header.label}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody style={{ backgroundColor: '#ded7cd' }}>
+            {articles.map((article) => (
+              <ModTable key={article.customId} data={article} />
             ))}
-          </tr>
-        </thead>
-        <tbody style={{ backgroundColor: '#ded7cd' }}>
-          {articles.map((article) => (
-            <ModTable key={article.customId} data={article} />
-          ))}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
-);
-
-// ...
-
+  );
   
 };
 

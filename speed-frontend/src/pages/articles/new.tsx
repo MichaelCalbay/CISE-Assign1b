@@ -165,7 +165,7 @@ const NewDiscussion = () => {
 
   // return the full form & bibtex
   return (
-    <div style={{ border: '1px solid darkgrey', paddingLeft: '50px', paddingRight: '50px', marginLeft: '600px', marginRight: '600px', marginTop: '50px', backgroundColor: '#ded7cd'}}>
+    <div style={{ border: '1px solid darkgrey', width: '600px', paddingLeft: '50px',  margin: '50px auto', marginTop: '50px', paddingRight: '50px',backgroundColor: '#ded7cd'}}>
       <h1 style={{ marginBottom: '30px' }}>Attach Bibtex Article</h1>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
   <input type="file" accept=".bib" onChange={handleFileChange} />
