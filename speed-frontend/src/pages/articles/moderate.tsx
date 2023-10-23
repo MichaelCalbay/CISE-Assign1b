@@ -23,25 +23,42 @@ const Articles: NextPage<AnalytsProps> = ({ articles }) => {
     { key: "decision", label: "decision" },
   ];
 
-  return (
-    <div className="container">
-      <h1>Moderator Queue</h1>
-      <table>
+  // ...
+
+return (
+  <div>
+    <h1>Moderator Queue</h1>
+    <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <table style={{ border: '1px solid darkgrey', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
             {headers.map((header) => (
-              <th key={header.key}>{header.label}</th>
+              <th
+                style={{
+                  border: '1px solid darkgrey',
+                  padding: '8px',
+                  backgroundColor: '#a4703c'
+                }}
+                key={header.key}
+              >
+                {header.label}
+              </th>
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody style={{ backgroundColor: '#ded7cd' }}>
           {articles.map((article) => (
             <ModTable key={article.customId} data={article} />
           ))}
         </tbody>
       </table>
     </div>
-  );
+  </div>
+);
+
+// ...
+
+  
 };
 
 

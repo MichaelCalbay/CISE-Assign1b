@@ -25,8 +25,8 @@ const Articles: NextPage<AnalytsProps> = ({ articles }) => {
     <div className="container">
       <h1>SERC-Analyst Queue</h1>
       <table style={{ border: '1px solid darkgrey', borderCollapse: 'collapse', margin: '70px auto' }}>
-        <thead style={{ backgroundColor: '#a4703c', color: 'white' }}>
-          <tr>
+        <thead>
+          <tr style={{ backgroundColor: '#a4703c', color: 'white' }}>
             {headers.map((header) => (
               <th style={{ border: '1px solid darkgrey', padding: '8px' }} key={header.key}>
                 {header.label}
@@ -36,13 +36,7 @@ const Articles: NextPage<AnalytsProps> = ({ articles }) => {
         </thead>
         <tbody style={{ backgroundColor: '#ded7cd' }}>
           {articles.map((article) => (
-            <tr key={article.customId}>
-              {headers.map((header) => (
-                <td style={{ border: '1px solid darkgrey', padding: '8px' }} key={header.key}>
-                  {article[header.key]}
-                </td>
-              ))}
-            </tr>
+            <AnalystTable key={article.customId} data={article} />
           ))}
         </tbody>
       </table>

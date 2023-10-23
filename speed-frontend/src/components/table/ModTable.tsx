@@ -70,12 +70,12 @@ const ModRow: React.FC<ModRowProps> = ({ data }) => {
   return (
 
     <tr>
-      <td>{data.customId}</td>
-      <td>{data.title}</td>
-      <td>{data.authors}</td>
-      <td>{data.source}</td>
-      <td>{data.pubyear}</td>
-      <td>{data.doi}</td>
+      <td style={{ border: '1px solid darkgrey', padding: '8px' }}>{data.customId}</td>
+      <td style={{ border: '1px solid darkgrey', padding: '8px' }}>{data.title}</td>
+      <td style={{ border: '1px solid darkgrey', padding: '8px' }}>{data.authors}</td>
+      <td style={{ border: '1px solid darkgrey', padding: '8px' }}>{data.source}</td>
+      <td style={{ border: '1px solid darkgrey', padding: '8px' }}>{data.pubyear}</td>
+      <td style={{ border: '1px solid darkgrey', padding: '8px' }}>{data.doi}</td>
       <td>
         <button type="submit" onClick={handleSubmit}>
           Accept
