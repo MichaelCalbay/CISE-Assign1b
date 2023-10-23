@@ -329,7 +329,7 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   // Fetch all articles in the Published collection
-  const response = await axios.get("http://localhost:3032/article/published");
+  const response = await axios.get("http://cise-assign1b-six.vercel.app/article/published");
   const articles: ArticlesInterface[] = response.data;
 
   return {
