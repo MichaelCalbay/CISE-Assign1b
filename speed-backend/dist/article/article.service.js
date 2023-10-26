@@ -11,15 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArticleService = void 0;
 const common_1 = require("@nestjs/common");
@@ -34,142 +25,126 @@ let ArticleService = class ArticleService {
         this.articleModel = articleModel;
         this.moderatedArticleModel = moderatedArticleModel;
     }
-    publishArticle(articleDto) {
-        return __awaiter(this, void 0, void 0, function* () {
-            console.log('PUBLISH ARTICLE CALLED');
-            const { title, authors, source, pubyear, doi, claim, evidence, research, SEPractise, participant, } = articleDto;
-            try {
-                const publishedArticle = yield this.publishedArticleModel.create({
-                    title,
-                    authors,
-                    source,
-                    pubyear,
-                    doi,
-                    claim,
-                    evidence,
-                    research,
-                    SEPractise,
-                    participant,
-                });
-                console.log('PUBLISHED ARTICLE');
-                console.log(publishedArticle);
-                return publishedArticle;
-            }
-            catch (error) {
-                console.error('Error Publishing Article:', error);
-                throw new common_1.HttpException('Unable to Publish Article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        });
+    async publishArticle(articleDto) {
+        console.log('PUBLISH ARTICLE CALLED');
+        const { title, authors, source, pubyear, doi, claim, evidence, research, SEPractise, participant, } = articleDto;
+        try {
+            const publishedArticle = await this.publishedArticleModel.create({
+                title,
+                authors,
+                source,
+                pubyear,
+                doi,
+                claim,
+                evidence,
+                research,
+                SEPractise,
+                participant,
+            });
+            console.log('PUBLISHED ARTICLE');
+            console.log(publishedArticle);
+            return publishedArticle;
+        }
+        catch (error) {
+            console.error('Error Publishing Article:', error);
+            throw new common_1.HttpException('Unable to Publish Article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-    createArticle(articleDto) {
-        return __awaiter(this, void 0, void 0, function* () {
-            console.log('CREATE ARTICLE CALLED');
-            const { customId, title, authors, source, pubyear, doi, participant } = articleDto;
-            try {
-                const count = yield this.articleModel.countDocuments();
-                const customId = count + 1;
-                const article = yield this.articleModel.create({
-                    customId,
-                    title,
-                    authors,
-                    source,
-                    pubyear,
-                    doi,
-                    participant,
-                });
-                console.log(article);
+    async createArticle(articleDto) {
+        console.log('CREATE ARTICLE CALLED');
+        const { customId, title, authors, source, pubyear, doi, participant } = articleDto;
+        try {
+            const count = await this.articleModel.countDocuments();
+            const customId = count + 1;
+            const article = await this.articleModel.create({
+                customId,
+                title,
+                authors,
+                source,
+                pubyear,
+                doi,
+                participant,
+            });
+            console.log(article);
+            return article;
+        }
+        catch (error) {
+            console.error('Error creating article:', error);
+            throw new common_1.HttpException('Unable to create article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    async confirmModeration(articleDto) {
+        console.log('CONFIRM ARTICLE MODERATION CALLED');
+        const { customId, title, authors, source, pubyear, doi, decision, participant } = articleDto;
+        console.log('ARTICLE DTO');
+        console.log(articleDto);
+        try {
+            const moderatedArticle = await this.moderatedArticleModel.create({
+                customId,
+                title,
+                authors,
+                source,
+                pubyear,
+                doi,
+                decision,
+                participant,
+            });
+            console.log('MODERATED ARTICLE');
+            console.log(moderatedArticle);
+            return moderatedArticle;
+        }
+        catch (error) {
+            console.error('Error Publishing Article:', error);
+            throw new common_1.HttpException('Unable to Publish Article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    async findAllSuggested() {
+        const articles = await this.articleModel.find();
+        return articles;
+    }
+    async findAllModerated() {
+        const articles = await this.moderatedArticleModel.find();
+        return articles;
+    }
+    async findPublishedArticle() {
+        const articles = await this.publishedArticleModel.find();
+        return articles;
+    }
+    async findModeratedByCustomId(customId) {
+        try {
+            const article = await this.moderatedArticleModel.findOneAndDelete({
+                customId,
+            });
+            if (article) {
                 return article;
             }
-            catch (error) {
-                console.error('Error creating article:', error);
-                throw new common_1.HttpException('Unable to create article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+            else {
+                console.log('Did not find any article.');
+                return null;
             }
-        });
+        }
+        catch (error) {
+            console.error('Error finding moderated article by customId:', error);
+            throw new common_1.HttpException('Unable to find moderated article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-    confirmModeration(articleDto) {
-        return __awaiter(this, void 0, void 0, function* () {
-            console.log('CONFIRM ARTICLE MODERATION CALLED');
-            const { customId, title, authors, source, pubyear, doi, decision, participant } = articleDto;
-            console.log('ARTICLE DTO');
-            console.log(articleDto);
-            try {
-                const moderatedArticle = yield this.moderatedArticleModel.create({
-                    customId,
-                    title,
-                    authors,
-                    source,
-                    pubyear,
-                    doi,
-                    decision,
-                    participant,
-                });
-                console.log('MODERATED ARTICLE');
-                console.log(moderatedArticle);
-                return moderatedArticle;
+    async findSuggestedByCustomId(customId) {
+        try {
+            const article = await this.articleModel.findOneAndDelete({
+                customId,
+            });
+            if (article) {
+                return article;
             }
-            catch (error) {
-                console.error('Error Publishing Article:', error);
-                throw new common_1.HttpException('Unable to Publish Article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+            else {
+                console.log('Did not find any article.');
+                return null;
             }
-        });
-    }
-    findAllSuggested() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const articles = yield this.articleModel.find();
-            return articles;
-        });
-    }
-    findAllModerated() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const articles = yield this.moderatedArticleModel.find();
-            return articles;
-        });
-    }
-    findPublishedArticle() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const articles = yield this.publishedArticleModel.find();
-            return articles;
-        });
-    }
-    findModeratedByCustomId(customId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const article = yield this.moderatedArticleModel.findOneAndDelete({
-                    customId,
-                });
-                if (article) {
-                    return article;
-                }
-                else {
-                    console.log('Did not find any article.');
-                    return null;
-                }
-            }
-            catch (error) {
-                console.error('Error finding moderated article by customId:', error);
-                throw new common_1.HttpException('Unable to find moderated article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        });
-    }
-    findSuggestedByCustomId(customId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const article = yield this.articleModel.findOneAndDelete({
-                    customId,
-                });
-                if (article) {
-                    return article;
-                }
-                else {
-                    console.log('Did not find any article.');
-                    return null;
-                }
-            }
-            catch (error) {
-                console.error('Error finding suggested article by customId:', error);
-                throw new common_1.HttpException('Unable to find suggested article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        });
+        }
+        catch (error) {
+            console.error('Error finding suggested article by customId:', error);
+            throw new common_1.HttpException('Unable to find suggested article', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 };
 exports.ArticleService = ArticleService;
