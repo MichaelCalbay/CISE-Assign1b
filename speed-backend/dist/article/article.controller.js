@@ -11,6 +11,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArticleController = void 0;
 const common_1 = require("@nestjs/common");
@@ -29,32 +38,42 @@ let ArticleController = class ArticleController {
     editSuggestion(articleDto) {
         return this.articleService.confirmModeration(articleDto);
     }
-    async getPublishedArticles() {
-        return this.articleService.findPublishedArticle();
+    getPublishedArticles() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.articleService.findPublishedArticle();
+        });
     }
-    async getAllArticles() {
-        return this.articleService.findAllSuggested();
+    getAllArticles() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.articleService.findAllSuggested();
+        });
     }
-    async getSuggestedArticles() {
-        return this.articleService.findAllSuggested();
+    getSuggestedArticles() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.articleService.findAllSuggested();
+        });
     }
-    async getModeratedArticles() {
-        return this.articleService.findAllModerated();
+    getModeratedArticles() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.articleService.findAllModerated();
+        });
     }
-    async deleteArticle(type, customId) {
-        let deletedArticle;
-        if (type === 'moderated') {
-            deletedArticle = await this.articleService.findModeratedByCustomId(customId);
-        }
-        else if (type === 'suggested') {
-            deletedArticle = await this.articleService.findSuggestedByCustomId(customId);
-        }
-        else {
-            return `Invalid deletion type: ${type}`;
-        }
-        if (!deletedArticle) {
-            return `${type} article with customId ${customId} not found.`;
-        }
+    deleteArticle(type, customId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let deletedArticle;
+            if (type === 'moderated') {
+                deletedArticle = yield this.articleService.findModeratedByCustomId(customId);
+            }
+            else if (type === 'suggested') {
+                deletedArticle = yield this.articleService.findSuggestedByCustomId(customId);
+            }
+            else {
+                return `Invalid deletion type: ${type}`;
+            }
+            if (!deletedArticle) {
+                return `${type} article with customId ${customId} not found.`;
+            }
+        });
     }
 };
 exports.ArticleController = ArticleController;
